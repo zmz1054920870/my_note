@@ -2,6 +2,8 @@
 
 ---
 
+tar -zxvf apache...gz -C /usr/lcoal/tomcat    （-C 表示安装到指定目录下）
+
 # 一.安装docker
 
 **docker配置文件的路径**
@@ -1249,8 +1251,8 @@ Successfully tagged mycentos:7
 ​		使用 `docker save`将指定镜像保存成tar归档文件
 
 ```bash
-docker save [OPTIONS] IMAGE [IMAGE ...]
-docker save -o mycentos:7 /root/mycentos7.tar
+docker save [OPTIONS] xxx.tar I
+docker save -o /root/mycentos7.tar mycentos:7
 ```
 
 - `-o` : 镜像打包后的归档文件输出的目录
@@ -1578,7 +1580,9 @@ docker run -di --name b2 --network custom_network nginx
 
 
 
-
+```
+东侧可
+```
 
 
 
