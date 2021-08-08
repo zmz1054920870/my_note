@@ -2,6 +2,12 @@
 
 **Git工作区是否需要被暂存，是通过工作区假定生产的暂存区与当前暂存区是否一致来判断，一致不提示add暂存，不一致提示需要add暂存**
 
+
+
+**🔺 git checkout 主要是用于移动HEAD,即.git目录下  HEAD的值，refs/branchs  中的值不会发生改变，既然不发生改变，那么git lol 时候，只有HEAD在移动，分支都没有动，因为refs/branchs  中的值不会发生改变，所以我们切换分支的时候，会发现其他分支依旧存在。。🔺其中git      checkout commitid filename 的时候，它不会改变refs/branchs中的值，所以我们用来进行工作区回滚或者后悔**
+
+**🔺git reset --hard / --mixed /--soft  改变refs/branchs 中的值，由于.git目录下 HEAD文件中的值指向refs/branchs中的值，所以我们说，分支改变，带着HEAD一起移动**
+
 ## GIT
 
 **学GIT两条主线**
@@ -1307,7 +1313,7 @@ stash@{0}: WIP on damu: f6ed02a 13 commit for demo.txt v2
 
 **命令：`git checkout filename`**
 
-
+**注意：`git checkout filename`是以当前暂存区为基础进行恢复，为什么这么说呢？因为如果我们先修改一个文件中的内容，然后add，然后再次修改，这个时候我们`git checkout filename`将使工作区和add之后的暂存区保持一致，同理`git reset HEAD filename`是与当前提交对象保持一致**
 
 
 
@@ -1454,7 +1460,7 @@ $ git lol
 **结论（所动区域）：**
 
 > - ​	**暂存区和工作区都没有变**
-> - ​    **🔺他只动master和HEAD，其他都不动。**
+> - ​    **🔺他只动master和HEAD，其他都不动,就是说动了提交区。**
 > - ​    **改变了master，导致HEAD也变了（因为HEAD文件指向master文件）。所以我们说HEAD和master都变了。后面就这样说了**
 > - ​    **🔺`git status`的时候我们发现有文件未被提交。这是因为执行`git reset --soft HEAD~`之后我们只动HEAD和master，其他都不变。执行`git status`的时候，git会去对比当前暂存区和版本库对应的暂存区，或者说master指向的提交对象所对应的暂存区，是否一致。当发现不一样，提示有已暂存待提交的文件**
 > - ​    **`执行git status`的到如下**
@@ -1485,14 +1491,15 @@ Changes to be committed:	# 需要被提交
 
 **执行动作：两步**
 
-> 1. ​	**改变master中内容，移动HEAD指针**
+> 1. ​	**改变master文件中内容，移动HEAD指针**
 > 2. ​    **用HEAD指针所指的提交对象的暂存区覆盖当前暂存区**
 
 
 
 **所动区域**
 
-> - ​	**`git  reset [--mixed] HEAD~/提交对象哈希` 动master （同时带着HEAD一起动）**
+> - ​	**`git  reset [--mixed] HEAD~/提交对象哈希` 动master （同时带着HEAD一起动)，也就是说动了提交区**
+> - ​    **提交区**
 > - ​    **动暂存区**
 > - ​    **不动工作区**
 > - ​    **执行`git status`得到如下(未暂存的文件)**
@@ -1514,12 +1521,25 @@ Changes not staged for commit:	# 未暂存，需要add 暂存
 
 
 
+**特殊讲解：`git reset [--mixed] commitid filename`, 只要后面加了filename，则提交区就不会改变，也就是说不管这个commitid是否是HEAD或者其他版本的提交对象，当指定了filename，提交区就不会变，这样写的意义是，指定暂存区还原成哪个版本的数据**
+
+- **只动暂存区**
+
+
+
+
+
+
+
+
+
 #### 12.3	**`--soft`和`--mixed`总结**
 
 > - ​	**`soft`只动HEAD和master**
 > - ​    **`--mixed`动HEAD和master还会去动暂存区，暂存区覆盖**
 > - ​    **都不会去动工作区**
 > - ​    **要想还原，就是从--soft后悔可从从--soft回去也可以从--mixed回去，而从--mixed后悔就从--mixed回去。如果用--soft你需要commit一次**
+> - ​    **--soft一般用于线上回滚**
 
 
 
@@ -1629,15 +1649,40 @@ git branch -D 分支名 		  #强制删除一个分支(分支上有内容)
 🔺git branch 分支名 + commitHash字符串 #新建一个分支，并使分支指向对应的提交对象，这个超级有用（在任意位置拉取分支）
 git checkout 分支名		  #切换分支	
 🔺git checkout -b 分支名		  #在当前位置创建一个分支并切换过去等价于git brancn 分支名； git checkout 分支名	
-git checkout filename 		#工作区后悔
-git checkout .				#工作区全部文件后悔复原
+git checkout filename 		#工作区后悔，以当前暂存区为基础
+🔺git checkout HEAD filename  #工作区后悔，以当前提交对象对应的暂存区为基础
+🔺git checkout commitid filename # 工作区后悔，提交对象和暂存区不变，以commitid对应的暂存区为基础
+🔺git checkout .				#工作区全部文件后悔复原
+
+🔺 git checkout 主要是用于移动HEAD,即.git目录下  HEAD的值，refs/branchs  中的值不会发生改变，既然不发生改变，那么git lol 时候，只有HEAD在移动，分支都没有动，因为refs/branchs  中的值不会发生改变，所以我们切换分支的时候，会发现其他分支依旧存在。。🔺其中git      checkout commitid filename 的时候，它不会改变refs/branchs中的值，所以我们用来进行工作区回滚或者后悔
+
+🔺git reset --hard / --mixed /--soft  改变refs/branchs 中的值，由于.git目录下 HEAD文件中的值指向refs/branchs中的值，所以我们说，分支改变，带着HEAD一起移动
+
+
+
+
 git merge					#合并分支
 git stash					#存到栈里面	 用于切换分支时，又不想提交当前的东西，所以引入这个玩意
 git stash list				#查看堆栈里面的内容
 git stash pop				#弹栈（先引用后删除）
 git stash drop stash@{index}#不引用直接丢掉
-git reset HEAD filename 	#暂存区后悔
-git reset --soft HEAD~
+
+git reset [--mixed] commitid			# 版本回退，回退暂存区和提交区
+git reset [--mixed] HEAD filename 		# 暂存区后悔
+git reset [--mixed] commitid filename 	# 提交区不变，暂存区变成commitid 对应的暂存区
+git reset --soft HEAD~			# 只修改提交区
+
+
+git checkout filename			# 以当前暂存去为基础，进行后悔
+
+git checkout HEAD filename 		# 以HEAD提交对象为基础，对filename进行 暂存区和工作去后悔
+
+git checkout commitid filename	# 以commitid提交对象为基础，对filename进行，暂存区和工作区得后悔，覆盖
+
+git reset --hard HEAD~/commitid	# 工作区 暂存区  提交对象全部后悔成 commitid对应得数据
+
+
+
 ```
 
 
