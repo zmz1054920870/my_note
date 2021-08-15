@@ -1649,10 +1649,10 @@ git branch -D 分支名 		  #强制删除一个分支(分支上有内容)
 🔺git branch 分支名 + commitHash字符串 #新建一个分支，并使分支指向对应的提交对象，这个超级有用（在任意位置拉取分支）
 git checkout 分支名		  #切换分支	
 🔺git checkout -b 分支名		  #在当前位置创建一个分支并切换过去等价于git brancn 分支名； git checkout 分支名	
-git checkout filename 		#工作区后悔，以当前暂存区为基础
-🔺git checkout HEAD filename  #工作区后悔，以当前提交对象对应的暂存区为基础
-🔺git checkout commitid filename # 工作区后悔，提交对象和暂存区不变，以commitid对应的暂存区为基础
-🔺git checkout .				#工作区全部文件后悔复原
+git checkout filename 		#工作区后悔，以当前暂存区为基础，恢复到和当前暂存区一样。如果是一个初始化的文件，执行该命令会报错，因为暂存区中都没有这个文件，无法匹配，所以报错
+🔺git checkout HEAD filename  #工作区和暂存区后悔，以当前提交对象对应的暂存区为基础，进行恢复工作区后悔，以当前提交对象为基础进行暂存区后悔，相当于git reset --hard HEAD filename, 提交对象不变，工作区和暂存区后悔
+🔺git checkout commitid filename # 工作区和暂存区中的filename进行后悔，提交对象不变，以commitid对应的提交对象为基础，进行后悔恢复filename
+🔺git checkout .				#工作区全部文件后悔复原成当前暂存区的样子
 
 🔺 git checkout 主要是用于移动HEAD,即.git目录下  HEAD的值，refs/branchs  中的值不会发生改变，既然不发生改变，那么git lol 时候，只有HEAD在移动，分支都没有动，因为refs/branchs  中的值不会发生改变，所以我们切换分支的时候，会发现其他分支依旧存在。。🔺其中git      checkout commitid filename 的时候，它不会改变refs/branchs中的值，所以我们用来进行工作区回滚或者后悔
 
@@ -1662,7 +1662,7 @@ git checkout filename 		#工作区后悔，以当前暂存区为基础
 
 
 git merge					#合并分支
-git stash					#存到栈里面	 用于切换分支时，又不想提交当前的东西，所以引入这个玩意
+git stash					#存到栈里面	 用于切换分支时，又不想提交当前的东西，所以引入这个玩意，对于初始化的文件，需要add一下了才可以stash，对于已经被版本库管理的文件，add和不add都可以，stash
 git stash list				#查看堆栈里面的内容
 git stash pop				#弹栈（先引用后删除）
 git stash drop stash@{index}#不引用直接丢掉
@@ -1682,14 +1682,27 @@ git checkout commitid filename	# 以commitid提交对象为基础，对filename�
 git reset --hard HEAD~/commitid	# 工作区 暂存区  提交对象全部后悔成 commitid对应得数据
 
 
+git diff branch1 branch2 		# 比较两个分支不同,这两个分支可以是远程跟踪分支,一般这样用 git diff 当前本地分支 当前本地分支对于的远程跟踪分支   ， 这样来查看本地分支和远程分支的不同
+git diff ： 对比工作区(未 git add)和暂存区(git add 之后)
+git diff --cached: 对比暂存区(git add 之后)和版本库(git commit 之后)
+git diff HEAD: 对比工作区(未 git add)和版本库(git commit 之后)
 
+
+Git 清理无效的远程追踪分支（场景：本地存在远程仓库已经删除的g）
+git remote prune origin --dry-run	# 查看远程仓库已经没有，但本地还有的分支
+git remote prune origin				# 删除
+
+git revert commitid					# 是生成一个新的提交来撤销某次提交，此次提交之前的commit都会被保留
+git reset ...						# 直接回滚回去，b
 ```
 
 
 
 
 
+**`git stash`说明**
 
+如果有一个文件deme.txt，我们修改demo.txt内容以后，git add demo.txt,   然后再次修改demo.txt文件。。,这个时候工作区和暂存区都发生了变化，这个时候我们git stash，暂存区和工作区都将变成上次提交的初始样子。git stash pop 后，我们发现，恢复的仅仅只有工作区，暂存区还是上次提交的初始样子
 
 
 
