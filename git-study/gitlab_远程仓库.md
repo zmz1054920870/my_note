@@ -461,7 +461,7 @@ $ git branch -a
   remotes/origin/master
 ```
 
-#### 1.git pull origin <remote_branch>：<local_branch>
+## 1.git pull origin <remote_branch>：<local_branch>
 
 这种用法写起来最为繁琐，但最好理解：
 
@@ -483,7 +483,7 @@ Already up-to-date.
 
 从上述代码可以看到，我当前分支为**dev**,但执行"同步”操作的却是在master分支；
 
-#### 2.git pull origin <remote_branch>
+## 2.git pull origin <remote_branch>
 
 有了上面的例子，这种使用方法的场景和作用就好理解了：
 
@@ -504,14 +504,14 @@ Already up-to-date.
 
 把远程master分支同步到HEAD分支（HEAD分支指向当前位置）；
 
-#### 3.git pull
+## 3.git pull
 
 这种写法最简单，也最常用，但是隐含的知识也是最多的；
 
 > 场景：本地分支已经和想要拉取的分支建立了“关联”关系；
 > 作用：拉取所有远程分支的新版本"坐标"，并同步当前分支的本地代码(具体根据关联分支而定)
 
-#### 什么是"关联"分支?
+## 4.什么是"关联"分支?
 
 首先我们先使用`git branch -vv` 查看一下目前分支的“关联”情况；
 
@@ -879,6 +879,28 @@ Git 有很多种分支合并策略，本文介绍了 Fast-forward、Recursive、
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# 111111111
+
 ```bash
 #强指定使用合并提交策略类型。
 git merge -s 策略名字
@@ -916,5 +938,15 @@ $ git merge-base --all x y									# 得到他们的提交对于commitid
 # 遇见冲突时，使用我们分支上的数据，r在master分支下执行`git merge -Xours dev`，最后产生的节点内容将自动采取master分支上的内容而不需要你再手动解决冲突
 git merge -Xours dev
 
+
+
+
+git pull origin <remote_branch>：<local_branch>
+git pull origin <remote_branch>
+git pull
+
+git fetch origin <remote_branch>：<local_branch>
+git fetch origin <remote_branch>
+git fetch
 ```
 

@@ -4,6 +4,8 @@
 
 tar -zxvf apache...gz -C /usr/lcoal/tomcat    （-C 表示安装到指定目录下）
 
+- -C 参数，指定安装目录
+
 # 一.安装docker
 
 **docker配置文件的路径**
@@ -41,7 +43,7 @@ yum install -y yum-utils
 
 
 
-#### 2.2设置镜像源（使用阿里的镜像源）🔺很常用，把我们的docker镜像源设置成docker
+#### 2.2设置yum的镜像源（使用阿里的镜像源）🔺很常用
 
 ```
 sudo yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
