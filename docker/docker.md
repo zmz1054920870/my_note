@@ -972,7 +972,7 @@ RUN mkdir -p /usr/local/java
 
 
 
-​		语法：	`ADD <src>... <dest>`
+​		语法：	`ADD 资源名 容器中的位置`
 
 ​		拷贝文件或者目录到镜像中。src可以是一个本地文件或者是一个本地压缩文件，压缩文件会自动解压。还可以是一个url，如果吧src写成一个url， 那么ADD就类似于wget命令， 然后自动下载和解压
 
@@ -1251,7 +1251,7 @@ Successfully tagged mycentos:7
 ​		使用 `docker save`将指定镜像保存成tar归档文件
 
 ```bash
-docker save [OPTIONS] xxx.tar I
+docker save [OPTIONS] xxx.tar j
 docker save -o /root/mycentos7.tar mycentos:7
 ```
 
