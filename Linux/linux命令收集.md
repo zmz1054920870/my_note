@@ -15,6 +15,8 @@ ps aux | grep yum |grep -v grep |awk ‘{print $2}’ | xargs kill -9
 netstat -tlnu
 
 
+# 释放内存缓存、清理缓存、清理内存、释放内存、q
+echo 1 > /proc/sys/vm/drop_caches
 ```
 
 
@@ -64,5 +66,4 @@ netstat -tlnu
 | 普通模式   | zt                         | 让光标所杂的行居屏幕最上一行              | t == top                              |
 | 普通模式   | zb                         | 让光标所杂的行居屏幕最下行                | b == bottom                           |
 | 命令行模式 | /关键字                    | 全局搜索关键字                            | 按n 继续往下搜索                      |
-
 
