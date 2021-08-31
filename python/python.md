@@ -1,19 +1,17 @@
-# python语法
+#### 一 、 常用语法
 
-#### 常用语法
-
-- ```python
+```python
   from chardet  
   ee = b'\\u5f20'
   cc = chardet.detect(ee)
   print(cc)
   
   >>{'encoding': 'ascii', 'confidence': 1.0, 'language': ''}
-  ```
+```
 
-#### json
+#### 二、json
 
-- ```python
+```python
   json函数的注意事项
   import json
   """
@@ -44,9 +42,9 @@
   ff = ee.encode('unicode-escape')  -->b'\\u5f20\\u4e09'
   ff.decode('unicode-escape') --> ‘张三’
   
-  ```
-  
-  #### base64
+```
+
+  #### 三、base64
 
 * ```python
   base64
@@ -64,7 +62,7 @@
 
   
 
-#### log的format
+#### 四、log的format
 
 ```python
 logging.basicConfig(
@@ -95,7 +93,7 @@ format 配置如下类似的dao模dao版即可
 | -------- | ------------- |
 | %(name)s | ;Logger的名字 |
 
-#### io.StringIO模块
+#### 五、io.StringIO模块
 
 ```
 详解
@@ -124,13 +122,13 @@ ioby = io.BytesIO()	 ---用于二进制
 
 
 
-#### 图片管道概念
+#### 六、图片管道概念
 
 ```
 https://blog.csdn.net/silence2015/article/details/53789748
 ```
 
-#### os模块删除操作
+#### 七、os模块删除操作
 
 ```python
 import os
@@ -140,7 +138,7 @@ os.remove(pathname)
 当remove() 中的pathname指定问文件时,相当于调用unlink 删除文件链接
 ```
 
-#### sys模块
+#### 八、sys模块
 
 ###### argv
 
@@ -182,7 +180,7 @@ print(a)
 
 
 
-#### 顺序执行类中方法（try....finally）
+#### 九、顺序执行类中方法（try....finally）
 
 
 
@@ -213,7 +211,7 @@ class BaseRequestHandler:
 
 
 
-#### 反射是怎么回事
+#### 十、反射是怎么回事
 
 ```python
 用字符串数据类型得变量命或者函数名来调用对应的属性
@@ -244,7 +242,7 @@ if __name__ == '__main__':
 
 
 
-#### struct
+#### 十一、struct
 
 ```
 # 制作固定长度的报头 一个整型--->固定长度的bytes对象
@@ -262,7 +260,7 @@ print(b[0])
 
 
 
-#### classmethod && staticmethod
+#### 十二、classmethod && staticmethod
 
 ```python
 classmethod也可以通过staticmethod代替，在通过类调用时，这两者对于调用者来说是不可区分的。
@@ -308,7 +306,7 @@ if func.judge(data):
 
 
 
-#### 🔺登录单例模式 ---- 经典
+#### 十三、🔺登录单例模式 ---- 经典
 
 ```python
 class ApiLogin(object):
@@ -363,7 +361,7 @@ print(B.dict)
 
 
 
-#### 🔺错误追踪
+#### 十四、🔺错误追踪
 
 ##### **已经弃用的**
 
@@ -419,7 +417,7 @@ func()
 
 
 
-#### 🔺获取元素位置，鼠标去点击
+#### 十五、🔺获取元素位置，鼠标去点击
 
 ```python
 import win32gui, win32api
@@ -440,7 +438,7 @@ odiv.getBoundingClientRect().bottom;
 
 
 
-#### 🔺异常处理自我扩展
+#### 十六、🔺异常处理自我扩展
 
 ```python
 class WebDriverException(Exception):
@@ -472,7 +470,7 @@ class MoreThanOneWebElementException(WebDriverException):
 
 
 
-#### 🔺字符串单双引号
+#### 十七、🔺字符串单双引号
 
 ```python
 python解释器解释字符串规则：
@@ -524,7 +522,7 @@ var a = document.evaluate('//pre[@name='sendBox']', document.documentElement, nu
 
 
 
-#### join和split
+#### 十八、join和split
 
 ```python
 a = ['1', '2', '3', '4']
@@ -545,7 +543,7 @@ print(b)
 
 
 
-#### 标准库
+#### 十九、标准库
 
 ```python
 pandas、numpy、matplotlib，然后是pyqt、pymysql、Django、xlwings、gevent
@@ -555,7 +553,7 @@ pandas、numpy、matplotlib，然后是pyqt、pymysql、Django、xlwings、geven
 
 
 
-#### 🔺A：B 结构来存储数据，不需要重新命名
+#### 二十、🔺A：B 结构来存储数据，不需要重新命名
 
 用途1
 
@@ -628,9 +626,9 @@ events = Events()  	# 当我们实例化的以后， request_success: EventHook�
 events.spawning_complete.add_listener(on_hatch_complete())
 ```
 
+**备注：其实这不是复制，这是类型说明**
 
-
-🔺 **class， type， object的关系**
+#### 二十一、🔺 **class， type， object的关系**
 
 https://blog.ionelmc.ro/2015/02/09/understanding-python-metaclasses/	python官方
 
@@ -687,7 +685,7 @@ __metaclass__属性
 
 
 
-#### 🔺什么是跨域
+#### 二十二、🔺什么是跨域
 
 ```python
 跨域，指的是浏览器不能执行其他网站的脚本。它是由浏览器的同源策略造成的，是浏览器施加的安全限制。
@@ -709,7 +707,7 @@ http://www.123.com/index.html 调用 https://www.123.com/server.php （协议不
 
 
 
-#### 🔺python3 新语法 * 的使用
+#### 二十三、🔺python3 新语法 * 的使用
 
 **备注：这个例子是老用法**
 
@@ -756,7 +754,7 @@ a = func(a=1, b=2)
 
 
 
-**🔺property**
+#### 二十四**🔺property**
 
 ```python
 class C(object):
@@ -779,7 +777,7 @@ class C(object):
 
 
 
-**生成器**
+#### 二十五**生成器**
 
 ```
 f = func()
@@ -799,7 +797,7 @@ a = f.send()
 
 
 
-#### 迭代器
+#### 二十六、迭代器
 
 ```python
 class MyList(object):
@@ -830,7 +828,7 @@ if __name__ == '__main__':
 
 
 
-#### 传参
+#### 二十七、传参
 
 - **`python`中`self.a`是一个地址空间的别名，这个别名所指的地址空间指向数据`1`的地址空间**
 
@@ -867,7 +865,7 @@ if __name__ == '__main__':
 
 
 
-#### 作用域
+#### 🔺二十八、作用域
 
 **例子1**
 
@@ -904,19 +902,7 @@ UnboundLocalError: local variable 'mylist' referenced before assignment
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-**例子3**
+**例子2**
 
 ```python
 mylist = 1	
@@ -926,16 +912,68 @@ def abc(data):
     print(mylist)	# 这里直接红色下划线
     if data == 4:
         mylist = 2
-    print(mylist)
     mylist + 2
     data += 1
     
  # 不管参数怎么执行都会报错
 ```
 
+为什么会这样呢？
+
+🔺首先理解一个概念：定义的函数内部的变量名如果是第一次出现， 且在=符号前，那么就可以认为是被定义为局部变量。在这种情况下，不论全局变量中是否用到该变量名，函数中使用的都是局部变量。
 
 
-**例子3**
+
+解释：上面的例子2，因为在函数的内部，解释器探测到mylist被重新赋值了，所以var成为了局部变量，但是在没有被赋值之前就想使用var，便会出现这个错误。
+
+
+
+为什么例子1，当data=4的时候不报错，但是data等于1的时候报错呢？里面不是存在if条件判断嘛？
+
+解释：python解释器才不管你这些，python解释器是以全局的观念来检查的
+
+
+
+**下面是一个关于闭包的例子**
+
+
+
+```python
+from functools import wraps
+ 
+def wrapper(log):
+  def external(F):
+    @wraps(F)
+    def internal(**kw):
+      if False:			
+        log = 'modified'
+      print log
+    return internal
+  return external
+ 
+@wrapper('first')
+def abc():
+  pass
+ 
+print abc()
+# 有点复杂哈，但是还是会报错：局部变量在未赋值之前被引用
+
+def internal(**kw):
+      if False:			
+        log = 'modified'
+      print log
+    
+上面的闭包结构我们看看，log 在等号前面，说明 log是局部变量，不管有不有if 判断，都s
+
+```
+
+
+
+
+
+**结论：最好不要再函数内部去修改全局变量，同理，闭包内部最好不要去修改外部函数的变量**
+
+
 
 
 
