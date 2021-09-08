@@ -71,6 +71,39 @@ for each in a:
 
 
 
+#### 迭代器实现斐波拉契数列
+
+```python
+class Demo(object):
+
+    def __init__(self):
+        self.a = 1
+        self.b = 1
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        self.b, self.a = self.a + self.b, self.b
+        if self.b > 500:
+            raise StopIteration
+        return self.b
+
+a = Demo()
+print(next(a))
+print(next(a))
+print(next(a))
+print(next(a))
+print(next(a))
+print(next(a))
+# for i in a:
+#     print(i)
+```
+
+
+
+
+
 
 
 #### 生成器解决素数问题（假如有超大体量）

@@ -90,8 +90,8 @@ lrem key count value	# count表示移除几个指定的value（如果list中有�
 # ltrim 截取指定位置的值
 ltrim key start stop
 如果一个list = [1, 2, 3, 4, 5]
-ltrim list 0 1
-lrange list 0 -1	# 得到[1, 2]
+ltrim list 0 1		# 得到[1, 2]
+lrange list 0 -1	
 
 
 # list 从列表右边弹出一个元素返回，并从左边加入到另外一个列表, 如果list2不存在，直接新建i
@@ -206,10 +206,10 @@ scard key
 srem key member
 
 # 随机选择集合中的几个元素，默认是一个
-srandmember key count
+srandmember key count      # count是一个具体的整数
 
 # 随机弹出几个元素，默认是一个
-spop key count
+spop key count			 # count是一个具体的整数
 
 # 两个集合的不同
 sdiff key1 key2
