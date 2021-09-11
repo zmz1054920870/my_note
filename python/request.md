@@ -492,7 +492,25 @@ static void update() throws IOException {
 
 #### 3.3	分析原因
 
+
+
 Http协议的请求报文和回复报文都有header和body，body就是你要获取的资源，例如一个html页面，一个jpeg图片，而header是用来做某些约定的。例如客户端与服务端商定一些传输格式，客户端先获取头部，得知一些格式信息，然后才开始读取body。
+
+客户端是将请求头和他的boby一起发送过去
+
+服务器是响应头和body一起发送过去
+
+```SQL
+-- client
+con.send(header, body)  -- 第一步
+con.recv()				-- 第四步
+
+-- server
+con.recv()				-- 第二步
+con.send(header,body)	-- 第三步
+```
+
+
 
 > 客户端： Accept-Encoding:gzip （给我压缩一下，我用的是流量，先下载下来我再慢慢解压吧）
 >
@@ -538,7 +556,7 @@ Transfer-Encoding:null
 Connection:close(我不知道大小，我也用不了chunked，啥时候我关了tcp连接，就说明传输结束了）
 ```
 
-4.在HTTP协议中，Content-Length用于描述HTTP消息实体的传输长度the transfer-length of the message-body。在HTTP协议中，消息实体长度和消息实体的传输长度是有区别，好比说gzip压缩下，消息实体长度是压缩前的长度，消息实体的传输长度是gzip压缩后的长度，**Content-Length若是存在而且有效的话，则必须和消息内容的传输长度彻底一致**。Content-Length===实际传输长度（通过测试，若是太短则会截断，过长则会致使超时。）
+4.在HTTP协议中，Content-Length用于描述HTTP消息实体的传输长度the transfer-length of the message-body。在HTTP协议中，消息实体长度和消息实体的传输长度是有区别，好比说gzip压缩下，消息实体长度是压缩前的长度，消息实体的传输长度是gzip压缩后的长度，**Content-Length若是存在而且有效的话，则必须和消息内容的传输长度彻底一致**。Content-Length===消息实体的传输长度（通过测试，若是太短则会截断，过长则会致使超时。）
 
 #### 3.4	实验
 
@@ -577,11 +595,11 @@ static void update() throws IOException {
 
 (2)在request header里加入gzip，accepting-encoding:gzip
 
-| test.so文件大小 | 结果                                         |
-| --------------- | -------------------------------------------- |
-| 100B            | 没有content-length,transfer-encoding=trunked |
-| 69M             | 没有content-length,transfer-encoding=trunked |
-| 3072M           | 没有content-length,transfer-encoding=trunked |
+| test.so文件大小 | 结果                                                         |
+| --------------- | ------------------------------------------------------------ |
+| 100B            | 没有content-length,transfer-encoding=chunked                 |
+| 69M             | 没有content-length,transfer-encoding=chunked                 |
+| 3072M           | 没有content-length,transfer-encoding=trunked    可能写错了，应该是chunked |
 
 可以看到nginx在开启chunked_transfer_encoding，并且客户端接受gzip的时候，会使用chunked模式，nginx开启gzip后不会计算资源的大小，直接用chunked模式。
 

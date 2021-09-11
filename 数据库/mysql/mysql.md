@@ -4,6 +4,24 @@
 
 
 
+```SQL
+-- 完整的一个创建表的
+
+create table `uuu` (
+	`id` int unsigned not null auto_increment,
+	`name` varchar(50) default '',
+	`sign` varchar(40) not null default '开始',
+	primary key (`id`),
+	unique index `haha` (`name`),
+	index `hehe`(`sign`)
+) engine = innodb default character set = utf8
+
+```
+
+
+
+
+
 #### 关系型数据库：（`sql`）
 
 - `Mysql`、`Oracle`、`Sql Server`、`DB2`、`SQLlite`
@@ -81,7 +99,7 @@
 
 
 
-总而言之，`utf8mb4_general_ci` 和`utf8mb4_unicode_ci` 是我们最常使用的排序规则。`utf8mb4_general_ci` 校对速度快，但准确度稍差。`utf8mb4_unicode_ci` 准确度高，但校对速度稍慢，两者都不区分大小写。这两个选哪个视自己情况而定，还是那句话尽可能保持db中的字符集和排序规则的统计。 
+总而言之，`utf8mb4_general_ci` 和`utf8mb4_unicode_ci` 是我们最常使用的排序规则。`utf8_general_ci` 校对速度快，但准确度稍差。`utf8mb4_unicode_ci` 准确度高，但校对速度稍慢，两者都不区分大小写。这两个选哪个视自己情况而定，还是那句话尽可能保持db中的字符集和排序规则的统计。 
 
 
 
@@ -2245,11 +2263,149 @@ ps:如果把上表中的班主任姓名改成班主任教工号可能更确切�
 
 
 
+# 十九、子查询
+
+### 1. 子查询
+
+子查询(小括号里的内容)可出现在几乎所有的SELECT子句中(如：SELECT子句、FROM子句、WHERE子句、ORDER BY子句、HAVING子句……)
+
+这里说的是特殊的几个子查询
+
+- select 子查询：https://blog.csdn.net/qq_38643434/article/details/81490053   https://blog.csdn.net/kankan231/article/details/47336733
+- from 子查询
+- where 子查询：https://blog.csdn.net/weixin_39603357/article/details/113949222
+
+
+
+### 2. where 子查询 
+
+**备注：上面已经说过了，这里就不多解释了**
+
+
+
+### 3. from 子查询
+
+商品表：
+
+```SQL
+CREATE TABLE `product` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `product_name` varchar(30) CHARACTER SET utf8 NOT NULL,
+ `price` float NOT NULL,
+ PRIMARY KEY (`id`)
+) ENGINE=InnoDB;
+```
+
+评论表：
+
+```SQL
+CREATE TABLE `comment` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `entity_id` int(11) NOT NULL,
+ `content` varchar(100) CHARACTER SET utf8 NOT NULL,
+ PRIMARY KEY (`id`)
+) ENGINE=InnoDB;
+```
+
+然后插入一些数据：
+
+```SQL
+INSERT INTO `product` (`id`, `product_name`, `price`) VALUES
+(1, '肉松饼', 5),
+(2, '可乐', 5),
+(3, '鸡翅', 12),
+(4, '杯子', 42);
+INSERT INTO `comment` (`id`, `entity_id`, `content`) VALUES
+(1, 1, '味道还不错'),
+(2, 1, '还行啊'),
+(3, 3, '很实用哦');
+```
+
+
+
+希望得到如下的结果：查询评论数
+
+![image-20210909200225422](image-20210909200225422.png)
+
+
+
+**首先我们使用常规的多表联查解题**
+
+```SQL
+select p.*, count(`c`.content) as tongji from `product` as p left join `comment` as c on p.id = c.entity_id group by `p`.`id`
+```
+
+
+
+**from子查询**
+
+**首先介绍一下from子查询的规则**
+
+- from子查询是查询一份结果表，作为临时表，然后从这个临时表中查询我们要的数据，因为是创建了一份临时表，所有开销很大。如果数据量较大的话，那可能要很长时间，性能不好，工作中尽量避免
+- from子查询生成的虚拟表必须加上别名
+
+```SQL
+select t.id,t.product_name,t.price, count(t.content) 
+from (select p.*, `c`.id as `cid`,entity_id,content from product as p left join `comment` as `c` on p.id = c.entity_id ) as t group by `t`.`id`
+```
+
+
+
+### 4. select 子查询
+
+```SQL
+SELECT product.*,
+(select count(comment.id) from comment where product.id=comment.entity_id) as comment_count FROM `product` limit 5;
+```
+
+对于这种查询，可以分成两部来理解，首先忽略整个select子查询，查出商品表中的数据。
+
+1. 根据商品的id执行子查询（因为where product.id=comment.entity_id ，逐条数据进行查询），对于一个商品id,子查询只能返回一条数据（因为是根据逐条数据进行查的，不能有多条数据，不然报错），如果子查询返回多条数据则会出错。
+2. 每一条select子查询只能查询一个字段。
+
+
+
+```SQL
+4 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'school.c.content' 问题报错解决
+
+-- 查看group by 模式
+show variables like 'sql_mode'
+
+-- 修改为空
+set sql_mode = ''
+
+-- 修改回来
+set sql_mode = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION'
+```
+
+
+
+**还是上面的表，我们希望查询最新评论**
+
+```SQL
+-- 查询最新评论，不使用select 子查询
+select p.id, p.product_name,p.price,c.content
+from product as p left join `comment` as c on p.id = c.entity_id  where c.id in (select max(id) from `comment` group by `comment`.entity_id )
+
+-- 使用select 子查询，查询最新评论
+SELECT product.*,
+(select comment.content 
+    from comment 
+    where product.id=comment.entity_id 
+    order by comment.id desc limit 1
+) comment_count 
+FROM `product` limit 5;
+```
 
 
 
 
-# 十九、使用pycharm联接数据库
+
+
+
+
+
+# 二十、使用pycharm联接数据库
 
 
 

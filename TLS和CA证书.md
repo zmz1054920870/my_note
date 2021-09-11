@@ -22,7 +22,7 @@ https://www.cnblogs.com/yxh168/p/9058043.html
 
  A和B如果想安全交换公钥,就必须通过CA(证书颁发机构) 证书的通信过程    A和B首先都内置了CA的公钥
 
- 根CA的证书是自己给自己签名的(自签名)
+ 根,CA的证书是自己给自己签名的(自签名)
 
  ![img](198738-20180518200806498-1908414788.png)
 
@@ -64,7 +64,7 @@ CA数字证书由CA签发和管理，能提供在Internet上进行身份验证�
 
 ## 1.4 SSL
 
- SSL是Netscape开发的专门用户保护Web通讯的，目前版本为3.0。最新版本的TLS 1.0是IETF(工程任务组)制定的一种新的协议，它建立在SSL 3.0协议规范之上，是SSL 3.0的后续版本。两者差别极小，可以理解为SSL 3.1，它是写入了RFC的。SSL安全套接字和SSL证书不一样的。SSL是别人开发的协议，SSL证书是CA机构颁发的，收费的。。
+ SSL是Netscape开发的专门用于保护Web通讯的，目前版本为3.0。最新版本的TLS 1.0是IETF(工程任务组)制定的一种新的协议，它建立在SSL 3.0协议规范之上，是SSL 3.0的后续版本。两者差别极小，可以理解为SSL 3.1，它是写入了RFC的。SSL安全套接字和SSL证书不一样的。SSL是别人开发的协议，SSL证书是CA机构颁发的，收费的。。
 
 
 
@@ -414,3 +414,208 @@ print(d)
 	- 这几种算法只生成一串不可逆的密文，经常用其效验数据传输过程中是否经过修改，因为相同的生成算法对于同一明文只会生成唯一的密文，若相同算法生成的密文不同，则证明传输数据进行过了修改。通常在数据传说过程前，使用MD5和SHA1算法均需要发送和接收数据双方在数据传送之前就知道密匙生成算法，而HMAC与之不同的是需要生成一个密匙，发送方用此密匙对数据进行摘要处理（生成密文），接收方再利用此密匙对接收到的数据进行摘要处理，再判断生成的密文是否相同。
 
 RSA建议采用1024位的数字，ECC建议采用160位，AES采用128为即可。
+
+
+
+# 六、 HTTPS的实现原理
+
+大家可能都听说过 HTTPS 协议之所以是安全的是因为 HTTPS 协议会对传输的数据进行加密，而加密过程是使用了非对称加密实现。但其实：HTTPS 在内容传输的加密上使用的是对称加密，非对称加密只作用在证书验证阶段。
+
+### 6.1 HTTPS 实现原理
+
+![image-20210911084808822](image-20210911084808822.png)
+
+提出一个问题哈：如果我拦截了 返回的证书和公钥，可以伪装攻击？
+
+答案:  能，请看charles的工作原理
+
+博客：https://www.cnblogs.com/xiaonian8/p/13761230.html
+
+博客（charles）：https://www.jianshu.com/p/3941410f7378
+
+
+
+### 6.2 charles和fiddler实现抓包的原理
+
+`Charles`作为一个“中间人代理”，当浏览器和服务器通信时，`Charles`接收服务器的证书，但动态生成一张证书发送给浏览器，也就是说`Charles`作为中间代理在浏览器和服务器之间通信，所以通信的数据可以被`Charles`拦截并解密。由于`Charles`更改了证书，浏览器校验不通过会给出安全警告，必须安装`Charles`的证书后才能进行正常访问。
+
+返回证书的同时还会将服务器的公钥发送给客户端
+
+![image-20210911090132725](image-20210911090132725.png)
+
+
+
+
+
+
+
+# 七、Fiddler抓不到的包是怎么回事
+
+### 1.分析原因
+
+知己知彼，百战不殆。要搞清楚是怎么回事，最好的办法就是自己写一个程序，进行HTTPS请求，然后通过此方法抓自己的包，看看哪个地方出错。于是用最简单的Python代码进行测试：（前置条件：开启我们的fiddler）
+
+```python
+import requests
+url = 'https://www.baidu.com/'
+res = requests.get(url=url)
+```
+
+然而会报如下错误
+
+```python
+Traceback (most recent call last):
+  File "C:\Users\zmz\AppData\Local\Programs\Python\Python36\lib\site-packages\urllib3\connectionpool.py", line 667, in urlopen
+    self._prepare_proxy(conn)
+  File "C:\Users\zmz\AppData\Local\Programs\Python\Python36\lib\site-packages\urllib3\connectionpool.py", line 932, in _prepare_proxy
+    conn.connect()
+  File "C:\Users\zmz\AppData\Local\Programs\Python\Python36\lib\site-packages\urllib3\connection.py", line 371, in connect
+    ssl_context=context,
+  File "C:\Users\zmz\AppData\Local\Programs\Python\Python36\lib\site-packages\urllib3\util\ssl_.py", line 384, in ssl_wrap_socket
+    return context.wrap_socket(sock, server_hostname=server_hostname)
+  File "C:\Users\zmz\AppData\Local\Programs\Python\Python36\lib\ssl.py", line 407, in wrap_socket
+    _context=self, _session=session)
+  File "C:\Users\zmz\AppData\Local\Programs\Python\Python36\lib\ssl.py", line 814, in __init__
+    self.do_handshake()
+  File "C:\Users\zmz\AppData\Local\Programs\Python\Python36\lib\ssl.py", line 1068, in do_handshake
+    self._sslobj.do_handshake()
+  File "C:\Users\zmz\AppData\Local\Programs\Python\Python36\lib\ssl.py", line 689, in do_handshake
+    self._sslobj.do_handshake()
+ssl.SSLError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed (_ssl.c:841)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\zmz\AppData\Local\Programs\Python\Python36\lib\site-packages\requests\adapters.py", line 449, in send
+    timeout=timeout
+  File "C:\Users\zmz\AppData\Local\Programs\Python\Python36\lib\site-packages\urllib3\connectionpool.py", line 727, in urlopen
+    method, url, error=e, _pool=self, _stacktrace=sys.exc_info()[2]
+  File "C:\Users\zmz\AppData\Local\Programs\Python\Python36\lib\site-packages\urllib3\util\retry.py", line 439, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='www.baidu.com', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed (_ssl.c:841)'),))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<pyshell#3>", line 1, in <module>
+    res = requests.get(url=url)
+  File "C:\Users\zmz\AppData\Local\Programs\Python\Python36\lib\site-packages\requests\api.py", line 76, in get
+    return request('get', url, params=params, **kwargs)
+  File "C:\Users\zmz\AppData\Local\Programs\Python\Python36\lib\site-packages\requests\api.py", line 61, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "C:\Users\zmz\AppData\Local\Programs\Python\Python36\lib\site-packages\requests\sessions.py", line 530, in request
+    resp = self.send(prep, **send_kwargs)
+  File "C:\Users\zmz\AppData\Local\Programs\Python\Python36\lib\site-packages\requests\sessions.py", line 643, in send
+    r = adapter.send(request, **kwargs)
+  File "C:\Users\zmz\AppData\Local\Programs\Python\Python36\lib\site-packages\requests\adapters.py", line 514, in send
+    raise SSLError(e, request=request)
+requests.exceptions.SSLError: HTTPSConnectionPool(host='www.baidu.com', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed (_ssl.c:841)'),))
+```
+
+我们看看最后的traceback，我们发现 raise SSLError(e, request=request)，根据上面charles和fiddler实现抓包的原理，我们知道，fiddler中为中间人代理，会将自己的证书发送给客户端。之前说到，Fiddler之所以能抓到并解密HTTPS包的内容，是因为Fiddler使用了中间人攻击的手段，该手段要能成功实施，有一个前提条件，就是客户端信任Fiddler提供的根证书，之前我们通过 [Actions] — [Trust Root Certificate] 让系统信任Fiddler的根证书后，大部分浏览器以及基于WinInet库进行HTTP通信的程序，都会信任操作系统中我们添加的Fiddler根证书。但如果第三方程序使用其它HTTP库进行通信，比如VC程序使用libcurl，JAVA程序使用JDK中的URLConnection或第三方OkHttp，C#使用System.Net.Http，Python使用requests，这些HTTP库一般自带了一套可信任的SSL根证书，它们不使用操作系统自带的SSL根证书，更不会使用我们向操作系统中添加的Fiddler根证书，于是就验证出错了。
+以Python为例，这一点可以在requests文档中得到证实：
+
+### 2.解决办法
+
+那么解决的办法有两种
+
+#### 2.1 一种是让HTTP客户端禁用证书验证：
+
+```python
+import requests
+requests.get("https://www.baidu.com/", verify = False)
+```
+
+但是还是报错了
+
+```python
+Warning (from warnings module):
+  File "C:\Users\zmz\AppData\Local\Programs\Python\Python36\lib\site-packages\urllib3\connectionpool.py", line 988
+    InsecureRequestWarning,
+InsecureRequestWarning: Unverified HTTPS request is being made to host '127.0.0.1'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+```
+
+给我们警告了，翻译过来就是：强烈建议添加证书验证
+
+#### 2.2 让HTTP客户端信任Fiddler的根证书
+
+**操作步骤：**
+
+**第一步：打开fiddler**
+
+**第二步：访问网站 [http://127.0.0.1:8888](http://127.0.0.1:8888/)**
+
+当我们开启fiddler以后，他会自动去给我们设置系统代理，代理端口就是8888
+
+![image-20210911105949095](image-20210911105949095.png)
+
+**第三步：点击http://127.0.0.1:8888/页面中的`FiddlerRoot certificate`下载证书得到如下文件**
+
+![image-20210911110124597](image-20210911110124597.png)
+
+
+
+**第四步：转换成python支持的格式**
+
+用openssl转换成Python requests支持的格式：
+
+```python
+openssl x509 -inform der -in FiddlerRoot.cer -out fiddler.pem
+```
+
+
+
+**第五步：转换证书格式**
+
+由于window环境下是没有openssl安装包的，我们这是需要一台服务器（我自己买的华为云）
+
+下载openssl
+
+官方下载地址：[ https://www.openssl.org/source/](https://www.openssl.org/source/)
+
+![image-20210911110357989](image-20210911110357989.png)
+
+
+
+**第六步：将我们下载在window电脑上的openssl-3.0.0.tar.gz包上传到我们的服务器上**
+
+在linux环境下使用rz命令上传
+
+```bash
+rz 
+```
+
+解压
+
+```bash
+tar -zxvf openssl-3.0.0.tar.gz
+```
+
+上传证书到linux服务器上
+
+```bash
+rz
+```
+
+转化格式，生成fiddler.pem文件
+
+```BASH
+openssl x509 -inform der -in FiddlerRoot.cer -out fiddler.pem
+```
+
+将fiddler.pem文件，导出到windows机器上的桌面上
+
+```bash
+sz fiddler.pem
+```
+
+
+
+**第七步：再次执行python命令**
+
+```bash
+import requests
+res = requests.get("https://www.baidu.com/", verify='C://Users//zmz//Desktop//fiddler.pem')
+```
+
+这次成功了
