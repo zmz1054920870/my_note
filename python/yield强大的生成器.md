@@ -112,3 +112,4 @@ print(next(a))
 
 ```
 
+ww

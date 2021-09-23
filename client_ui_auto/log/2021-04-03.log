@@ -1,0 +1,778 @@
+2021-04-03 10:10:12,020 - root - ERROR - 2021-04-03 10:10:12	{}
+
+2021-04-03 10:11:52,502 - root - ERROR - 2021-04-03 10:11:52	{}
+
+2021-04-03 10:12:05,036 - root - ERROR - 2021-04-03 10:12:05	{}
+
+2021-04-03 10:27:01,613 - root - ERROR - 2021-04-03 10:27:01	{}
+
+2021-04-03 10:32:59,945 - root - ERROR - 2021-04-03 10:32:59	{}
+
+2021-04-03 11:05:06,630 - root - ERROR - 2021-04-03 11:05:06	{}
+
+2021-04-03 11:05:06,639 - root - ERROR - 2021-04-03 11:05:06	{'在线客服': <websocket._core.WebSocket object at 0x00000262D189DF98>}
+
+2021-04-03 11:06:27,156 - root - ERROR - 2021-04-03 11:06:27	{}
+
+2021-04-03 11:06:27,164 - root - ERROR - 2021-04-03 11:06:27	{'在线客服': <websocket._core.WebSocket object at 0x0000028D3FE27B70>}
+
+2021-04-03 11:06:38,808 - root - ERROR - 2021-04-03 11:06:38	{}
+
+2021-04-03 11:06:38,817 - root - ERROR - 2021-04-03 11:06:38	{'在线客服': <websocket._core.WebSocket object at 0x0000029CEACD7B70>}
+
+2021-04-03 16:08:08,976 - root - ERROR - 2021-04-03 16:08:08	{}
+
+2021-04-03 16:08:08,985 - root - ERROR - 2021-04-03 16:08:08	{'在线客服': <websocket._core.WebSocket object at 0x000001FB32024080>}
+
+2021-04-03 16:09:20,077 - root - ERROR - 2021-04-03 16:09:20	{}
+
+2021-04-03 16:09:20,085 - root - ERROR - 2021-04-03 16:09:20	{'在线客服': <websocket._core.WebSocket object at 0x000001D0029B3F60>}
+
+2021-04-03 16:10:52,736 - root - ERROR - 2021-04-03 16:10:52	{}
+
+2021-04-03 16:10:52,745 - root - ERROR - 2021-04-03 16:10:52	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'object', 'subtype': 'error', 'className': 'SyntaxError', 'description': 'SyntaxError: Invalid or unexpected token', 'objectId': '7837077704685936183.2.1'}, 'exceptionDetails': {'exceptionId': 415, 'text': 'Uncaught', 'lineNumber': 0, 'columnNumber': 4, 'scriptId': '3428', 'exception': {'type': 'object', 'subtype': 'error', 'className': 'SyntaxError', 'description': 'SyntaxError: Invalid or unexpected token', 'objectId': '7837077704685936183.2.2'}}}}}
+
+2021-04-03 16:10:52,745 - root - ERROR - 2021-04-03 16:10:52	{'在线客服': <websocket._core.WebSocket object at 0x0000022C1C943208>}
+
+2021-04-03 16:11:19,682 - root - ERROR - 2021-04-03 16:11:19	{}
+
+2021-04-03 16:11:32,066 - root - ERROR - 2021-04-03 16:11:32	{}
+
+2021-04-03 16:11:32,075 - root - ERROR - 2021-04-03 16:11:32	1{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'object', 'subtype': 'error', 'className': 'SyntaxError', 'description': 'SyntaxError: Invalid or unexpected token', 'objectId': '7837077704685936183.2.1'}, 'exceptionDetails': {'exceptionId': 418, 'text': 'Uncaught', 'lineNumber': 0, 'columnNumber': 4, 'scriptId': '3431', 'exception': {'type': 'object', 'subtype': 'error', 'className': 'SyntaxError', 'description': 'SyntaxError: Invalid or unexpected token', 'objectId': '7837077704685936183.2.2'}}}}}
+
+2021-04-03 16:11:32,075 - root - ERROR - 2021-04-03 16:11:32	{'在线客服': <websocket._core.WebSocket object at 0x000001FFB8DB7B70>}
+
+2021-04-03 16:12:50,010 - root - ERROR - 2021-04-03 16:12:50	var 61929bf6945411eba1962cf05d988905844797 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 16:12:50,010 - root - ERROR - 2021-04-03 16:12:50	{}
+
+2021-04-03 16:12:50,019 - root - ERROR - 2021-04-03 16:12:50	{'在线客服': <websocket._core.WebSocket object at 0x0000017C42E23208>}
+
+2021-04-03 16:14:01,877 - root - ERROR - 2021-04-03 16:14:01	var js8c68d988945411ebbfb22cf05d988905823276 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 16:14:01,877 - root - ERROR - 2021-04-03 16:14:01	{}
+
+2021-04-03 16:14:01,886 - root - ERROR - 2021-04-03 16:14:01	{'在线客服': <websocket._core.WebSocket object at 0x000002CA86864080>}
+
+2021-04-03 16:15:11,196 - root - ERROR - 2021-04-03 16:15:11	var jsb5ba1258945411eb80e92cf05d988905919553 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 16:15:11,196 - root - ERROR - 2021-04-03 16:15:11	{}
+
+2021-04-03 16:15:11,205 - root - ERROR - 2021-04-03 16:15:11	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 16:15:11,205 - root - ERROR - 2021-04-03 16:15:11	{'在线客服': <websocket._core.WebSocket object at 0x00000171E8DB4080>}
+
+2021-04-03 16:17:32,783 - root - ERROR - 2021-04-03 16:17:32	var js0a1e77f4945511eb93792cf05d988905964714 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 16:17:32,791 - root - ERROR - 2021-04-03 16:17:32	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 16:19:45,321 - root - ERROR - 2021-04-03 16:19:45	var js591e2c06945511ebb82c2cf05d988905100459 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 16:19:45,329 - root - ERROR - 2021-04-03 16:19:45	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 16:19:45,330 - root - ERROR - 2021-04-03 16:19:45	{'code': True, 'reason': 'success', 'reslut': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 16:20:10,233 - root - ERROR - 2021-04-03 16:20:10	var js67f78814945511eb9ccf2cf05d988905444193 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 16:20:10,242 - root - ERROR - 2021-04-03 16:20:10	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 16:20:10,242 - root - ERROR - 2021-04-03 16:20:10	{'code': True, 'reason': 'success', 'reslut': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 16:20:48,437 - root - ERROR - 2021-04-03 16:20:48	var js7ebcfbae945511ebba1a2cf05d988905125939 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 16:20:48,446 - root - ERROR - 2021-04-03 16:20:48	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 16:20:48,447 - root - ERROR - 2021-04-03 16:20:48	length_result{'code': True, 'reason': 'success', 'reslut': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 16:21:38,296 - root - ERROR - 2021-04-03 16:21:38	var js9c74c126945511ebb4432cf05d988905900132 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 16:21:38,305 - root - ERROR - 2021-04-03 16:21:38	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 16:21:38,305 - root - ERROR - 2021-04-03 16:21:38	length_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 16:22:37,894 - root - ERROR - 2021-04-03 16:22:37	var jsbffab2d4945511ebb8c92cf05d98890552102 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 16:22:37,903 - root - ERROR - 2021-04-03 16:22:37	xpath_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 16:22:37,904 - root - ERROR - 2021-04-03 16:22:37	length_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 16:23:38,067 - root - ERROR - 2021-04-03 16:23:38	var jse3d86ba6945511eba3622cf05d98890512123 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 16:23:38,075 - root - ERROR - 2021-04-03 16:23:38	xpath_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 16:23:38,076 - root - ERROR - 2021-04-03 16:23:38	length_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 16:24:31,484 - root - ERROR - 2021-04-03 16:24:31	var js03af3386945611eb8e342cf05d988905358723 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 16:24:31,492 - root - ERROR - 2021-04-03 16:24:31	xpath_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 16:24:31,493 - root - ERROR - 2021-04-03 16:24:31	length_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 16:25:52,666 - root - ERROR - 2021-04-03 16:25:52	var js34127870945611eb868c2cf05d988905190213 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 16:25:52,674 - root - ERROR - 2021-04-03 16:25:52	xpath_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 16:25:52,675 - root - ERROR - 2021-04-03 16:25:52	length_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 16:26:34,584 - root - ERROR - 2021-04-03 16:26:34	var js4d0ed23a945611eba8372cf05d988905296051 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 16:26:34,592 - root - ERROR - 2021-04-03 16:26:34	xpath_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 16:26:34,593 - root - ERROR - 2021-04-03 16:26:34	length_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 16:27:41,216 - root - ERROR - 2021-04-03 16:27:41	var js74c5f2e2945611eb8db32cf05d988905360410 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 16:27:41,224 - root - ERROR - 2021-04-03 16:27:41	xpath_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 16:27:41,224 - root - ERROR - 2021-04-03 16:27:41	length_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 16:27:41,225 - root - ERROR - 2021-04-03 16:27:41	ExecuteElement.__execute{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'object', 'subtype': 'error', 'className': 'ReferenceError', 'description': 'ReferenceError: 我是你爹 is not defined\n    at <anonymous>:1:68', 'objectId': '7837077704685936183.2.1'}, 'exceptionDetails': {'exceptionId': 443, 'text': 'Uncaught', 'lineNumber': 0, 'columnNumber': 67, 'scriptId': '3577', 'stackTrace': {'callFrames': [{'functionName': '', 'scriptId': '3577', 'url': '', 'lineNumber': 0, 'columnNumber': 67}]}, 'exception': {'type': 'object', 'subtype': 'error', 'className': 'ReferenceError', 'description': 'ReferenceError: 我是你爹 is not defined\n    at <anonymous>:1:68', 'objectId': '7837077704685936183.2.2'}}}}}
+
+2021-04-03 16:28:48,808 - root - ERROR - 2021-04-03 16:28:48	var js9d0fa800945611eb96c92cf05d98890553412 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 16:28:48,816 - root - ERROR - 2021-04-03 16:28:48	xpath_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 16:28:48,817 - root - ERROR - 2021-04-03 16:28:48	length_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 16:28:48,817 - root - ERROR - 2021-04-03 16:28:48	innerText	js9d0fa800945611eb96c92cf05d98890553412.snapshotItem(0).innerText=我是你爹
+
+2021-04-03 16:28:48,818 - root - ERROR - 2021-04-03 16:28:48	ExecuteElement.__execute{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'object', 'subtype': 'error', 'className': 'ReferenceError', 'description': 'ReferenceError: 我是你爹 is not defined\n    at <anonymous>:1:67', 'objectId': '7837077704685936183.2.1'}, 'exceptionDetails': {'exceptionId': 444, 'text': 'Uncaught', 'lineNumber': 0, 'columnNumber': 66, 'scriptId': '3580', 'stackTrace': {'callFrames': [{'functionName': '', 'scriptId': '3580', 'url': '', 'lineNumber': 0, 'columnNumber': 66}]}, 'exception': {'type': 'object', 'subtype': 'error', 'className': 'ReferenceError', 'description': 'ReferenceError: 我是你爹 is not defined\n    at <anonymous>:1:67', 'objectId': '7837077704685936183.2.2'}}}}}
+
+2021-04-03 16:30:26,637 - root - ERROR - 2021-04-03 16:30:26	evaluate_jsvar jsd75f3bee945611eba1d52cf05d988905351130 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 16:30:26,646 - root - ERROR - 2021-04-03 16:30:26	xpath_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 16:30:26,646 - root - ERROR - 2021-04-03 16:30:26	length_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 16:30:26,647 - root - ERROR - 2021-04-03 16:30:26	innerText	jsd75f3bee945611eba1d52cf05d988905351130.snapshotItem(0).innerText=我是你爹
+
+2021-04-03 16:30:26,647 - root - ERROR - 2021-04-03 16:30:26	ExecuteElement.__execute{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'object', 'subtype': 'error', 'className': 'ReferenceError', 'description': 'ReferenceError: 我是你爹 is not defined\n    at <anonymous>:1:68', 'objectId': '7837077704685936183.2.1'}, 'exceptionDetails': {'exceptionId': 445, 'text': 'Uncaught', 'lineNumber': 0, 'columnNumber': 67, 'scriptId': '3583', 'stackTrace': {'callFrames': [{'functionName': '', 'scriptId': '3583', 'url': '', 'lineNumber': 0, 'columnNumber': 67}]}, 'exception': {'type': 'object', 'subtype': 'error', 'className': 'ReferenceError', 'description': 'ReferenceError: 我是你爹 is not defined\n    at <anonymous>:1:68', 'objectId': '7837077704685936183.2.2'}}}}}
+
+2021-04-03 16:31:30,395 - root - ERROR - 2021-04-03 16:31:30	evaluate_jsvar jsfd600588945611ebb85d2cf05d988905932006 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 16:31:30,404 - root - ERROR - 2021-04-03 16:31:30	xpath_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 16:31:30,405 - root - ERROR - 2021-04-03 16:31:30	length_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 16:31:30,405 - root - ERROR - 2021-04-03 16:31:30	innerText	jsfd600588945611ebb85d2cf05d988905932006.snapshotItem(0).innerText='我是你爹'
+
+2021-04-03 16:31:30,405 - root - ERROR - 2021-04-03 16:31:30	ExecuteElement.__execute{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'string', 'value': '我是你爹'}}}}
+
+2021-04-03 16:31:50,140 - root - ERROR - 2021-04-03 16:31:50	evaluate_jsvar js0924c3ba945711eb814b2cf05d98890514892 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 16:31:50,149 - root - ERROR - 2021-04-03 16:31:50	xpath_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 16:31:50,150 - root - ERROR - 2021-04-03 16:31:50	length_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 16:31:50,150 - root - ERROR - 2021-04-03 16:31:50	innerText	js0924c3ba945711eb814b2cf05d98890514892.snapshotItem(0).innerText='我是你爸爸'
+
+2021-04-03 16:31:50,151 - root - ERROR - 2021-04-03 16:31:50	ExecuteElement.__execute{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'string', 'value': '我是你爸爸'}}}}
+
+2021-04-03 16:35:20,138 - root - ERROR - 2021-04-03 16:35:20	evaluate_jsvar js8650097a945711eb95f12cf05d988905315515 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 16:35:20,147 - root - ERROR - 2021-04-03 16:35:20	xpath_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 16:35:20,147 - root - ERROR - 2021-04-03 16:35:20	length_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 16:35:45,214 - root - ERROR - 2021-04-03 16:35:45	evaluate_jsvar js95424d9c945711eb92192cf05d988905448981 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 16:35:45,223 - root - ERROR - 2021-04-03 16:35:45	xpath_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 16:35:45,224 - root - ERROR - 2021-04-03 16:35:45	length_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 16:35:45,224 - root - ERROR - 2021-04-03 16:35:45	innerText	js95424d9c945711eb92192cf05d988905448981.snapshotItem(0).innerText='我是你爸爸'
+
+2021-04-03 16:35:45,224 - root - ERROR - 2021-04-03 16:35:45	ExecuteElement.__execute{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'string', 'value': '我是你爸爸'}}}}
+
+2021-04-03 16:36:58,427 - root - ERROR - 2021-04-03 16:36:58	evaluate_jsvar jsc0e5b000945711eb80b02cf05d988905669999 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 16:36:58,436 - root - ERROR - 2021-04-03 16:36:58	xpath_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 16:36:58,436 - root - ERROR - 2021-04-03 16:36:58	length_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 16:36:58,437 - root - ERROR - 2021-04-03 16:36:58	innerText	jsc0e5b000945711eb80b02cf05d988905669999.snapshotItem(0).innerText='我是超人'
+
+2021-04-03 16:36:58,437 - root - ERROR - 2021-04-03 16:36:58	ExecuteElement.__execute{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'string', 'value': '我是超人'}}}}
+
+2021-04-03 16:38:58,781 - root - ERROR - 2021-04-03 16:38:58	evaluate_jsvar js08a23878945811ebaf9a2cf05d988905781028 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 16:38:58,790 - root - ERROR - 2021-04-03 16:38:58	xpath_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 16:38:58,791 - root - ERROR - 2021-04-03 16:38:58	length_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 16:38:58,791 - root - ERROR - 2021-04-03 16:38:58	innerText	js08a23878945811ebaf9a2cf05d988905781028.snapshotItem(0).innerText='我是超人'
+
+2021-04-03 16:38:58,792 - root - ERROR - 2021-04-03 16:38:58	ExecuteElement.__execute{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'string', 'value': '我是超人'}}}}
+
+2021-04-03 16:39:33,669 - root - ERROR - 2021-04-03 16:39:33	evaluate_jsvar js1d6dcc1c945811ebbd222cf05d988905797264 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 16:39:33,678 - root - ERROR - 2021-04-03 16:39:33	xpath_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 16:39:33,679 - root - ERROR - 2021-04-03 16:39:33	length_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 16:39:33,679 - root - ERROR - 2021-04-03 16:39:33	innerText	js1d6dcc1c945811ebbd222cf05d988905797264.snapshotItem(0).innerText='我是超人'
+
+2021-04-03 16:39:33,680 - root - ERROR - 2021-04-03 16:39:33	ExecuteElement.__execute{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'string', 'value': '我是超人'}}}}
+
+2021-04-03 16:39:34,684 - root - ERROR - 2021-04-03 16:39:34	evaluate_jsvar js1e088650945811eba9782cf05d988905368304 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 16:39:34,688 - root - ERROR - 2021-04-03 16:39:34	xpath_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 16:39:34,689 - root - ERROR - 2021-04-03 16:39:34	length_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 16:39:34,689 - root - ERROR - 2021-04-03 16:39:34	innerText	js1e088650945811eba9782cf05d988905368304.snapshotItem(0).innerText='测试一下'
+
+2021-04-03 16:39:34,690 - root - ERROR - 2021-04-03 16:39:34	ExecuteElement.__execute{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'string', 'value': '测试一下'}}}}
+
+2021-04-03 17:15:08,585 - root - ERROR - 2021-04-03 17:15:08	evaluate_jsvar js15f01e4a945d11eb913b2cf05d988905861139 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 17:15:08,593 - root - ERROR - 2021-04-03 17:15:08	xpath_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:15:08,594 - root - ERROR - 2021-04-03 17:15:08	length_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 17:15:08,594 - root - ERROR - 2021-04-03 17:15:08	innerText	js15f01e4a945d11eb913b2cf05d988905861139.snapshotItem(0).innerText='我是超人'
+
+2021-04-03 17:15:08,595 - root - ERROR - 2021-04-03 17:15:08	ExecuteElement.__execute{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'string', 'value': '我是超人'}}}}
+
+2021-04-03 17:15:09,602 - root - ERROR - 2021-04-03 17:15:09	evaluate_jsvar js168b3882945d11eb9b5d2cf05d988905255473 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 17:15:09,605 - root - ERROR - 2021-04-03 17:15:09	xpath_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:15:09,605 - root - ERROR - 2021-04-03 17:15:09	length_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 17:15:09,606 - root - ERROR - 2021-04-03 17:15:09	innerText	js168b3882945d11eb9b5d2cf05d988905255473.snapshotItem(0).innerText='测试一下'
+
+2021-04-03 17:15:09,606 - root - ERROR - 2021-04-03 17:15:09	ExecuteElement.__execute{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'string', 'value': '测试一下'}}}}
+
+2021-04-03 17:15:49,520 - root - ERROR - 2021-04-03 17:15:49	evaluate_jsvar js2e56430c945d11eba0682cf05d988905158682 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 17:15:49,528 - root - ERROR - 2021-04-03 17:15:49	xpath_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:15:49,529 - root - ERROR - 2021-04-03 17:15:49	length_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 17:15:49,529 - root - ERROR - 2021-04-03 17:15:49	innerText	js2e56430c945d11eba0682cf05d988905158682.snapshotItem(0).innerText='我是超人'
+
+2021-04-03 17:15:49,530 - root - ERROR - 2021-04-03 17:15:49	ExecuteElement.__execute{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'string', 'value': '我是超人'}}}}
+
+2021-04-03 17:15:50,534 - root - ERROR - 2021-04-03 17:15:50	evaluate_jsvar js2ef0d6f4945d11eba0732cf05d988905673200 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 17:15:50,536 - root - ERROR - 2021-04-03 17:15:50	xpath_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:15:50,536 - root - ERROR - 2021-04-03 17:15:50	length_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 17:15:50,537 - root - ERROR - 2021-04-03 17:15:50	innerText	js2ef0d6f4945d11eba0732cf05d988905673200.snapshotItem(0).innerText='测试一下'
+
+2021-04-03 17:15:50,537 - root - ERROR - 2021-04-03 17:15:50	ExecuteElement.__execute{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'string', 'value': '测试一下'}}}}
+
+2021-04-03 17:16:02,939 - root - ERROR - 2021-04-03 17:16:02	evaluate_jsvar js3655cb62945d11ebb83a2cf05d988905774943 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 17:16:02,948 - root - ERROR - 2021-04-03 17:16:02	xpath_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:16:02,948 - root - ERROR - 2021-04-03 17:16:02	length_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 17:16:02,948 - root - ERROR - 2021-04-03 17:16:02	innerText	js3655cb62945d11ebb83a2cf05d988905774943.snapshotItem(0).innerText='我是超人'
+
+2021-04-03 17:16:02,949 - root - ERROR - 2021-04-03 17:16:02	ExecuteElement.__execute{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'string', 'value': '我是超人'}}}}
+
+2021-04-03 17:16:02,949 - root - ERROR - 2021-04-03 17:16:02	evaluate_jsvar js36575e7e945d11eb98cf2cf05d988905803114 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 17:16:02,950 - root - ERROR - 2021-04-03 17:16:02	xpath_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:16:02,951 - root - ERROR - 2021-04-03 17:16:02	length_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 17:16:02,951 - root - ERROR - 2021-04-03 17:16:02	innerText	js36575e7e945d11eb98cf2cf05d988905803114.snapshotItem(0).innerText='测试一下'
+
+2021-04-03 17:16:02,952 - root - ERROR - 2021-04-03 17:16:02	ExecuteElement.__execute{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'string', 'value': '测试一下'}}}}
+
+2021-04-03 17:18:21,128 - root - ERROR - 2021-04-03 17:18:21	evaluate_jsvar js88b3bb34945d11eb956a2cf05d988905812110 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 17:18:21,137 - root - ERROR - 2021-04-03 17:18:21	xpath_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:18:21,137 - root - ERROR - 2021-04-03 17:18:21	length_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 17:18:21,138 - root - ERROR - 2021-04-03 17:18:21	innerText	js88b3bb34945d11eb956a2cf05d988905812110.snapshotItem(0).innerText='我是超人'
+
+2021-04-03 17:18:21,138 - root - ERROR - 2021-04-03 17:18:21	ExecuteElement.__execute{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'string', 'value': '我是超人'}}}}
+
+2021-04-03 17:18:21,139 - root - ERROR - 2021-04-03 17:18:21	evaluate_jsvar js88b540cc945d11eb894e2cf05d988905873125 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 17:18:21,139 - root - ERROR - 2021-04-03 17:18:21	xpath_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:18:21,140 - root - ERROR - 2021-04-03 17:18:21	length_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 17:18:21,140 - root - ERROR - 2021-04-03 17:18:21	innerText	js88b540cc945d11eb894e2cf05d988905873125.snapshotItem(0).innerText='测试一下'
+
+2021-04-03 17:18:21,141 - root - ERROR - 2021-04-03 17:18:21	ExecuteElement.__execute{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'string', 'value': '测试一下'}}}}
+
+2021-04-03 17:18:21,141 - root - ERROR - 2021-04-03 17:18:21	click	js88b540cc945d11eb894e2cf05d988905873125.snapshotItem(0).click()
+
+2021-04-03 17:18:21,146 - root - ERROR - 2021-04-03 17:18:21	ExecuteElement.__execute{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:19:35,373 - root - ERROR - 2021-04-03 17:19:35	evaluate_jsvar jsb4f49b74945d11ebbb542cf05d988905984550 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 17:19:35,382 - root - ERROR - 2021-04-03 17:19:35	xpath_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:19:35,382 - root - ERROR - 2021-04-03 17:19:35	length_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 17:19:35,383 - root - ERROR - 2021-04-03 17:19:35	innerText	jsb4f49b74945d11ebbb542cf05d988905984550.snapshotItem(0).innerText='我是超人'
+
+2021-04-03 17:19:35,383 - root - ERROR - 2021-04-03 17:19:35	ExecuteElement.__execute{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'string', 'value': '我是超人'}}}}
+
+2021-04-03 17:19:35,384 - root - ERROR - 2021-04-03 17:19:35	evaluate_jsvar jsb4f62102945d11eb89bb2cf05d988905757580 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 17:19:35,384 - root - ERROR - 2021-04-03 17:19:35	xpath_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:19:35,385 - root - ERROR - 2021-04-03 17:19:35	length_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 17:19:35,385 - root - ERROR - 2021-04-03 17:19:35	innerText	jsb4f62102945d11eb89bb2cf05d988905757580.snapshotItem(0).innerText='测试一下'
+
+2021-04-03 17:19:35,386 - root - ERROR - 2021-04-03 17:19:35	ExecuteElement.__execute{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'string', 'value': '测试一下'}}}}
+
+2021-04-03 17:19:35,386 - root - ERROR - 2021-04-03 17:19:35	click	jsb4f62102945d11eb89bb2cf05d988905757580.snapshotItem(0).click()
+
+2021-04-03 17:19:35,392 - root - ERROR - 2021-04-03 17:19:35	ExecuteElement.__execute{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:19:35,392 - root - ERROR - 2021-04-03 17:19:35	evaluate_jsvar jsb4f77e76945d11eb86a42cf05d988905489248 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[3]/div/div',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 17:19:35,393 - root - ERROR - 2021-04-03 17:19:35	xpath_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:19:35,393 - root - ERROR - 2021-04-03 17:19:35	length_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 17:19:35,394 - root - ERROR - 2021-04-03 17:19:35	click	jsb4f77e76945d11eb86a42cf05d988905489248.snapshotItem(0).click()
+
+2021-04-03 17:19:35,395 - root - ERROR - 2021-04-03 17:19:35	ExecuteElement.__execute{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:20:05,377 - root - ERROR - 2021-04-03 17:20:05	evaluate_jsvar jsc6d6d2c0945d11eb927a2cf05d988905320275 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 17:20:05,385 - root - ERROR - 2021-04-03 17:20:05	xpath_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:20:05,386 - root - ERROR - 2021-04-03 17:20:05	length_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 17:20:05,386 - root - ERROR - 2021-04-03 17:20:05	innerText	jsc6d6d2c0945d11eb927a2cf05d988905320275.snapshotItem(0).innerText='我是超人'
+
+2021-04-03 17:20:05,387 - root - ERROR - 2021-04-03 17:20:05	evaluate_jsvar jsc6d87e34945d11eb8b262cf05d988905756734 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 17:20:05,388 - root - ERROR - 2021-04-03 17:20:05	xpath_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:20:05,388 - root - ERROR - 2021-04-03 17:20:05	length_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 17:20:05,389 - root - ERROR - 2021-04-03 17:20:05	innerText	jsc6d87e34945d11eb8b262cf05d988905756734.snapshotItem(0).innerText='测试一下'
+
+2021-04-03 17:20:05,389 - root - ERROR - 2021-04-03 17:20:05	click	jsc6d87e34945d11eb8b262cf05d988905756734.snapshotItem(0).click()
+
+2021-04-03 17:20:05,395 - root - ERROR - 2021-04-03 17:20:05	evaluate_jsvar jsc6d98ee4945d11ebab172cf05d988905855496 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[3]/div/div',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 17:20:05,395 - root - ERROR - 2021-04-03 17:20:05	xpath_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:20:05,396 - root - ERROR - 2021-04-03 17:20:05	length_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 17:20:05,396 - root - ERROR - 2021-04-03 17:20:05	click	jsc6d98ee4945d11ebab172cf05d988905855496.snapshotItem(0).click()
+
+2021-04-03 17:23:47,563 - root - ERROR - 2021-04-03 17:23:47	evaluate_jsvar js4b45a52e945e11eb8f7d2cf05d988905311928 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 17:23:47,572 - root - ERROR - 2021-04-03 17:23:47	xpath_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:23:47,573 - root - ERROR - 2021-04-03 17:23:47	length_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 17:23:47,573 - root - ERROR - 2021-04-03 17:23:47	innerText	js4b45a52e945e11eb8f7d2cf05d988905311928.snapshotItem(0).innerText='我是超人'
+
+2021-04-03 17:23:47,574 - root - ERROR - 2021-04-03 17:23:47	evaluate_jsvar js4b4778c0945e11eb87062cf05d988905615545 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 17:23:47,575 - root - ERROR - 2021-04-03 17:23:47	xpath_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:23:47,575 - root - ERROR - 2021-04-03 17:23:47	length_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 17:23:47,575 - root - ERROR - 2021-04-03 17:23:47	innerText	js4b4778c0945e11eb87062cf05d988905615545.snapshotItem(0).innerText='测试一下'
+
+2021-04-03 17:23:47,576 - root - ERROR - 2021-04-03 17:23:47	click	js4b4778c0945e11eb87062cf05d988905615545.snapshotItem(0).click()
+
+2021-04-03 17:24:06,934 - root - ERROR - 2021-04-03 17:24:06	evaluate_jsvar js56d1956c945e11eb90b62cf05d9889059878 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 17:24:06,943 - root - ERROR - 2021-04-03 17:24:06	xpath_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:24:06,943 - root - ERROR - 2021-04-03 17:24:06	length_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 17:24:06,944 - root - ERROR - 2021-04-03 17:24:06	innerText	js56d1956c945e11eb90b62cf05d9889059878.snapshotItem(0).innerText='我是超人'
+
+2021-04-03 17:24:06,944 - root - ERROR - 2021-04-03 17:24:06	evaluate_jsvar js56d31b02945e11ebafea2cf05d988905601866 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 17:24:06,945 - root - ERROR - 2021-04-03 17:24:06	xpath_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:24:06,946 - root - ERROR - 2021-04-03 17:24:06	length_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 17:24:06,946 - root - ERROR - 2021-04-03 17:24:06	innerText	js56d31b02945e11ebafea2cf05d988905601866.snapshotItem(0).innerText='测试一下'
+
+2021-04-03 17:24:06,947 - root - ERROR - 2021-04-03 17:24:06	click	js56d31b02945e11ebafea2cf05d988905601866.snapshotItem(0).click()
+
+2021-04-03 17:24:06,952 - root - ERROR - 2021-04-03 17:24:06	text	js56d31b02945e11ebafea2cf05d988905601866.snapshotItem(0).innerText
+
+2021-04-03 17:35:16,756 - root - ERROR - 2021-04-03 17:35:16	evaluate_jsvar jse610503e945f11ebbe3b2cf05d98890591238 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 17:35:16,765 - root - ERROR - 2021-04-03 17:35:16	xpath_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:35:16,765 - root - ERROR - 2021-04-03 17:35:16	length_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 17:35:16,766 - root - ERROR - 2021-04-03 17:35:16	innerText	jse610503e945f11ebbe3b2cf05d98890591238.snapshotItem(0).innerText='我是超人'
+
+2021-04-03 17:35:16,766 - root - ERROR - 2021-04-03 17:35:16	evaluate_jsvar jse611d5d4945f11eb99192cf05d988905564087 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 17:35:16,767 - root - ERROR - 2021-04-03 17:35:16	xpath_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:35:16,773 - root - ERROR - 2021-04-03 17:35:16	length_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 17:35:16,773 - root - ERROR - 2021-04-03 17:35:16	innerText	jse611d5d4945f11eb99192cf05d988905564087.snapshotItem(0).innerText='测试一下'
+
+2021-04-03 17:35:16,774 - root - ERROR - 2021-04-03 17:35:16	click	jse611d5d4945f11eb99192cf05d988905564087.snapshotItem(0).click()
+
+2021-04-03 17:35:16,776 - root - ERROR - 2021-04-03 17:35:16	text	jse611d5d4945f11eb99192cf05d988905564087.snapshotItem(0).innerText
+
+2021-04-03 17:36:32,557 - root - ERROR - 2021-04-03 17:36:32	evaluate_jsvar js133e7d26946011eb82842cf05d988905797734 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 17:36:32,565 - root - ERROR - 2021-04-03 17:36:32	xpath_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:36:32,566 - root - ERROR - 2021-04-03 17:36:32	length_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 17:36:32,566 - root - ERROR - 2021-04-03 17:36:32	innerText	js133e7d26946011eb82842cf05d988905797734.snapshotItem(0).innerText='我是超人'
+
+2021-04-03 17:36:32,567 - root - ERROR - 2021-04-03 17:36:32	evaluate_jsvar js134029b4946011eba1c62cf05d988905157712 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 17:36:32,568 - root - ERROR - 2021-04-03 17:36:32	xpath_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:36:32,568 - root - ERROR - 2021-04-03 17:36:32	length_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 17:36:32,569 - root - ERROR - 2021-04-03 17:36:32	innerText	js134029b4946011eba1c62cf05d988905157712.snapshotItem(0).innerText='测试一下'
+
+2021-04-03 17:36:32,574 - root - ERROR - 2021-04-03 17:36:32	click	js134029b4946011eba1c62cf05d988905157712.snapshotItem(0).click()
+
+2021-04-03 17:36:32,579 - root - ERROR - 2021-04-03 17:36:32	text	js134029b4946011eba1c62cf05d988905157712.snapshotItem(0).innerText
+
+2021-04-03 17:37:12,039 - root - ERROR - 2021-04-03 17:37:12	evaluate_jsvar js2ac6fb3a946011ebb4942cf05d988905898212 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 17:37:12,047 - root - ERROR - 2021-04-03 17:37:12	xpath_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:37:12,048 - root - ERROR - 2021-04-03 17:37:12	length_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 17:37:12,048 - root - ERROR - 2021-04-03 17:37:12	innerText	js2ac6fb3a946011ebb4942cf05d988905898212.snapshotItem(0).innerText='我是超人'
+
+2021-04-03 17:37:12,049 - root - ERROR - 2021-04-03 17:37:12	evaluate_jsvar js2ac8a6ae946011eba7b92cf05d98890579890 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 17:37:12,050 - root - ERROR - 2021-04-03 17:37:12	xpath_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:37:12,055 - root - ERROR - 2021-04-03 17:37:12	length_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 17:37:12,055 - root - ERROR - 2021-04-03 17:37:12	innerText	js2ac8a6ae946011eba7b92cf05d98890579890.snapshotItem(0).innerText='测试一下'
+
+2021-04-03 17:37:12,056 - root - ERROR - 2021-04-03 17:37:12	click	js2ac8a6ae946011eba7b92cf05d98890579890.snapshotItem(0).click()
+
+2021-04-03 17:37:12,061 - root - ERROR - 2021-04-03 17:37:12	text	js2ac8a6ae946011eba7b92cf05d98890579890.snapshotItem(0).innerText
+
+2021-04-03 17:38:34,743 - root - ERROR - 2021-04-03 17:38:34	evaluate_jsvar js5c12bd98946011ebaa372cf05d988905445030 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 17:38:34,752 - root - ERROR - 2021-04-03 17:38:34	xpath_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:38:34,753 - root - ERROR - 2021-04-03 17:38:34	length_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 17:38:34,753 - root - ERROR - 2021-04-03 17:38:34	innerText	js5c12bd98946011ebaa372cf05d988905445030.snapshotItem(0).innerText='我是超人'
+
+2021-04-03 17:38:34,754 - root - ERROR - 2021-04-03 17:38:34	evaluate_jsvar js5c1456e4946011ebb5f62cf05d98890564039 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 17:38:34,755 - root - ERROR - 2021-04-03 17:38:34	xpath_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:38:34,760 - root - ERROR - 2021-04-03 17:38:34	length_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 17:38:34,760 - root - ERROR - 2021-04-03 17:38:34	innerText	js5c1456e4946011ebb5f62cf05d98890564039.snapshotItem(0).innerText='测试一下'
+
+2021-04-03 17:38:34,761 - root - ERROR - 2021-04-03 17:38:34	click	js5c1456e4946011ebb5f62cf05d98890564039.snapshotItem(0).click()
+
+2021-04-03 17:38:34,762 - root - ERROR - 2021-04-03 17:38:34	text	js5c1456e4946011ebb5f62cf05d98890564039.snapshotItem(0).innerText
+
+2021-04-03 17:43:21,995 - root - ERROR - 2021-04-03 17:43:21	evaluate_js	var js0749d6ba946111ebb8182cf05d98890523000 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 17:43:22,004 - root - ERROR - 2021-04-03 17:43:22	xpath_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:43:22,004 - root - ERROR - 2021-04-03 17:43:22	length_result	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 17:43:22,004 - root - ERROR - 2021-04-03 17:43:22	innerText	js0749d6ba946111ebb8182cf05d98890523000.snapshotItem(0).innerText='我是超人'
+
+2021-04-03 17:43:22,004 - root - ERROR - 2021-04-03 17:43:22	ExecuteElement.__execute{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'string', 'value': '我是超人'}}}}
+
+2021-04-03 17:43:22,004 - root - ERROR - 2021-04-03 17:43:22	evaluate_js	var js074b5c48946111eb9dd42cf05d988905468057 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 17:43:22,005 - root - ERROR - 2021-04-03 17:43:22	xpath_result{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:43:22,011 - root - ERROR - 2021-04-03 17:43:22	length_result	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 17:43:22,011 - root - ERROR - 2021-04-03 17:43:22	innerText	js074b5c48946111eb9dd42cf05d988905468057.snapshotItem(0).innerText='测试一下'
+
+2021-04-03 17:43:22,012 - root - ERROR - 2021-04-03 17:43:22	ExecuteElement.__execute{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'string', 'value': '测试一下'}}}}
+
+2021-04-03 17:43:22,012 - root - ERROR - 2021-04-03 17:43:22	click	js074b5c48946111eb9dd42cf05d988905468057.snapshotItem(0).click()
+
+2021-04-03 17:43:22,017 - root - ERROR - 2021-04-03 17:43:22	ExecuteElement.__execute{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:43:22,017 - root - ERROR - 2021-04-03 17:43:22	text	js074b5c48946111eb9dd42cf05d988905468057.snapshotItem(0).innerText
+
+2021-04-03 17:43:22,018 - root - ERROR - 2021-04-03 17:43:22	ExecuteElement.__execute{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'string', 'value': '测试一下'}}}}
+
+2021-04-03 17:44:11,130 - root - ERROR - 2021-04-03 17:44:11	evaluate_js	var js24933de4946111ebb48f2cf05d988905585593 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 17:44:11,138 - root - ERROR - 2021-04-03 17:44:11	xpath_result	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:44:11,139 - root - ERROR - 2021-04-03 17:44:11	length_result	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 17:44:11,139 - root - ERROR - 2021-04-03 17:44:11	innerText	js24933de4946111ebb48f2cf05d988905585593.snapshotItem(0).innerText='我是超人'
+
+2021-04-03 17:44:11,140 - root - ERROR - 2021-04-03 17:44:11	ExecuteElement.__execute{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'string', 'value': '我是超人'}}}}
+
+2021-04-03 17:44:11,140 - root - ERROR - 2021-04-03 17:44:11	evaluate_js	var js2494d7d8946111eb9d0b2cf05d988905477442 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 17:44:11,141 - root - ERROR - 2021-04-03 17:44:11	xpath_result	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:44:11,146 - root - ERROR - 2021-04-03 17:44:11	length_result	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 17:44:11,146 - root - ERROR - 2021-04-03 17:44:11	innerText	js2494d7d8946111eb9d0b2cf05d988905477442.snapshotItem(0).innerText='测试一下'
+
+2021-04-03 17:44:11,147 - root - ERROR - 2021-04-03 17:44:11	ExecuteElement.__execute{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'string', 'value': '测试一下'}}}}
+
+2021-04-03 17:44:11,147 - root - ERROR - 2021-04-03 17:44:11	click	js2494d7d8946111eb9d0b2cf05d988905477442.snapshotItem(0).click()
+
+2021-04-03 17:44:11,152 - root - ERROR - 2021-04-03 17:44:11	ExecuteElement.__execute{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:44:11,152 - root - ERROR - 2021-04-03 17:44:11	text	js2494d7d8946111eb9d0b2cf05d988905477442.snapshotItem(0).innerText
+
+2021-04-03 17:44:11,154 - root - ERROR - 2021-04-03 17:44:11	ExecuteElement.__execute{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'string', 'value': '测试一下'}}}}
+
+2021-04-03 17:44:49,105 - root - ERROR - 2021-04-03 17:44:49	evaluate_js	var js3b35d0a8946111ebbd372cf05d988905841014 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 17:44:49,114 - root - ERROR - 2021-04-03 17:44:49	xpath_result	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:44:49,114 - root - ERROR - 2021-04-03 17:44:49	length_result	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 17:44:49,115 - root - ERROR - 2021-04-03 17:44:49	innerText	js3b35d0a8946111ebbd372cf05d988905841014.snapshotItem(0).innerText='我是超人'
+
+2021-04-03 17:44:49,115 - root - ERROR - 2021-04-03 17:44:49	ExecuteElement.__execute	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'string', 'value': '我是超人'}}}}
+
+2021-04-03 17:44:49,115 - root - ERROR - 2021-04-03 17:44:49	evaluate_js	var js3b3760f4946111eb95862cf05d988905528607 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 17:44:49,116 - root - ERROR - 2021-04-03 17:44:49	xpath_result	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:44:49,122 - root - ERROR - 2021-04-03 17:44:49	length_result	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 17:44:49,122 - root - ERROR - 2021-04-03 17:44:49	innerText	js3b3760f4946111eb95862cf05d988905528607.snapshotItem(0).innerText='测试一下'
+
+2021-04-03 17:44:49,123 - root - ERROR - 2021-04-03 17:44:49	ExecuteElement.__execute	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'string', 'value': '测试一下'}}}}
+
+2021-04-03 17:44:49,123 - root - ERROR - 2021-04-03 17:44:49	click	js3b3760f4946111eb95862cf05d988905528607.snapshotItem(0).click()
+
+2021-04-03 17:44:49,128 - root - ERROR - 2021-04-03 17:44:49	ExecuteElement.__execute	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:44:49,128 - root - ERROR - 2021-04-03 17:44:49	text	js3b3760f4946111eb95862cf05d988905528607.snapshotItem(0).innerText
+
+2021-04-03 17:44:49,129 - root - ERROR - 2021-04-03 17:44:49	ExecuteElement.__execute	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'string', 'value': '测试一下'}}}}
+
+2021-04-03 17:47:12,400 - root - ERROR - 2021-04-03 17:47:12	evaluate_js	var js909ec59e946111eba56d2cf05d988905229380 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 17:47:12,408 - root - ERROR - 2021-04-03 17:47:12	xpath_result	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:47:12,409 - root - ERROR - 2021-04-03 17:47:12	length_result	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 17:47:12,410 - root - ERROR - 2021-04-03 17:47:12	ExecuteElement.__execute	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'string', 'value': '我是超人'}}}}
+
+2021-04-03 17:47:12,410 - root - ERROR - 2021-04-03 17:47:12	evaluate_js	var js90a07222946111eb905d2cf05d988905978548 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 17:47:12,411 - root - ERROR - 2021-04-03 17:47:12	xpath_result	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:47:12,416 - root - ERROR - 2021-04-03 17:47:12	length_result	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 17:47:12,417 - root - ERROR - 2021-04-03 17:47:12	ExecuteElement.__execute	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'string', 'value': '测试一下'}}}}
+
+2021-04-03 17:47:12,422 - root - ERROR - 2021-04-03 17:47:12	ExecuteElement.__execute	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:47:12,423 - root - ERROR - 2021-04-03 17:47:12	ExecuteElement.__execute	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'string', 'value': '测试一下'}}}}
+
+2021-04-03 17:48:32,130 - root - ERROR - 2021-04-03 17:48:32	evaluate_js	var jsc024b88a946111eb90842cf05d98890551230 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 17:48:32,139 - root - ERROR - 2021-04-03 17:48:32	xpath_result	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:48:32,140 - root - ERROR - 2021-04-03 17:48:32	length_result	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 17:48:32,140 - root - ERROR - 2021-04-03 17:48:32	ExecuteElement.__execute	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'string', 'value': '我是超人'}}}}
+
+2021-04-03 17:48:32,141 - root - ERROR - 2021-04-03 17:48:32	evaluate_js	var jsc02637de946111ebb6552cf05d988905734662 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 17:48:32,142 - root - ERROR - 2021-04-03 17:48:32	xpath_result	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:48:32,142 - root - ERROR - 2021-04-03 17:48:32	length_result	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 17:48:32,143 - root - ERROR - 2021-04-03 17:48:32	ExecuteElement.__execute	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'string', 'value': '测试一下'}}}}
+
+2021-04-03 17:48:32,147 - root - ERROR - 2021-04-03 17:48:32	ExecuteElement.__execute	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:48:32,148 - root - ERROR - 2021-04-03 17:48:32	ExecuteElement.__execute	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'string', 'value': '测试一下'}}}}
+
+2021-04-03 17:49:29,651 - root - ERROR - 2021-04-03 17:49:29	evaluate_js	var jse26daf9a946111eb972f2cf05d988905796373 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 17:49:29,659 - root - ERROR - 2021-04-03 17:49:29	xpath_result	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:49:29,660 - root - ERROR - 2021-04-03 17:49:29	length_result	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 17:49:29,661 - root - ERROR - 2021-04-03 17:49:29	ExecuteElement.__execute	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'string', 'value': '我是超人'}}}}
+
+2021-04-03 17:49:29,661 - root - ERROR - 2021-04-03 17:49:29	evaluate_js	var jse26f5b0a946111eb84c72cf05d988905719308 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 17:49:29,662 - root - ERROR - 2021-04-03 17:49:29	xpath_result	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:49:29,663 - root - ERROR - 2021-04-03 17:49:29	length_result	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 17:49:29,663 - root - ERROR - 2021-04-03 17:49:29	ExecuteElement.__execute	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'string', 'value': '测试一下'}}}}
+
+2021-04-03 17:49:29,665 - root - ERROR - 2021-04-03 17:49:29	ExecuteElement.__execute	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:49:29,666 - root - ERROR - 2021-04-03 17:49:29	ExecuteElement.__execute	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'string', 'value': '测试一下'}}}}
+
+2021-04-03 17:50:04,074 - root - ERROR - 2021-04-03 17:50:04	evaluate_js	var jsf6f23d88946111eb851b2cf05d988905195792 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 17:50:04,083 - root - ERROR - 2021-04-03 17:50:04	xpath_result	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:50:04,083 - root - ERROR - 2021-04-03 17:50:04	length_result	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 17:50:04,084 - root - ERROR - 2021-04-03 17:50:04	ExecuteElement.__execute	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'string', 'value': '我是超人'}}}}
+
+2021-04-03 17:50:04,084 - root - ERROR - 2021-04-03 17:50:04	evaluate_js	var jsf6f3c31e946111eb831e2cf05d988905303532 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 17:50:04,085 - root - ERROR - 2021-04-03 17:50:04	xpath_result	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:50:04,086 - root - ERROR - 2021-04-03 17:50:04	length_result	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 17:50:04,087 - root - ERROR - 2021-04-03 17:50:04	ExecuteElement.__execute	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'string', 'value': '测试一下'}}}}
+
+2021-04-03 17:50:04,091 - root - ERROR - 2021-04-03 17:50:04	ExecuteElement.__execute	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:50:04,093 - root - ERROR - 2021-04-03 17:50:04	ExecuteElement.__execute	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'string', 'value': '测试一下'}}}}
+
+2021-04-03 17:50:04,093 - root - ERROR - 2021-04-03 17:50:04	ExecuteElement.__execute	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'boolean', 'value': False}}}}
+
+2021-04-03 17:50:42,021 - root - ERROR - 2021-04-03 17:50:42	evaluate_js	var js0d90868a946211ebac382cf05d988905635831 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 17:50:42,030 - root - ERROR - 2021-04-03 17:50:42	xpath_result	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:50:42,030 - root - ERROR - 2021-04-03 17:50:42	length_result	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 17:50:42,030 - root - ERROR - 2021-04-03 17:50:42	innerText	js0d90868a946211ebac382cf05d988905635831.snapshotItem(0).innerText='我是超人'
+
+2021-04-03 17:50:42,031 - root - ERROR - 2021-04-03 17:50:42	ExecuteElement.__execute	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'string', 'value': '我是超人'}}}}
+
+2021-04-03 17:50:42,031 - root - ERROR - 2021-04-03 17:50:42	evaluate_js	var js0d920c24946211eb8e962cf05d988905214622 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 17:50:42,032 - root - ERROR - 2021-04-03 17:50:42	xpath_result	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:50:42,033 - root - ERROR - 2021-04-03 17:50:42	length_result	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 17:50:42,033 - root - ERROR - 2021-04-03 17:50:42	innerText	js0d920c24946211eb8e962cf05d988905214622.snapshotItem(0).innerText='测试一下'
+
+2021-04-03 17:50:42,034 - root - ERROR - 2021-04-03 17:50:42	ExecuteElement.__execute	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'string', 'value': '测试一下'}}}}
+
+2021-04-03 17:50:42,034 - root - ERROR - 2021-04-03 17:50:42	click	js0d920c24946211eb8e962cf05d988905214622.snapshotItem(0).click()
+
+2021-04-03 17:50:42,038 - root - ERROR - 2021-04-03 17:50:42	ExecuteElement.__execute	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:50:42,039 - root - ERROR - 2021-04-03 17:50:42	text	js0d920c24946211eb8e962cf05d988905214622.snapshotItem(0).innerText
+
+2021-04-03 17:50:42,039 - root - ERROR - 2021-04-03 17:50:42	ExecuteElement.__execute	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'string', 'value': '测试一下'}}}}
+
+2021-04-03 17:50:42,040 - root - ERROR - 2021-04-03 17:50:42	hasattribute	js0d920c24946211eb8e962cf05d988905214622.snapshotItem(0).hasAttribute(name)
+
+2021-04-03 17:50:42,040 - root - ERROR - 2021-04-03 17:50:42	ExecuteElement.__execute	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'boolean', 'value': False}}}}
+
+2021-04-03 17:51:19,556 - root - ERROR - 2021-04-03 17:51:19	evaluate_js	var js23efcc08946211eba2362cf05d98890591199 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 17:51:19,564 - root - ERROR - 2021-04-03 17:51:19	xpath_result	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:51:19,565 - root - ERROR - 2021-04-03 17:51:19	length_result	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 17:51:19,565 - root - ERROR - 2021-04-03 17:51:19	innerText	js23efcc08946211eba2362cf05d98890591199.snapshotItem(0).innerText='我是超人'
+
+2021-04-03 17:51:19,565 - root - ERROR - 2021-04-03 17:51:19	ExecuteElement.__execute	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'string', 'value': '我是超人'}}}}
+
+2021-04-03 17:51:19,566 - root - ERROR - 2021-04-03 17:51:19	evaluate_js	var js23f18136946211eb9ce62cf05d988905233376 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 17:51:19,567 - root - ERROR - 2021-04-03 17:51:19	xpath_result	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:51:19,567 - root - ERROR - 2021-04-03 17:51:19	length_result	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 17:51:19,567 - root - ERROR - 2021-04-03 17:51:19	innerText	js23f18136946211eb9ce62cf05d988905233376.snapshotItem(0).innerText='测试一下'
+
+2021-04-03 17:51:19,568 - root - ERROR - 2021-04-03 17:51:19	ExecuteElement.__execute	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'string', 'value': '测试一下'}}}}
+
+2021-04-03 17:51:19,568 - root - ERROR - 2021-04-03 17:51:19	click	js23f18136946211eb9ce62cf05d988905233376.snapshotItem(0).click()
+
+2021-04-03 17:51:19,573 - root - ERROR - 2021-04-03 17:51:19	ExecuteElement.__execute	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:51:19,573 - root - ERROR - 2021-04-03 17:51:19	text	js23f18136946211eb9ce62cf05d988905233376.snapshotItem(0).innerText
+
+2021-04-03 17:51:19,574 - root - ERROR - 2021-04-03 17:51:19	ExecuteElement.__execute	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'string', 'value': '测试一下'}}}}
+
+2021-04-03 17:51:19,574 - root - ERROR - 2021-04-03 17:51:19	hasattribute	js23f18136946211eb9ce62cf05d988905233376.snapshotItem(0).hasAttribute('name')
+
+2021-04-03 17:51:19,575 - root - ERROR - 2021-04-03 17:51:19	ExecuteElement.__execute	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'boolean', 'value': True}}}}
+
+2021-04-03 17:58:52,542 - root - ERROR - 2021-04-03 17:58:52	evaluate_js	var js31eff290946311ebb37a2cf05d988905236202 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 17:58:52,550 - root - ERROR - 2021-04-03 17:58:52	xpath_result	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:58:52,551 - root - ERROR - 2021-04-03 17:58:52	length_result	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 17:58:52,551 - root - ERROR - 2021-04-03 17:58:52	innerText	js31eff290946311ebb37a2cf05d988905236202.snapshotItem(0).innerText='我是超人'
+
+2021-04-03 17:58:52,552 - root - ERROR - 2021-04-03 17:58:52	ExecuteElement.__execute	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'string', 'value': '我是超人'}}}}
+
+2021-04-03 17:58:52,552 - root - ERROR - 2021-04-03 17:58:52	evaluate_js	var js31f19f1a946311eb889f2cf05d988905760671 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 17:58:52,553 - root - ERROR - 2021-04-03 17:58:52	xpath_result	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:58:52,553 - root - ERROR - 2021-04-03 17:58:52	length_result	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 17:58:52,553 - root - ERROR - 2021-04-03 17:58:52	innerText	js31f19f1a946311eb889f2cf05d988905760671.snapshotItem(0).innerText='测试一下'
+
+2021-04-03 17:58:52,554 - root - ERROR - 2021-04-03 17:58:52	ExecuteElement.__execute	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'string', 'value': '测试一下'}}}}
+
+2021-04-03 17:58:52,554 - root - ERROR - 2021-04-03 17:58:52	click	js31f19f1a946311eb889f2cf05d988905760671.snapshotItem(0).click()
+
+2021-04-03 17:58:52,559 - root - ERROR - 2021-04-03 17:58:52	ExecuteElement.__execute	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 17:58:52,559 - root - ERROR - 2021-04-03 17:58:52	text	js31f19f1a946311eb889f2cf05d988905760671.snapshotItem(0).innerText
+
+2021-04-03 17:58:52,560 - root - ERROR - 2021-04-03 17:58:52	ExecuteElement.__execute	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'string', 'value': '测试一下'}}}}
+
+2021-04-03 17:58:52,560 - root - ERROR - 2021-04-03 17:58:52	ExecuteElement.__execute	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'string', 'value': 'sendBox'}}}}
+
+2021-04-03 21:40:06,885 - root - ERROR - 2021-04-03 21:40:06	evaluate_js	var js1a101bd2948211eb89522cf05d98890534756 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 21:40:06,894 - root - ERROR - 2021-04-03 21:40:06	xpath_result	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 21:40:06,895 - root - ERROR - 2021-04-03 21:40:06	length_result	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 21:40:06,895 - root - ERROR - 2021-04-03 21:40:06	innerText	js1a101bd2948211eb89522cf05d98890534756.snapshotItem(0).innerText='我是超人'
+
+2021-04-03 21:40:06,895 - root - ERROR - 2021-04-03 21:40:06	ExecuteElement.__execute	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'string', 'value': '我是超人'}}}}
+
+2021-04-03 21:40:06,896 - root - ERROR - 2021-04-03 21:40:06	evaluate_js	var js1a11a168948211eb928a2cf05d988905142991 = document.evaluate('//*[@id="app"]/div/div[1]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/pre',document.documentElement, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+2021-04-03 21:40:06,896 - root - ERROR - 2021-04-03 21:40:06	xpath_result	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 21:40:06,897 - root - ERROR - 2021-04-03 21:40:06	length_result	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'number', 'value': 1, 'description': '1'}}}}
+
+2021-04-03 21:40:06,897 - root - ERROR - 2021-04-03 21:40:06	innerText	js1a11a168948211eb928a2cf05d988905142991.snapshotItem(0).innerText='测试一下'
+
+2021-04-03 21:40:06,897 - root - ERROR - 2021-04-03 21:40:06	ExecuteElement.__execute	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'string', 'value': '测试一下'}}}}
+
+2021-04-03 21:40:06,898 - root - ERROR - 2021-04-03 21:40:06	click	js1a11a168948211eb928a2cf05d988905142991.snapshotItem(0).click()
+
+2021-04-03 21:40:06,903 - root - ERROR - 2021-04-03 21:40:06	ExecuteElement.__execute	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'undefined'}}}}
+
+2021-04-03 21:40:06,903 - root - ERROR - 2021-04-03 21:40:06	text	js1a11a168948211eb928a2cf05d988905142991.snapshotItem(0).innerText
+
+2021-04-03 21:40:06,904 - root - ERROR - 2021-04-03 21:40:06	ExecuteElement.__execute	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'string', 'value': '测试一下'}}}}
+
+2021-04-03 21:40:06,904 - root - ERROR - 2021-04-03 21:40:06	ExecuteElement.__execute	{'code': True, 'reason': 'success', 'result': {'id': 1, 'result': {'result': {'type': 'string', 'value': 'sendBox'}}}}
+

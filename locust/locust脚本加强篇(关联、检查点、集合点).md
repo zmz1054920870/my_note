@@ -67,34 +67,53 @@ class WebsiteUser(HttpUser):
 ## 3、集合点：提高某个接口的并发度，当所有用户运行到指定位置后集合等待，同时向下执行
 
 ```python
+import time
+import os
+from locust import User, constant, task, HttpUser, LoadTestShape,SequentialTaskSet, TaskSet, events
+from locust.contrib.fasthttp import FastHttpUser
 from gevent._semaphore import Semaphore
-from locust import TaskSet, events
-from lxml import etree
+from json import JSONDecodeError
+# sem = Semaphore()
+# sem.acquire()
 
-all_locusts_spawned = Semaphore()
-all_locusts_spawned.acquire()
+all_locusts_spawned1 = Semaphore()
+all_locusts_spawned1.acquire()
+
 def on_hatch_complete(**kwargs):
-    all_locusts_spawned.release() # 创建钩子方法
+    all_locusts_spawned1.release()
 
-events.hatch_complete += on_hatch_complete # 挂载到locust钩子函数（所有的Locust实例产生完成时触发）
+events.spawning_complete.add_listener(on_hatch_complete())
 
-class TestTask(TaskSet):
+
+class MyBehavior(TaskSet):
+
     def on_start(self):
-        """ on_start is called when a Locust start before any task is scheduled """
-        all_locusts_spawned.wait() # 限制在所有用户准备完成前处于等待状态
-        self.login()
+        print('开搞')
+        
+    @task(1)
+    def userBehavior(self):
+        url = 'http://192.168.0.118:2333/inspirer/new'
+        data = {
+            'content': '%d' % time.time(),
+            'ximg': ''
+        }
+        header = {'token': '669edd66e72c16aee6b1b769zmzjldecc21091b3283e95'}
+        all_locusts_spawned1.wait()
+        with self.client.post(url=url, json=data, headers=header, catch_response=True) as response:
+            try:
+                data = response.json()
+                if data['status'] == 200:
+                    response.success()
+            except JSONDecodeError as e:
+                response.failure('报错')
+            # self.environment.runner.quit()
 
-    @staticmethod
-    def get_session(html):
-        tree = etree.HTML(html)
-        return tree.xpath("//div[@class='btnbox']/input[@name='session']/@value")[0] \
+class WebsitUser(HttpUser):
+    wait_time = constant(1)
+    host = ''
+    tasks = [MyBehavior, ]
 
-    def login(self):
-        html = self.client.get('/login').text
-        username = 'user@compay.com'
-        password = '123456'
-        session = self.get_session(html)
-        payload = {'username': username, 'password': password, 'session': session}
-        self.client.post('/login', data=payload)
+if __name__ == '__main__':
+    os.system('locust -f locutfile_task -u 100 -r 20 --headless')
 ```
 

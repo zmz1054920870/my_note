@@ -172,53 +172,57 @@ MetaClass __init__
 import time
 
 
-def my_test(self):								# 必须加self
+def my_test(self):  # 必须加self
     print('hook')
     return '渣渣'
 
 
 class MetaClass(type):
     # 第一步
-    def __new__(mcs, *args, **kwargs):	# 这里可以修改类的定义时候的原始参数，因为args 和 kwargs 接收类定义传入的定义参数（比如可以将类里面的函数和变量名全部变成大写），也可以给类初始化添加参数如下面的 args[2]['id'] = 11111111111111111111, 就是给类进行拓展
+    def __new__(mcs, *args,
+                **kwargs):  # 这里可以修改类的定义时候的原始参数，因为args 和 kwargs 接收类定义传入的定义参数（比如可以将类里面的函数和变量名全部变成大写），也可以给类初始化添加参数如下面的 args[2]['id'] = 11111111111111111111, 就是给类进行拓展
         print('MetaClass __new__')
         print('MetaClass.__new__', args)
         print('MetaClass.__new__', kwargs)
         args[2]['id'] = 11111111111111111111
-		args[2]['Mytest'] = my_test					# 这个名字尽量搞一样
+        args[2]['Mytest'] = my_test  # 这个名字尽量搞一样
+
         a = super(MetaClass, mcs).__new__(mcs, *args, **kwargs)
         print('a', a)
         return a  # a:<class '__main__.Person'>
 
     # 第二步
-    def __init__(cls, *args, **kwargs):			# 这玩意只要是为__call__服务的，和后面的魔法方法提供参数。。 还可以在Person中的__new__中，通过cls.hhd
+    def __init__(cls, *args, **kwargs):  # 这玩意只要是为__call__服务的，和后面的魔法方法提供参数。。 还可以在Person中的__new__中，通过cls.hh
         print('MetaClass __init__')
         print('MetaClass.__init__', args)
         print('MetaClass.__init__', kwargs)
         args[2]['gender'] = 'women'
         cls.hh = 100
-        b = super(MetaClass, cls).__init__(*args, **kwargs)
+        # b = super(MetaClass, cls).__init__(*args, **kwargs)
         print(333333333, args, kwargs)
-        print('b', b)
+        # print('b', b)
 
     # 第三步
-    def __call__(cls, *args, **kwargs):	# 这里可以修改实例传入的参数，因为args 和 kwargs 接收 实例传入实例的参数
+    def __call__(cls, *args, **kwargs):  # 这里可以修改实例传入的参数，因为args 和 kwargs 接收 实例传入实例的参数
         print('MetaClass __call__')
         print("MetaClass._call__:", args)
         print("MetaClass._call__:", kwargs)
         args = list(args)
         args[0] = args[0].upper()
         args = tuple(args)
-        c =   super(MetaClass, cls).__call__(*args, **kwargs)     # cl = Person('perter', age=18)类实例化的时候会调用MetaClass的__call__, 当__call__中代码执行到super(MetaClass, cls).__call__(*args, **kwargs)的时候又会去调用Person.__new__, 接受MetaClass__call__的*args和**kwargs参数，所以在这里可以修改传入的数值， 然后值传给Person.__new__,
+        c = super(MetaClass, cls).__call__(*args,
+                                           **kwargs)  # cl = Person('perter', age=18)类实例化的时候会调用MetaClass的__call__, 当__call__中代码执行到super(MetaClass, cls).__call__(*args, **kwargs)的时候又会去调用Person.__new__, 接受MetaClass__call__的*args和**kwargs参数，所以在这里可以修改传入的数值， 然后值传给Person.__new__,
         # print('c', c)
         print(111111111111111111111, args, kwargs)
         return c
 
 
-class Person(object, metaclass=MetaClass):  #在这里打断点查看整个过程， 这里要点三次，不知道为什么？
+class Person(object, metaclass=MetaClass):  # 在这里打断点查看整个过程， 这里要点三次，不知道为什么？
 
     print('开始--------------')
     gender = 'man'
-	name: str = '张三'
+    name: str = '张三'
+
     # 第四步
     def __new__(cls, *args, **kwargs):
         print('Demo __new__')
@@ -234,7 +238,9 @@ class Person(object, metaclass=MetaClass):  #在这里打断点查看整个过�
         print('Demo __init__')
         self.name = name
         self.age = age
+
     print('结束--------------')
+
     # 第六步
     def __call__(self, behavior: str):
         print('Demo __call__ : ' + behavior)
@@ -246,12 +252,15 @@ class Person(object, metaclass=MetaClass):  #在这里打断点查看整个过�
     def tell():
         pass
 
+
 # # print(Person.__dict__)
 cl = Person('perter', age=18)
 print(cl.id)
 print(cl.gender)
-print(Perso.hh)
+print(Person.hh)
+print(Person.hh)
 print(cl.Mytest)
+
 """
 class Person(object, metaclass=MetaClass) ==(等价于) MetaClass(
     'Person',
@@ -268,6 +277,111 @@ qualname 名称
 
 
 
+
+**通过type创建一个类**
+
+```python
+def find_max(self, li):
+    max_element = li[0]
+    print(self.a)
+    print(self.b)
+    for i in range(1, len(li)):
+        if max_element < li[i]:
+            max_element = li[i]
+    return max_element
+
+
+foo = type('Behavior', (), {"self.name": "zhangsan", "b": 2, "find_max2": find_max})	# find_max最好和函数名字一样。我这里是为了y
+c = foo()
+print(c.__dict__)
+
+c.a = 222
+c.b = 333
+
+d = c.find_max2([1, 2, 3, 4, 5])
+print(d)
+
+
+D:\client-test\Scripts\python.exe D:/origin/学习代码/mulit_process/src/regular_study/xxx.py
+{}
+222
+333
+5
+
+
+```
+
+
+
+
+
+
+
+```python
+class MetaClass(type):
+
+    def __new__(mcs, *args, **kwargs):
+        print("new的参数args>> ", args)
+        print("new的kwargs>> ", kwargs)
+        cls = super(MetaClass, mcs).__new__(mcs, *args, **kwargs)
+        return cls
+
+    def __init__(cls, *args, **kwargs):
+        print("init的参数args>> ", args)
+        print("init的kwargs>> ", kwargs)
+        cls.city = "wanzhou"
+        cls.town = "liangfeng"
+
+    def __call__(cls, name, age):
+        print("call的参数name>> ", name)
+        print("call的参数age>> ", age)
+        name = cls.city + name
+        age = cls.town + str(age)
+        c = super(MetaClass, cls).__call__(name, age)
+        return c
+
+
+class Behavior(object, metaclass=MetaClass):
+
+    def __new__(cls, name, age):
+        print('new的参数name>> ', name)
+        print('new的参数age>> ', age)
+        return super(Behavior, cls).__new__(cls)
+
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def say(self):
+        print(self.city)
+        print(self.town)
+        print(self.name)
+
+
+b = Behavior('peter', 32)
+b.say()
+```
+
+
+
+**备注：我终于知道为什么我们再一个py文件中，定义一个类，我们不调用他，直接在pycharm中右键允许。有时候会打印或者输出一些东西了。这些因为，当我们在这个类当中添加一些，比如print或者函数调用。在构建这个类的时候，他内部的方法会被执行一遍，例子如下**
+
+```python
+def test_exec():
+    print(111111111111111)
+
+
+class FF(object):
+
+    print(222222222222222)
+    test_exec()
+
+我们直接在pycharm中右键允许这个文件，他会输出
+
+222222222222222
+111111111111111
+
+```
 
 https://blog.csdn.net/u012062455/article/details/107454081
 

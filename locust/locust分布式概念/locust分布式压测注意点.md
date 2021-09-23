@@ -21,8 +21,10 @@ locust -f D:\PythonPrograms\PerformanceLocust\LeadsCloud\Leadscloud.py --master 
 [2019-11-07 11:50:05,201] daiveyang/INFO/locust.main: Starting Locust 0.12.2
 ```
 
+```
 在Slave机器上启动locust
 locust -f Leadscloud.py --worker--master-host=192.168.74.8 --host=https://admin.leadscloud.com/Front-Vue
+```
 
 配置成功后的状态
 当Master和Slave都启动后，在Master机器的控制台中能够看到

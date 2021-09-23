@@ -414,7 +414,7 @@ source test.sh
 
 #### 4.3	 空格
 
-**bash使用空格和Tab来区分不同的参数,如果参数间存在多个空格，bash会自动忽略多余的空格**
+**bash使用空格和Tab来区分不同的参数,如果参数间存在多个空格，bash会自动忽略多余的空格，目前发现只有echo是这样**
 
 ```bash
 echo a      b
@@ -645,7 +645,7 @@ echo ${SHELL}
 **<span style='color:red'>${!string*}或者${!string@}</span>返回所有匹配给定的字符串`string`的变量名**
 
 ```bash
-echo "${!U*}"	# 匹配所有以U开头的变量名
+echo "${!U*}"	# 匹配所有以U开头的变量名，拿不到值得
 [root@iZ8vbjbq1n4ejerpoqat7zZ src]# echo "${!U*}"
 UID USER
 ```
@@ -771,7 +771,7 @@ PATH=${PATH}:/usr/local/test
 
 ![](环境变量永久添加.png)
 
-
+vi
 
 ```bash
 #重新运行.bash_profile这个环境变量脚本文件
@@ -809,7 +809,7 @@ source ./.bash_profile #使用source，因为source可以读取环境和系统�
 | --------------------- | ------------------------------------------------------------ | ---- |
 | $n                    | n为数字，$0代表命令本身即脚本名，$1-9代表第一个到第九个参数，十以上的参数需要用大括号包含，如${10} |      |
 | $*                    | 这个变量代表命令行中所有的参数，$*把所有参数看成一个整体.在for循环中"$\*"表示一个整体,$\*表示多个词元 |      |
-| $@                    | 这个变量也代表命令行中所有参数，不过$@把每一个参数区分对待.在for循环中"$@"表示多个词元,$@也表示多个词元 |      |
+| $@                    | 这个变量也代表命令行中所有参数元组的形式，不过$@把每一个参数区分对待.在for循环中"$@"表示多个词元,$@也表示多个词元 |      |
 | $#                    | 这个变量代表命令行中所有参数的个数                           |      |
 | ${varname:-word}      | varname存在且不为空,则返回varname变量的值,否则返回word       |      |
 | ${varname:?"message"} | varname存在且不会为空,则返回varname变量的值,否则打印message的值并中断程序退出.如果message省略则输出默认的信息"parameter null or not set".他的目的是防止变量未定义 |      |
@@ -1012,7 +1012,7 @@ declare -p cc
 
 #### 8.2	(())计算命令,整数运算
 
-> ​	**(())是一个<span style='color:red'>命令</span>，$(())是取他的运算结果值**
+> ​	**(())是一个在子进程中执行得<span style='color:red'>命令</span>，$(())是取他的运算结果值**
 
 
 
@@ -1029,6 +1029,9 @@ bb=22
 ((foo=$aa+$bb))
 echo $foo
 >>333
+
+-------------------------------------------------
+a=$((1+2))	# 在子进程中运算完结果，然会给主进程，执行赋值操作
 ```
 
 > ​	**🔺上面这样就不用上面的declare进行申明了，还可以直接赋值比如((foo=$aa+$bb)),多方便,我们以后就用这种,🔺而且在(())调用变量可以不用$,直接使用 比如((foo=aa+bb))**
@@ -1127,7 +1130,7 @@ fi
 
 #### **通过别名来调用命令**
 
-> ​	**在bash中断中调用时，直接输入别名名字**
+> ​	**在bash终端中调用时，直接输入别名名字**
 
 ```bash
 alias a='ll'
@@ -1142,13 +1145,11 @@ a
 
 ```bash
 #!/bin/bash
-alias a='ll'
+alias a='ll'		# 这是因为 ll 实际上是 ls -l 的别名，所以我们在  ，使用的时候，要 alias a='ls -l'
 a
 ```
 
-我们执行的时候他是会报错的.我们只能在其他命令当中进行引用比如:`echo $(a)`
-
-
+用bash指定的脚本中定义的别名，执行完脚本，我们退出以后，是不可以调用的，因为，他是在子进程种创建的别名。使用source执行的脚本，将会生效，因为但是在当前进程中执行的
 
 > ​	**在脚本中调用**
 
@@ -1162,7 +1163,7 @@ wocao
 
 **这个脚本使用bash+脚本名会说命令不存在,使用sh+脚本名 和 source+脚本就可以,其中使用source+脚本名执行以后,我在脚本外面也可以使用,我勒个操了**
 
-
+**执行脚本以后，我们可以直接在外面的bash终端中使用wocao这个别名，当我们重新登录下远程服务器的时候，这些将会被清除**
 
 > ​	**unalias 删除别名**
 
@@ -1183,7 +1184,7 @@ unalias a
 
 
 
-#### cut [选项] 文件名
+#### cut [选项] 文件名 或者从管道符接收流数据
 
 > ​	grep是在文件中,提取符合条件的行,cut提取符合条件的列
 >
@@ -1191,16 +1192,15 @@ unalias a
 
 > ​	**选项**
 >
-> - -f	序号:		提取第几列
+> - -f	序号:		提取第几列, -f1,9 显示第一列和第九列
 > - -d   分隔符:    按照指定分隔符分割列
 
 > ​	注意点
 >
-> - cut的默认分隔符是制表符tab键
->
-> - cut对于不对称的分割，不适用，比如一列是7个空格，1列是2个，再一列是11个。你就没办法了
->
->   
+> - 🔺cut的默认分隔符是制表符tab键
+>- cut对于不对称的分割，不适用，比如一列是7个空格，1列是2个，再一列是11个。单独使用cut就没有办法，但是我们可以使用printf把格式统一一下以后，再次执行。但是也有一个问题，那就是如果我们一行有很多个条数据，那么我们就要写很多，就很蒙蔽了
+> - 分隔符必须是单个字符，否则报错
+>- 🔺我们使用cut的时候，我们要将数据看成一列一列的，每次读取一列，同理我们使用sed的时候，要将数据看出一行一行读取的
 
 
 
@@ -1230,6 +1230,26 @@ drwxr-xr-x. 3 root root 225 Apr 24 21:56 Japan
 
 
 
+**不对称的例子**
+
+```SQL
+D	 Name    PHP     Linux   MySQL   Average
+1        Liming  82      95      86      87.66
+2        Sc      74      96      87      85.66
+3        Gao     99      83      93      91.66
+
+
+-- 目标：将Name这一列显示出来
+-- 方法：1是使用awk，2是使用printf重新排版，然后cut，这里我们使用第2种方式
+printf '%s %s %s %s %s %s\n' $(cat demo) | cut -d ' ' -f2
+Name
+Liming
+Sc
+Gao
+```
+
+
+
 
 
 
@@ -1254,7 +1274,7 @@ drwxr-xr-x. 3 root root 225 Apr 24 21:56 Japan
 >
 > - 它不能通过管道符或传入文件方式来添加输入
 > - 它只能通过$()在命令中执行子命令或者手动输入数据的方式传入数据
-> - <span style='color:red'>printf会根据空格和制表符将一个个字符或者字符串拆分成一个个字符，比如ab 1 2这一串数据，ab是一个字符，1，2分别是一个字符</span>
+> - 🔺<span style='color:red'>printf会根据空格和制表符还有换行符将一个个字符或者字符串拆分成一个个字符，比如ab 1 2这一串数据，ab是一个字符，1，2分别是一个字符</span>
 > - 源文件中存在多行数据的时候，忽略换行符
 > - <span style='color:red'>输出类型中的n代表几个连写，如''%s %s %s %s'千万别写成'%4s'</span>
 > - <span style='color:red'>多个输出类型必须用单引号括起来</span>
@@ -1264,7 +1284,7 @@ drwxr-xr-x. 3 root root 225 Apr 24 21:56 Japan
 > - 每一个%s后面也可以添加输出格式，比如%s\t,就是每一个字符后面加一个tab制表符
 
 ```bash
-printf '%s %s\n' $(cat test.txt)
+printf '%s %s\n' $(cat test.txt)   -- 注意 $(cat test.txt) 不能加双引号（单引号跟不用说了）
 #代表以2个字符为一组两个字符之间用空格分割，以换行符结束进行输出
 
 ```
@@ -1278,7 +1298,7 @@ printf '%s %s\n' $(cat test.txt)
 
 
 
-#### awk ‘条件1 {动作1} 条件2 {动作2}...’ 文件名
+#### awk '条件1 {动作1} 条件2 {动作2}...文件名'
 
 > ​	**如果条件1符合执行动作1，如果条件2符合执行动作2**
 
@@ -1302,7 +1322,7 @@ cat sop-lite.access.log |awk -F 'time' '{print $2}'|awk -F '-' '{print $2}'|awk 
 
 > ​	**注意点**
 >
-> - `awk`通过空格和制表符将每一行拆分成不同的列，printf也是根据空格和制表符来分割，直到遇见下一个字符
+> - 🔺`awk`通过空格和制表符将每一行拆分成不同的列，printf也是根据空格和制表符来分割，直到遇见下一个字符
 > - `awk`的已经是一门语言了（好像是python写的），这玩意啊，我们要严格遵循外单内双，尤其是print这些玩意，如果打印的是一串字符串，一定要加双引号，不然不给你打印了
 
 
@@ -1355,6 +1375,7 @@ sync	5
 # 加空格，条理更加清晰
 awk 'BEGIN {FS=":"} BEGIN {print "这是用户信息统计"} {print $1 "\t" $3}' /etc/passwd
 
+awk -F ':' '{print "这是用户信息统计"}{print $1 "\t" $3'/etc/passwd 是一样的效果，因为这种格式默认加了BEGIN
 ```
 
 
@@ -1374,9 +1395,22 @@ systemd-network	192
 dbus	81
 sshd	74
 postfix	89
+
+==== 数据如下====
+
+D	 Name    PHP     Linux   MySQL   Average
+1        Liming  82      95      86      87.66
+2        Sc      74      96      87      85.66
+3        Gao     99      83      93      91.66
+
+
+cat demo | awk '$3 =="PHP"||$3<85 {print $3}'
+PHP
+82
+74
 ```
 
-
+![image-20210914014442085](image-20210914014442085.png)
 
 
 
@@ -1397,15 +1431,15 @@ postfix	89
 > - a \     追加，在当前行后添加一行或多行。添加多行时，除最后 一行外，每行末尾需要用 "\\"代表数据未完结。
 > - c \       行替换， 用c后面的字符替换原数据行，替换多行时， 除最后一行外，每行末尾需要用“\\”代表数据未结束。
 > - i \      插入， 在当前行前插入一行或多行。插入多行时， 除最后 一行外， 每行末尾需要用  “\\”代表数据未完结
-> - d       删除， 删除指定行
-> - p       打印， 输出指定行
+> - d       删除， 删除指定行, '2,4d' 删除2 到4行
+> - p       打印， 输出指定行，-n '2,4p' 打印2,4 行
 > - s        字符替换， 用一个字符串替换另外一个字符串。格式为 "行范围s/旧字符串/新字符串/g"(和vim中的替换格式类似)：替换这个范围内的所有字符，🔺旧字符串支持正则表达式
 
-
+实际用途：用于筛选行数据
 
 **前置文件student.txt**
 
-> - ​	都是tab作为分隔符
+> sed将数据一行一行进行看待
 
 ```bash
 ID      Name    PHP     Linux   MySQL   Average
@@ -1431,7 +1465,7 @@ ID	Name	PHP	Linux	MySQL	Average
 #它不只输出了第二行，把整个文件也输出了一遍
 ```
 
-`sed -n '2p' student.txt输出如下`
+`sed -n '2p' student.txt输出如下`， 只有使用p参数的时候我们才会加上-n
 
 ```bash
 [root@localhost test]# sed -n '2p' student.txt 
@@ -1545,7 +1579,7 @@ ID	Name	PHP	Linux	MySQL	Average
 > - ​	-f	忽略大小写
 > - ​    -n   以数值型进行排序，默认使用字符串型排序
 > - ​    -r    反向排序
-> - ​    -t    指定分隔符，默认分隔符是制表符
+> - ​    -t    指定分隔符，默认分隔符是空格和制表符
 > - ​    -k n[, m]    按照指定的字段范围排序。 从第n字段开始，m字段结束（默认是行尾）
 
 
@@ -1569,6 +1603,71 @@ a2
 明
 张
 ```
+
+
+
+```SQL
+[root@iZ8vbjbq1n4ejerpoqat7zZ ~]# ll
+total 1445760
+drwxr-xr-x 9 root root      4096 Jul 21 01:38 apache-tomcat-9.0.50
+-rw-r--r-- 1 root root  11507318 Jul 19 23:00 apache-tomcat-9.0.50.tar.gz
+-rw-r--r-- 1 root root       230 Sep 14 03:04 delete_none_image.sh
+-rwxr-xr-x 1 root root       249 Sep 14 02:36 delet.sh
+-rw-r--r-- 1 root root        72 Sep 14 03:12 demo
+-rw-r--r-- 1 root root       119 Sep 14 02:27 demo.sh
+-rw-r--r-- 1 root root       120 Sep 14 02:54 d.sh
+-rw-r--r-- 1 root root 194990602 Jul 20 00:56 jdk-8u211-linux-x64.tar.gz
+-rw-r--r-- 1 root root     12289 Sep 13 15:40 junk.gdbm
+-rw------- 1 root root 635918848 Jul 21 02:06 mycentos.tar
+-rw------- 1 root root 635918848 Jul 31 03:29 my_custom_centos7.tar
+-rw-r--r-- 1 root root   1985757 Apr 27 23:53 redis-5.0.8.tar.gz
+-rw-r--r-- 1 root root     61812 Aug  4 23:34 redis.conf
+drwxr-xr-x 2 root root      4096 Sep 14 03:09 test
+-rw-r--r-- 1 root root       133 Sep 13 15:42 test.txt
+-rw-r--r-- 1 root root       471 Sep 14 02:54 xx.sh
+
+
+---------------------------------------按文件夹的大小正向排序-----------
+[root@iZ8vbjbq1n4ejerpoqat7zZ ~]# ll|sed '1d'|sort -n -k 5
+-rw-r--r-- 1 root root        72 Sep 14 03:12 demo
+-rw-r--r-- 1 root root       119 Sep 14 02:27 demo.sh
+-rw-r--r-- 1 root root       120 Sep 14 02:54 d.sh
+-rw-r--r-- 1 root root       133 Sep 13 15:42 test.txt
+-rw-r--r-- 1 root root       230 Sep 14 03:04 delete_none_image.sh
+-rwxr-xr-x 1 root root       249 Sep 14 02:36 delet.sh
+-rw-r--r-- 1 root root       471 Sep 14 02:54 xx.sh
+drwxr-xr-x 2 root root      4096 Sep 14 03:09 test
+drwxr-xr-x 9 root root      4096 Jul 21 01:38 apache-tomcat-9.0.50
+-rw-r--r-- 1 root root     12289 Sep 13 15:40 junk.gdbm
+-rw-r--r-- 1 root root     61812 Aug  4 23:34 redis.conf
+-rw-r--r-- 1 root root   1985757 Apr 27 23:53 redis-5.0.8.tar.gz
+-rw-r--r-- 1 root root  11507318 Jul 19 23:00 apache-tomcat-9.0.50.tar.gz
+-rw-r--r-- 1 root root 194990602 Jul 20 00:56 jdk-8u211-linux-x64.tar.gz
+-rw------- 1 root root 635918848 Jul 21 02:06 mycentos.tar
+-rw------- 1 root root 635918848 Jul 31 03:29 my_custom_centos7.tar
+
+---------------------------------------按文件夹的大小反向排序-----------
+[root@iZ8vbjbq1n4ejerpoqat7zZ ~]# ll|sed '1d'|sort -r -n -k 5
+-rw------- 1 root root 635918848 Jul 31 03:29 my_custom_centos7.tar
+-rw------- 1 root root 635918848 Jul 21 02:06 mycentos.tar
+-rw-r--r-- 1 root root 194990602 Jul 20 00:56 jdk-8u211-linux-x64.tar.gz
+-rw-r--r-- 1 root root  11507318 Jul 19 23:00 apache-tomcat-9.0.50.tar.gz
+-rw-r--r-- 1 root root   1985757 Apr 27 23:53 redis-5.0.8.tar.gz
+-rw-r--r-- 1 root root     61812 Aug  4 23:34 redis.conf
+-rw-r--r-- 1 root root     12289 Sep 13 15:40 junk.gdbm
+drwxr-xr-x 9 root root      4096 Jul 21 01:38 apache-tomcat-9.0.50
+drwxr-xr-x 2 root root      4096 Sep 14 03:09 test
+-rw-r--r-- 1 root root       471 Sep 14 02:54 xx.sh
+-rwxr-xr-x 1 root root       249 Sep 14 02:36 delet.sh
+-rw-r--r-- 1 root root       230 Sep 14 03:04 delete_none_image.sh
+-rw-r--r-- 1 root root       133 Sep 13 15:42 test.txt
+-rw-r--r-- 1 root root       120 Sep 14 02:54 d.sh
+-rw-r--r-- 1 root root       119 Sep 14 02:27 demo.sh
+-rw-r--r-- 1 root root        72 Sep 14 03:12 demo
+
+```
+
+
 
 
 
@@ -1883,9 +1982,10 @@ fi
     </tr>
     <tr>
         <td>if command1;command2</td>
-        <td align='center'>由于if后面跟的是命令，所以多个命令之间用分隔符分开。但是if只判断最后一个命令是否为真。哪怕前面全部失败，最后一条命令返回0，也表示真</td>
+        <td align='center'>由于if后面跟的是命令，所以多个命令之间用分隔符分开。但是if只判断最后一个命令是否为真。哪怕前面全部失败，最后一条命名正确执行，哪怕最后一条命令返回0，也表示真</td>
     </tr>
 </table>
+
 
 
 
@@ -2454,13 +2554,16 @@ https://www.cnblogs.com/Mike_Chang/p/9509157.html 源码包安装教程
 > ​	**按指定的速度和次数，将一个文件 、设备拷贝到指定的文件中**
 
 ```bash
-dd if=输入文件 of=输出文件 bs=字节数 count=个数
+dd if=输入文件 of=输出文件 bs=字节数 count=个数	# 这就是语法，有等号的
 
 [option]
 	if=输入文件		指定源文件或设备
 	of=输出文件		指定目标文件或目标设备
 	bs=字节数		指定一次输入/输出多少个字节，即把这些字节看做一个数据块
 	count=个数	 指定输入/输出多少个数据块
+	
+
+dd if=test.sh of=demo count=2
 ```
 
 
@@ -3354,4 +3457,29 @@ no22
 ## 7.2	命令和变量替换的执行逻辑
 
 **如果使用了命令替换，替换前的命令是在子shell中展示子shell中，主shell中是没有感知的（比如echo，在主shell看不到，因为是在子shell中执行的，同还有，比如他创建了一个文件，是真的创建了，但是我们无法感知）， 替换后的命令在主shell中执行，主shell可以直接感知（比如echo，这是就直接标准输出到了屏幕上 了）**
+
+
+
+
+
+
+
+# 八、``和$()和()的却别
+
+
+
+``和$()都表示在子进程中执行命令，然后将命令的结果返回给主进程执行，（）单纯的表示在子进程中执行命令。前面两个比()多了在主进程执行这一步骤。
+
+同理算术运算符 ((1+2))也是表示在子进程中进行执行，$((1+2))详单与
+
+- **我们可以通过bash命令进行子shell**
+- **在子shell中的变量操作不会影响他上一层的操作**
+	- 比如：在子shell中声明了变量（普通变量或者环境变量），外层是不受影响，也不能调用的，退出子shell以后，临时子shell中临时生效的环境变量也会被清空
+	- 每次重新进入子shell变量都将重置
+- **如果我们在子shell中执行了mkdir这种命令，也会创建一个文件夹**
+- **子shell中执行的export声名环境变量，退出子shell后，会被释放**
+- **子shell中执行命令有3中方式**
+	- **第一种：$(cmd1;cmd2)**
+	- **第二种：`cmd1;cmd2'**
+	- **第三种: bash 进入子shell再执行 **
 

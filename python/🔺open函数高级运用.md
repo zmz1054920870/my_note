@@ -260,7 +260,7 @@ f.close()
 open(
     file,			# 文件名
     mode='r',		# 默认为只读模式
-    buffering=-1,	# 缓冲区模式，-1（默认）,0(不使用缓冲，直接写入或者输出)
+    buffering=-1,	# 缓冲区模式，-1（默认）,0(不使用缓冲，直接写入或者输出), 1行缓冲区
     encoding=None,	# 默认编码
     errors=None,
     newline=None,
@@ -278,8 +278,20 @@ open(
 | 操作 | 解释                                                         |
 | ---- | ------------------------------------------------------------ |
 | r    | 只读权限;默认是文本模式                                      |
-| w    | **只写权限**,文件不存在则创建新的文件,如果存在则清空文件内容. |
-| +    | 为r,w,a,x提供缺失的读或者写功能,但是获取文件对象依旧按照r,w,a,x自己的特征 |
+| w    | **只写权限**,文件不存在则创建新的文件,如果存在则清空文件内容.当我们执行f.close()之后，再次打开文件。又会覆盖。但是在当前文件操作中不会 |
+| x    | 如果文件已经存在，使用此模式打开将会引发异常                 |
+| a    | 以写入模式打开，如果文件存在，则在末尾追加                   |
+| +    | 为r,w,a,x提供缺失的`读`或者`写`功能,但是获取文件对象依旧按照r,w,a,x自己的特征 |
+| t    | 文本模式，上面几个全部都是默认使用文本模式                   |
+| b    | 二级制模式                                                   |
+
+**常见错误**
+
+- `+`的错误用法, b+ ,t+  , 这样是错误的，因为没有是读还是写，必须指定一种方式以后，+才会给我们补全缺失的功能
+
+
+
+**备注：r x  a  w 都是使用t模式， 实际上 x=xt   a=at  w=wt r=rt**
 
 
 
@@ -287,8 +299,67 @@ open(
 
 | buffering         | 说明                                             |
 | ----------------- | ------------------------------------------------ |
-| buffering= -1 | t和b(只读模式)都是io.DEFAULT_BUFFER_SIZE |
+| buffering= -1 | 文本t和二进制模式b(只读模式)都是io.DEFAULT_BUFFER_SIZE |
 | buffering=0 | 必须二进制模式 关闭缓冲区文本模式不支持(当buffering为0的时候mode必须是二进制的) |
-| buffering=1 | 1.文本模式行缓冲，遇到换行符才flush. <br />2.或者8192个字节的文字撑满缓冲区 |
-| buffering>1 | 1. 二进制模式的时候生效,表示缓冲大小。<br />2.指定了buffering > 1但是mode非二进制的时候，只能撑满8192缓冲区以后才会刷新缓冲区。  <br />3.指定了buffering > 1但是mode非二进制的时候，换行符无效 |
+| buffering=1 | 1.文本模式行缓冲，遇到换行符才flush. <br />2.或者8192个字节的文字撑满缓冲区 2的13次方，我实际操作是8191个字符的时候，就开始写入了 |
+| buffering>指定大小 | 1. 🔺二进制模式的时候生效,表示缓冲大小。<br />2.指定了buffering > number但是mode非二进制的时候，只能撑满8192缓冲区以后才会刷新缓冲区。  <br /><br />说白了，这个模式还是针对二进制文件的。如果我们使用的是文本模式。然后还采用了buffering>指定大小，他是不生效的。还是采用的io.DEFAULT_BUFFER_SIZE |
+
+**总结：**
+
+- **文本模式二进制模式默认使用buffering=-1**
+- **文本模式可以使用行缓冲 buffering=1,二进制模式不可以(因为二进制里面换行符也会被编码成二进制。所以看不出来换行，所以不可以使用)**
+- **二进制模式可以关闭缓存buffering=0,文本模式不可以**
+- **当使用buffering>指定大小的时候，只对二进制模式生效。**
+
+相当于 文本对 1 3两种生效 ， 二进制模式对1 2 4 三种生效。
+
+
+
+
+
+```python
+=======================buffering=-1===================
+
+c = "A" * 8191
+def write_into_buffering(content):
+    f = open(file=file_path, mode='a+', buffering=-1)
+    # f.write('1')
+    # time.sleep(20)
+    f.write(c + '\n')
+    time.sleep(10)
+    f.write('1\n')
+    time.sleep(3)
+    f.write('2\n')
+    time.sleep(3)
+    f.write(b)
+    time.sleep(3)
+    f.close()
+    
+    
+if __name__ == '__main__':
+    write_into_buffering('1111')
+    
+    
+c = "A" * 8191
+
+=======================buffering=0===================
+def write_into_buffering(content):
+
+    f = open(file=file_path, mode='ab+', buffering=0)
+    f.write(c.encode('unicode-escape'))
+    time.sleep(10)
+    f.write('张明柱'.encode('unicode-escape'))
+    time.sleep(3)
+    f.write('张明柱'.encode('unicode-escape'))
+    time.sleep(3)
+    f.write('张明柱'.encode('unicode-escape'))
+    time.sleep(3)
+    f.close()
+
+if __name__ == '__main__':
+    write_into_buffering('1111')
+    
+    
+=======================buffering=1===================
+```
 

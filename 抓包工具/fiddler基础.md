@@ -355,7 +355,7 @@ FiddlerObject.UI.lvSessions.AddBoundColumn("ServerIP", 120, "X-HostIP");
 >?sometext
 >```
 >
->温馨提示：匹配的字符串是 Protocol、Host 和 URL 中的任何子字符串。URL = host + 地址
+>温馨提示：匹配的字符串是 Protocol、Host 和 URL 中的任何子字符串。url = /log/event_tracking host=a3aa97864c3bb83e.jd4.xiaoduoai.com 
 
 ![image-20210911171826824](image-20210911171826824.png)
 
@@ -813,3 +813,4 @@ res = requests.get("https://www.baidu.com/", verify='C://Users//zmz//Desktop//fi
 ```
 
 这次成功了
+

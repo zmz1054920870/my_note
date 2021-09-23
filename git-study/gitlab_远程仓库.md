@@ -276,6 +276,8 @@ git config --global --unset user.email 12@qq.com# 重置user.email 为 12@qq.com
 ```bash
 # 指定关联本地分支和远程分支
 git branch --set-upstream-to=origin/remote_branch  local_branch
+
+ git branch -u [branch]	# 使所在的当前分支关联对应的远程分支（永久关联了）
 ```
 
 
@@ -292,7 +294,7 @@ git branch --set-upstream-to=origin/remote_branch  local_branch
 
 
 
-# 1.1 场景：clone一个项目之后，再master分支上创建一个新分支并推送到远程仓库
+# 1.1 场景：clone一个项目之后，在master分支上创建一个新分支并推送到远程仓库
 
 **步骤：**
 

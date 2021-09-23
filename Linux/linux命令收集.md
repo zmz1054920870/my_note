@@ -1,4 +1,5 @@
 ```bash
+
 # 安装lrzsz
 yum install -y lrzsz
 
@@ -17,6 +18,17 @@ netstat -tlnu
 
 # 释放内存缓存、清理缓存、清理内存、释放内存、q
 echo 1 > /proc/sys/vm/drop_caches
+
+# 解压到指定目录
+tar -zxvf apache...gz -C /usr/lcoal/tomcat   （-C 表示安装到指定目录下）
+
+# 递归创建文件夹
+mkdir -p /root/test/demo
+
+# 判断一个文件的大小
+du -sh /usr/lib64/mysql
+
+# 将一个文件内容n
 ```
 
 

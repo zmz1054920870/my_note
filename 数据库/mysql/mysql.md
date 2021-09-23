@@ -115,9 +115,13 @@ create table `uuu` (
 
 ### 2.2 数据库常见的字段类型
 
+
+
+
+
 > ​	数值型
 
-- `tinyint`				只占一个字节的大小，我们一般用不到， tiny：译 - 微小的
+- `tinyint`				只占一个字节的大小，我们一般用不到， tiny：译 - 微小的（8位, 正负2的7次方减1）
 
 - `smallint`              占两个字节，small：译 - 小的
 
@@ -139,8 +143,8 @@ create table `uuu` (
 
 - `char`					固定大小得字符串， 只有0 - 255  ，  存一句话这些玩意还是够用了
 - `varchar`              可变字符串。  区间0 ~ 65535  ， 🔺常用的， 比如我们在这个字段里面存一个文本，基本够用了， 一般用来存一些变量就完全完全完全够用了
-- `tinytext`            微型文本。 2的8次方减1， 已经很大了，很大一篇论文都够了
-- `text`                    文本串， 2的16次方， 超级大了一般用不到，这种超级大的我们一般使用文本存储服务器了
+- `tinytext`            微型文本。 2的8次方减1， 已经很大了，255个字节，80多个字，够用了
+- `text`                    文本串， 2的16次方个字节，一个汉字占3个字节，差不多可以存32767.5和汉字， 超级大了一般用不到，这种超级大的我们一般使用文本存储服务器了
 
 
 
@@ -691,17 +695,20 @@ update `student` set `pwd` = 'zmz821218';
 
 
 
-| 操作符                             | 含义                                      | 演示                     | 结果          |
-| ---------------------------------- | ----------------------------------------- | ------------------------ | ------------- |
-| =                                  | 等于                                      |                          | False or True |
-| <> 或者 !=                         | 不等于                                    |                          | False or True |
-| >                                  | 大于                                      |                          | False or True |
-| <                                  | 小于                                      |                          | False or True |
-| >=                                 | 大于等于                                  |                          | False or True |
-| <=                                 | 小于等于                                  |                          | False or True |
-| where `字段名` between 值1 and 值2 | 在值1和值2之间，包含值1 和值2，[值1，值2] | where id between 2 and 5 |               |
-| AND                                | 用于添加多个条件 ， && 逻辑与             |                          |               |
-| OR                                 | \|\| 逻辑或                               |                          |               |
+| 操作符                             | 含义                                      | 演示                                    | 结果          |
+| ---------------------------------- | ----------------------------------------- | --------------------------------------- | ------------- |
+| =                                  | 等于                                      |                                         | False or True |
+| <> 或者 !=                         | 不等于                                    |                                         | False or True |
+| >                                  | 大于                                      |                                         | False or True |
+| <                                  | 小于                                      |                                         | False or True |
+| >=                                 | 大于等于                                  |                                         | False or True |
+| <=                                 | 小于等于                                  |                                         | False or True |
+| where `字段名` between 值1 and 值2 | 在值1和值2之间，包含值1 和值2，[值1，值2] | where id between 2 and 5                |               |
+| AND                                | 用于添加多个条件 ， && 逻辑与             |                                         |               |
+| OR                                 | \|\| 逻辑或                               |                                         |               |
+| in                                 | `id` in (1, 3, 4, 5)                      | delete from `other` where id in (2,3,4) |               |
+
+
 
 
 
@@ -1014,7 +1021,7 @@ select * from `student` where `StudentName` like '%刘%'
 - 查询名字中间包含刘字的同学的信息
 
 ```SQL
-select * from `student` where `StudentName` like '_%刘%'
+select * from `student` where `StudentName` like '_%刘%_'
 ```
 
 ![image-20210903220138420](image-20210903220138420.png)
@@ -1558,7 +1565,7 @@ update `testmd5` set `pwd` = md5(`pwd`) where id = 1
 
 ### 13.3 不同隔离级别的实现
 
-**REPEATABLE READ （可重读读）**
+**REPEATABLE READ （可重读读）**-- 默认隔离级别
 
 默认的隔离级别，读快照(Read View), 是在事务中第一次SELECT发起时建立（给当前拍一个快照，然后读取快照中的数据，这样就不受外界的影响了），而且之后不会再发生变化，所以该隔离模式可以避免脏读和，不可重复读。
 
@@ -2387,6 +2394,10 @@ set sql_mode = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_D
 select p.id, p.product_name,p.price,c.content
 from product as p left join `comment` as c on p.id = c.entity_id  where c.id in (select max(id) from `comment` group by `comment`.entity_id )
 
+🔺from 子查询生成的表，不受set sql_mode的限制，默认是采用的sql_mode=''
+r
+
+
 -- 使用select 子查询，查询最新评论
 SELECT product.*,
 (select comment.content 
@@ -2467,6 +2478,56 @@ FROM `product` limit 5;
 
 
 
+# 二十一、特性汇总
+
+## 1. 关于group by
+
+现有如图一张表
+
+![image-20210914231400247](image-20210914231400247.png)
+
+执行如下SQL
+
+```SQL
+select max(id), entity_id from `comment` group by `entity_id`
+```
+
+得到
+
+![image-20210914231459620](image-20210914231459620.png)
+
+
+
+执行如下SQL 就会报错
+
+```SQL
+select max(id), entity_id,content from `comment` group by `entity_id`
+```
+
+为什么呢？
+
+因为分组以后，每组只有一条数据，但是以entity_id分组，content有两条，这样就不行了
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2515,6 +2576,15 @@ alter table `custom_grade` modify `name` varchar(2) not null comment '姓名'
 
 -- 修改字段名的同时，也修改字段属性
 alter table `custom_grade` change `name` `new_name` varchar(20) not null comment '姓名'
+
+-- 删除唯一索引
+ALTER TABLE `grade` DROP INDEX `haha`
+
+-- 删除普通索引
+alter table `grade` drop index `hehe`
+
+-- 删除主键
+alter table `grade` drop primary key
 
 
 

@@ -8,13 +8,13 @@
 file->Setting->Tools->Python Integrated Tools->Default test runner
 ```
 
-<img src="image-20210706222336775.png" alt="image-20210706222336775" style="zoom: 50%;" />
+<img src="image-20210706222336775.png" alt="image-20210706222336775" style="zoom: 200%;" />
 
 
 
 **第二步：将Default test runner设置为`pytest`**
 
-
+想关闭它，可以讲pytest改成Unittersts
 
 **第三步：运行**
 
@@ -28,7 +28,9 @@ file->Setting->Tools->Python Integrated Tools->Default test runner
 
 **备注： 这个时候我们的整个项目都变成了一个pytest项目，这个时候**
 
-`if __name__ == '__main__'`好像都不生效了
+`if __name__ == '__main__'`好像都不生效了, 是真不生效了。。刚刚测试了
+
+
 
 
 

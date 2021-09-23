@@ -3971,7 +3971,7 @@ case\test_y.py .                                                         [100%]
 
 打开html的报告需要启动allure服务，启动命令如下
 
-> allure serve report/allure_raw
+> allure serve report/allure_raw	这里注意指定我们生成的数据的绝对路径，不然没有数据的哦
 
 启动服务,它会自动给个端口，直接用默认浏览器打开了
 

@@ -472,7 +472,7 @@ docker cp 容器名称:容器目录 宿主机的目录
 
 ```bash
 #递归创建文件夹
-mkdier -p /root/mytest
+mkdir -p /root/mytest
 ```
 
 
@@ -1030,7 +1030,7 @@ ENV JAVA_HOME /usr/local/java/jdk1.8.0_211/
 ENV PATH $PATH:$JAVA_HOME/bin
 ```
 
-
+from label workdir run add copy expose env cmd entrypoint
 
 
 

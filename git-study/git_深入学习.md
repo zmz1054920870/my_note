@@ -990,6 +990,8 @@ $ git branch -v
 
 **结果:切换失败,必须提交以后才能切换.**
 
+**如何才会切换分支失败呢？：有时候是成功有时候失败？**
+
 ```bash
 $ git checkout master
 error: Your local changes to the following files would be overwritten by checkout:
@@ -997,6 +999,20 @@ error: Your local changes to the following files would be overwritten by checkou
 Please commit your changes or stash them before you switch branches.	#请提交更改或存储更改，然后再切换分支
 Aborting
 ```
+
+**如何才会切换分支失败呢？：有时候是成功有时候失败？**
+
+当我们的两条分支在一条线上的时时，我们在master和xx分支上面进行修改，这时是可以切换分支，且会把修改的内容带到另外一条分支上面。
+
+![image-20210915211509890](image-20210915211509890.png)
+
+
+
+当我们两条分支不在一条线上的时候，这时候
+
+
+
+
 
 
 
@@ -1354,7 +1370,7 @@ stash@{0}: WIP on damu: f6ed02a 13 commit for demo.txt v2
 
 
 
-#### 11.4	版本库后悔药
+#### 11.4	（版本库后悔药
 
 **适合的场景**
 
@@ -1608,7 +1624,7 @@ Changes not staged for commit:	# 未暂存，需要add 暂存
 
 
 
-
+# 十三、命令
 
 
 
@@ -1629,9 +1645,6 @@ git cat-file -p 哈希/HEAD		   #查看哈希对应的内容，HEAD代表最新�
 """
 高层命令
 """
-(use "git rm --cached <file>..." to unstage)		# 撤销未暂存
-git diff 											#当前做的哪些更新还没有暂存
-git diff --cached`或者`git diff --staged(1.6.1以上) #有哪些更新已经暂存起来准备好了下一次提交了
 git commit					# 写超长注释，vim编辑框
 git commit -m
 git commit -a 				#跳过暂存区， 这个还是不要使用的好
@@ -1650,6 +1663,8 @@ git branch -D 分支名 		  #强制删除一个分支(分支上有内容)
 git checkout 分支名		  #切换分支	
 🔺git checkout -b 分支名		  #在当前位置创建一个分支并切换过去等价于git brancn 分支名； git checkout 分支名	
 git checkout filename 		#工作区后悔，以当前暂存区为基础，恢复到和当前暂存区一样。如果是一个初始化的文件，执行该命令会报错，因为暂存区中都没有这个文件，无法匹配，所以报错
+🔺git checkout -b 分支名 hashcommit	指定位置创建一个分支并切换过去
+
 🔺git checkout HEAD filename  #工作区和暂存区后悔，以当前提交对象对应的暂存区为基础，进行恢复工作区后悔，以当前提交对象为基础进行暂存区后悔，相当于git reset --hard HEAD filename, 提交对象不变，工作区和暂存区后悔
 🔺git checkout commitid filename # 工作区和暂存区中的filename进行后悔，提交对象不变，以commitid对应的提交对象为基础，进行后悔恢复filename
 🔺git checkout .				#工作区全部文件后悔复原成当前暂存区的样子
@@ -1677,18 +1692,26 @@ git checkout filename			# 以当前暂存去为基础，进行后悔
 
 git checkout HEAD filename 		# 以HEAD提交对象为基础，对filename进行 暂存区和工作去后悔
 
-git checkout commitid filename	# 以commitid提交对象为基础，对filename进行，暂存区和工作区得后悔，覆盖
+git checkout commiwwtid filename	# 以commitid提交对象为基础，对filename进行，暂存区和工作区得后悔，覆盖，这里有一个经典的问题，那就是如果我们创建了一个新文件，然后提交到暂存区，这个时候，如果使用这个方法会报错。因为我们是以提交区为基础，由于是新建的文件，提交区还没有这个文件，所以啊要报无法匹配改文件，这个时候只有使用git reset --mixed HEAD filename，这个其实暂存区也没有这个文件，但是t
 
 git reset --hard HEAD~/commitid	# 工作区 暂存区  提交对象全部后悔成 commitid对应得数据
 
 
-git diff branch1 branch2 		# 比较两个分支不同,这两个分支可以是远程跟踪分支,一般这样用 git diff 当前本地分支 当前本地分支对于的远程跟踪分支   ， 这样来查看本地分支和远程分支的不同
+
 git diff ： 对比工作区(未 git add)和暂存区(git add 之后)
+git diff file	:对比工作区区和暂存区指定文件不同之处
+
 git diff --cached: 对比暂存区(git add 之后)和版本库(git commit 之后)
+git diff --cached file	: 对比指定文件在暂存区和版本库中的不同
+
 git diff HEAD: 对比工作区(未 git add)和版本库(git commit 之后)
+git diff HEAD filne ： 对比指定文件在工作目录和版本库中的不同
+
+git diff branch1 branch2 		# 比较两个分支不同,这两个分支可以是远程跟踪分支,一般这样用 git diff 当前本地分支 当前本地分支对于的远程跟踪分支   ， 这样来查看本地分支和远程分支的不同
+git diff branch1 branch2 file  	# 两个分支版本库指定文件之间的不同
 
 
-Git 清理无效的远程追踪分支（场景：本地存在远程仓库已经删除的g）
+Git 清理无效的远程追踪分支（场景：本地存在,远程仓库已经删除的g）
 git remote prune origin --dry-run	# 查看远程仓库已经没有，但本地还有的分支
 git remote prune origin				# 删除
 

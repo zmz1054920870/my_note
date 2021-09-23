@@ -1,4 +1,4 @@
-
+🔺🔺🔺🔺🔺🔺强烈建议先看第四章，fixture的scope那一篇的结论
 
 
 
@@ -39,7 +39,7 @@ if __name__ == '__main__':
 
 #### 1.2	忽略异常，标记为通过
 
-使用`raises`可以帮助我们断言某些代码会引发某个异常，新建一个`test_sysexit.py`文件，输入以下代码
+使用`raises`可以帮助我们断言某些代码会引发某个异常，新建一个`test_sysexit.py`文件，输入以下代码 
 
 ```python
 import pytest
@@ -222,7 +222,7 @@ class TestClass(object):
     @pytest.mark.normal
     def test_two(self):
         x = 'hello'
-        print('test_two', x)
+        print('test_two', x) 
         assert hasattr(x, 'check')
 
     @pytest.mark.normal
@@ -252,6 +252,17 @@ if __name__ == '__main__':
     # os.system('pytest test_class.py -m slow')
     pytest.main(['-s', '-q', './test_class.py', '-m', 'minor and normal', '--collect-only'])
     pytest.main(['-s', '-q', './test_class.py', '-m', 'minor and not normal', '--collect-only'])
+    
+    
+    pytest.main(['-s', '-q', './case_ysix.py', '-m', 'slow', '--collect-only'])
+    
+    x
+    case_ysix.py::TestClass::test_one
+    case_ysix.py::TestClass::test_two
+    case_ysix.py::TestClass::test_tmpdir
+
+    2 deselected in 0.01 seconds    
+
 ```
 
 **注意：上面的例子，反复实验几次就能找到规律**
@@ -330,7 +341,7 @@ python_functions则是说脚本内的所有用例函数的命名规则
 #### 3.1	用例的运行级别
 
 - 模块级（`setup_module/teardown_module`）开始于模块始末，全局的（不在类中）
-- 函数级（`setup_function/teardown_function`）只对函数用例生效（不在类中）
+- 函数级（`setup_function/teardown_function`）只对函数用例生效（不在类中）== `setup/teardown`(如果不放在类中。同类中`setup_method/teardown_method==setup/teardown`)
 
 ----------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -349,6 +360,10 @@ ______________
 	- `module.py`文件中
 	- 🔺这个最灵活，前面的setup系列更精准易懂
 	- 通过yield来传递参数或者数据给用例
+
+除开pytest.fixture上面几种前后置，都是放在同一个文件中的，不存在什么跨文件。。比如
+
+
 
 
 
@@ -483,7 +498,7 @@ module level setup
 
 调用fixture三种方法
 
-- `1.函数或类里面方法直接传fixture的函数参数名称`
+- `1.函数或类里面方法直接传fixture的函数名称`
 - `2.使用装饰器@pytest.mark.usefixtures()修饰`
 - `3.autouse=True自动使用`
 
@@ -495,7 +510,7 @@ fixture（scope='function'，params=None，autouse=False，ids=None，name=None�
 
 - **`scope`: `控制fixture的作用范围， scope有四个级别的参数`**
   - **`function(默认)`**	
-  - **`class`：每个测试类和没函数调用一次（这一点很重要）**
+  - **`class`：每个测试类和函数调用一次（这一点很重要）**
   - **`module`**
   - **`session`**
 - **`params：一个可选的参数列表，它将导致多个参数调用fixture功能和所有测试使用它`。**
@@ -649,14 +664,43 @@ PASSED
 7. 解释：为什么说成是笼罩范围？
 因为：以session为例，如果我们的fixture存在于conftest.py文件中，fixture的scope为session，autouse等于True， 那么session笼罩范围是整个项目会话,如果fixture存在于对应的包中，session的笼罩范围就是整个包，如果fixture存在于一个py文件中，那么session的笼罩范围就是整个py文件
 
+🔺纠错哈:autouse是隐士的带上了user，如果我们要使用它的返回结果必须显示的写到用例参数里面，不然报错，说user未定义
+
 
 8. 换一种理解可能更好
 autouse=True的时候所有用例都自动隐式的带上user这个位置参数，🔺scope的值来决定哪些用例调用夹具函数，哪些用例只是接收夹具函数结果，session表示整个会话中第一个被执行的用例将调用夹具函数，module表示模块中第一个执行的用例将调用夹具函数，class表示类中第一个调用的方法用例调用夹具函数，function表示所用用例都调用夹具函数
+
+
+10. 当本地也有fixture conftest.py中也有，假如都是自动。他们会进行数据组合。比如本地有2组数据，conftest.py中有4组，那么多就会有8组数据
+
+11. scope的作用是，定义了用例的划分生成规范。 怎么理解生成规范。比如定义了fixture有多种数据，他会根据scope的不同，按照不同的策略生成测试数据autouse=True
+session：  有多少组数据，执行多少次fixture
+module：   fixture执行次数 == .py文件数量 * 数据组数
+class:     fixture执行次数 == (class测试类用例集合的个数 + 函数测试用例数量) * 数据组数
+function:  fixture执行次数 == 用例数量 *  数据组数
+
+当autouse !=True的时候
+session：  有多少组数据，执行多少次fixture
+module：   fixture执行次数 == 手动添加的fixture的.py文件数量 * 数据组数
+class:     fixture执行次数 == (手动添加了fixture的class测试类用例集合的个数 + 手动添加了fixture函数测试用例数量) * 数据组数
+function:  fixture执行次数 == 添加了fixture的用例数量 *  数据组数
+
+
+
+12. 🔺先执行使用了fixture的用例，最后执行未使用的。。比如scope是class有3组数据，那么先将使用fixture用例提出来，通过数据组进行扩展，这里扩展3组，然会将没有使用fixture放到最后。类还是只有一个。我们可以通过setup_method来检验
+
+13. 🔺 说白了这个scope其实是一个执行顺序的规范。不是用例的限制。如果设置成autouse=True以后，不管你是模块还是类还是什么鬼，全部用例都会隐式的带上。唯一不同的就是采用不同的scope，执行顺序会发现改变，fixture的执行时机和次数发生改变。
+
+
+14.autouse=True 一个函数调不调用前后置，根据用例划分来看，我们以setup_module为例，如果是联系在一个模块中扩展的规律，那么setup_module就只执行一次。如果中间穿插了其他模块的，然会再回来执行我们模块中的，那么setup_module就要执行2次了。他是可以随变得。用例生成规则根据scope来定。。所以说前后置是根据中间有没有穿插入其他测试用例而定的，如果一个测试类，他有setup_class.再执行的时时候，中间插入了一条不是该测试用例类中的方法。那么这个setup_class将会执行两次
+
+15. 当我们手动添加fixture的时候。如果按scope=class的方式，他会先将用例扩展，将使用了scope的放前面，将没有使用fixture的和最后一组数据放到最后
+当我们手动添加fixture的时候。如果按scope=session的方式，pytest会按模块按顺序一步一步的收集和扩展用例，当发现这个模块中使用了fixture，这个模块中首先将这些使用了fixture的用例放到第一个会话，将没有使用fixture的放到最后一次会话中
 ```
 
+**结论：这个pytest.fixture尽量不要是用autouse，就算使用，等级最好调成function，这样才不会怀了其他逻辑**
 
-
-
+**主要关注：fixture的执行次数，和fixture对前后的影响。前后置的判断是根据，同类的中间是否插入了其他的。**
 
 
 
@@ -667,6 +711,8 @@ autouse=True的时候所有用例都自动隐式的带上user这个位置参数�
 定义fixture跟定义普通函数差不多，唯一区别就是在函数上加个装饰器`@pytest.fixture()`，fixture命名不要用test_开头，跟用例区分开。用例才是test_开头的命名。
 
 fixture是可以有返回值的，如果没return默认返回None。用例调用fixture的返回值，直接就是把fixture的函数名称当成变量名称，如下案例
+
+🔺：fixture实现前后置，主要是用于针对单个测试用例我们执行前后置。比setup这一类的更加精确
 
 **例子：多个fixture相互调用结合前置处理复杂模式**
 
@@ -770,8 +816,6 @@ def pytest_runtest_makereport(item, call):
 
 
 ```python
-# test_demo_two.py
-
 import pytest
 import os
 
@@ -779,13 +823,13 @@ user_list = ['admin1', 'admin2']
 user_pwd = ['123456', '654321']
 
 
-@pytest.fixture(scope="class", params=user_list)
+@pytest.fixture(scope='class', params=user_list)
 def user(request):
     print('user')
     return request.param
 
 
-@pytest.fixture(scope="class", params=user_pwd)
+@pytest.fixture(scope='class', params=user_pwd)
 def pwd(request):
     print('pwd')
     return request.param
@@ -793,70 +837,161 @@ def pwd(request):
 
 @pytest.fixture(scope='class')
 def login(user, pwd):
-    print('账号一组', user, pwd)
+    print('\033[1;35m setup_module setup_module setup_module setup_module setup_module \033[0m')
     yield (user, pwd)   # 传递参数给 def test_demo_one(self, login):中的login位置参数
-    print('结束战斗')
+    print('\033[1;35m teardown_module teardown_module teardown_module teardown_module \033[0m')
+
+
 
 
 class TestBehavior(object):
 
+    @pytest.mark.normal
     def test_demo_one(self, login):
-        print('用例test_demo_one', login)
+        print('\033[1;32m test_demo_one  \n \033[0m' , login)
 
     def test_demo_two(self, login):
-        print('用例test_demo_two', login)
+        print('\033[1;32m test_demo_two  \n \033[0m' , login)
 
     def test_demo_three(self):
-        print('用例test_demo_two')
+        print('\033[1;32m test_demo_three \n \033[0m')
+
+
+class TestBehavior2(object):
+
+    @pytest.mark.normal
+    def test_demo_one(self, login):
+        print('\033[1;33m test_demo_one  \n \033[0m' , login)
+
+    def test_demo_two(self, login):
+        print('\033[1;33m test_demo_two \n \033[0m' , login)
+
+    def test_demo_three(self):
+        print('\033[1;33m test_demo_three \n \033[0m')
+
+
+class TestBehavior3(object):
+
+    @pytest.mark.normal
+    def test_demo_one(self):
+        print('\033[1;34m test_demo_one  \n \033[0m')
+
+    def test_demo_two(self):
+        print('\033[1;34m test_demo_two \n \033[0m')
+
+    def test_demo_three(self):
+        print('\033[1;34m test_demo_three \n \033[0m')
+
+
+# if __name__ == '__main__':
+#     # pytest.main(['-s', './test_demo_two.py'])
+#     os.system('pytest -s ./test_demo_two.py')
 
 
 
 if __name__ == '__main__':
-    # pytest.main(['-s', './test_demo_two.py'])
-    os.system('pytest -s ./test_demo_two.py')
+    # pytest.main(['-v', '-s', '--collect-only'])
+    pytest.main(['-v', '-s'])
 ```
 
 运行结果
 
 ```
-collected 9 items
+collecting ... collected 21 items
 
-test_demo_two.py 
-
-user
+test_5.py::TestBehavior3::test_demo_one  test_demo_one  
+ 
+PASSED
+test_5.py::TestBehavior3::test_demo_two  test_demo_two 
+ 
+PASSED
+test_5.py::TestBehavior3::test_demo_three  test_demo_three 
+ 
+PASSED
+test_5.py::TestBehavior::test_demo_one[admin1-123456] user
 pwd
-账号一组 admin1 123456
-用例test_demo_one ('admin1', '123456')
-.用例test_demo_two ('admin1', '123456')
-.结束战斗
---------------------------------------------------------
+ setup_module setup_module setup_module setup_module setup_module 
+ test_demo_one  
+  ('admin1', '123456')
+PASSED
+test_5.py::TestBehavior::test_demo_two[admin1-123456]  test_demo_two  
+  ('admin1', '123456')
+PASSED
+test_5.py::TestBehavior::test_demo_one[admin2-123456]  teardown_module teardown_module teardown_module teardown_module 
 user
-账号一组 admin2 123456
-用例test_demo_one ('admin2', '123456')
-.用例test_demo_two ('admin2', '123456')
-.结束战斗
----------------------------------------------------------
+ setup_module setup_module setup_module setup_module setup_module 
+ test_demo_one  
+  ('admin2', '123456')
+PASSED
+test_5.py::TestBehavior::test_demo_two[admin2-123456]  test_demo_two  
+  ('admin2', '123456')
+PASSED
+test_5.py::TestBehavior::test_demo_one[admin2-654321]  teardown_module teardown_module teardown_module teardown_module 
 pwd
-账号一组 admin2 654321
-用例test_demo_one ('admin2', '654321')
-.用例test_demo_two ('admin2', '654321')
-.结束战斗
-
----------------------------------------------------------
+ setup_module setup_module setup_module setup_module setup_module 
+ test_demo_one  
+  ('admin2', '654321')
+PASSED
+test_5.py::TestBehavior::test_demo_two[admin2-654321]  test_demo_two  
+  ('admin2', '654321')
+PASSED
+test_5.py::TestBehavior::test_demo_one[admin1-654321]  teardown_module teardown_module teardown_module teardown_module 
 user
-账号一组 admin1 654321
-用例test_demo_one ('admin1', '654321')
-.用例test_demo_two ('admin1', '654321')
-.用例test_demo_two
-.结束战斗
+ setup_module setup_module setup_module setup_module setup_module 
+ test_demo_one  
+  ('admin1', '654321')
+PASSED
+test_5.py::TestBehavior::test_demo_two[admin1-654321]  test_demo_two  
+  ('admin1', '654321')
+PASSED
+test_5.py::TestBehavior::test_demo_three  test_demo_three 
+ 
+PASSED teardown_module teardown_module teardown_module teardown_module 
+
+test_5.py::TestBehavior2::test_demo_one[admin1-123456] user
+pwd
+ setup_module setup_module setup_module setup_module setup_module 
+ test_demo_one  
+  ('admin1', '123456')
+PASSED
+test_5.py::TestBehavior2::test_demo_two[admin1-123456]  test_demo_two 
+  ('admin1', '123456')
+PASSED
+test_5.py::TestBehavior2::test_demo_one[admin2-123456]  teardown_module teardown_module teardown_module teardown_module 
+user
+ setup_module setup_module setup_module setup_module setup_module 
+ test_demo_one  
+  ('admin2', '123456')
+PASSED
+test_5.py::TestBehavior2::test_demo_two[admin2-123456]  test_demo_two 
+  ('admin2', '123456')
+PASSED
+test_5.py::TestBehavior2::test_demo_one[admin2-654321]  teardown_module teardown_module teardown_module teardown_module 
+pwd
+ setup_module setup_module setup_module setup_module setup_module 
+ test_demo_one  
+  ('admin2', '654321')
+PASSED
+test_5.py::TestBehavior2::test_demo_two[admin2-654321]  test_demo_two 
+  ('admin2', '654321')
+PASSED
+test_5.py::TestBehavior2::test_demo_one[admin1-654321]  teardown_module teardown_module teardown_module teardown_module 
+user
+ setup_module setup_module setup_module setup_module setup_module 
+ test_demo_one  
+  ('admin1', '654321')
+PASSED
+test_5.py::TestBehavior2::test_demo_two[admin1-654321]  test_demo_two 
+  ('admin1', '654321')
+PASSED
+test_5.py::TestBehavior2::test_demo_three  test_demo_three 
+ 
+PASSED teardown_module teardown_module teardown_module teardown_module 
 
 
-========================== 9 passed in 0.11 seconds ===========================
-
-Process finished with exit code 0
+========================== 21 passed in 0.16 seconds ==========================
 ```
 
-- **分成了四组， 每组执行了一次**
 - **复制代码，自己运行一下看看规律**
 
 
@@ -907,7 +1042,7 @@ if __name__ == '__main__':
     pytest.main(['-s', './test_demo_three.py'])
 ```
 
-运行结果
+运行结果：从fixture的调用次数触发。分析。可以看看第四章的总结。fixture的调用次数是和scope挂钩的，下面的分析可能不对哈。这是第一次学习的时候，总结的，还是得自己运行了以后看看
 
 ```python
 collected 13 items 			# 由于scope是class， 将使用了夹具的用例，生成一个新测试类，然后再第一个类执行前运行夹具， 按类为单位，进行分组执行， 如果scope是function， 执行的时候是每一个用例联系执行4次， class就是每一个类连续执行4次（再测试用例结合收集执行进行了排序，我们这里说错虚拟类把），如果是module，就将py文件中，使用了夹具的用例函数和用例类提出来生成一个虚拟模块
@@ -968,24 +1103,16 @@ test_one ({'账号1': 9361}, {'密码2', 14244})
 
 
 
-### 4.3	`fixture`的作用范围
+### 4.3	`fixture`的作用范围与fixture执行次数得关系
 
-- **function**:        每一个测试用例调用一次（测试函数和方法）
-- **class： **           每一个类和每个测试函数都调用一次，一个类中可以有多个方法，但是只调用一次，一个模块中有多少个类和多少个测试函数就调用多少次
-	- 
-- **module：**       每一个`.py`文件调用一次，该文件内又有多个function和class，但是只调用一次
-- **session： **       是多个文件调用一次，可以跨`.py`文件调用，每个`.py`文件就是module, 整个测试会话只调用一次
+autouse=False
+
+- **function**:        fixtrue调用次数 == 使用了fixture的用例  *  fixture的数据组个数
+- **class： **              fixture执行次数 == (手动添加了fixture的class测试类用例集合的个数 + 手动添加了fixture函数测试用例数量) * 数据组数
+- **module：**       fixture执行次数 == 手动添加的fixture的.py文件数量 * 数据组数
+- **session： **        有多少组数据，执行多少次fixture
 
 function默认模式@`pytest.fixture(scope='function')`或 `@pytest.fixture()`
-
-
-
-### 4.4	`conftest.py`结合`fixture`的使用
-
-- **`conftest`中fixture的scope参数为session:**          所有测试`.py`文件执行前执行一次
-- **`conftest`中fixture的scope参数为module:**          每一个测试`.py`文件执行前都会执行一次`conftest`文件中的fixture
-- **`conftest`中fixture的scope参数为class:**               每一个测试文件中的测试类执行前都会执行一次`conftest`文件中的fixture
-- **`conftest`中fixture的scope参数为function:**        所有文件的测试用例执行前都会执行一次`conftest`文件中的fixture
 
 
 
@@ -1552,7 +1679,9 @@ if __name__ == "__main__":
 > 	pytest.main(["-s", '-v', "test_06.py", '--reruns=1'])
 > 	```
 
-
+```
+pytest.main(['-s', '--reruns=1'])
+```
 
 
 
@@ -1610,11 +1739,25 @@ allure是一个命令行工具，需要去github上下载最新版https://github
 
 ![img](https://img2018.cnblogs.com/blog/1070438/201912/1070438-20191208000239968-329747801.png)
 
+**开启allure的web服务**
 
 
 
+> allure serve report/allure_raw	这里注意指定我们生成的数据的绝对路径，不然没有数据的哦
 
 
+
+如果有很多测试用例，现在只想做个快速的回归测试，只测试用例级别为blocker和critical级别的测试用例
+
+> pytest --alluredir ./report/allure --allure-severities blocker,critical
+
+也可以这样写
+
+> pytest --alluredir=./report/allure --allure-severities=blocker,critical
+
+如果只执行blocker级别的用例
+
+> pytest --alluredir=./report/allure --allure-severities=blocker
 
 
 

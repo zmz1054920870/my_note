@@ -3,6 +3,7 @@
 
 
 ```
+
 目前来说国内大部分的授权协议都是Oauth2.0。这个协议简单的说通过给用户提供一个令牌（token），而不是通过用户密码来授权，这样的一个好处时，可以方便开发者开发软件，而使用者不需要将密码提供给开发者从而避免一些隐私的问题。
 ```
 
@@ -180,11 +181,23 @@ https://blog.csdn.net/ifubing/article/details/104442450
 2. requests.utils.dict_from_cookiejar(cookiejar对象,domain='')  ---- cookiejar - > dict
 ```
 
+https://blog.csdn.net/nchu2020/article/details/50535379
 
+- 想请问一下，通常请求服务器的时候会携带Cookie，服务器端进行验证其内容，那么当客户端第一次（首次）请求服务器的时候会不会携带Cookie（无内容）？2 年前回复![img](https://csdnimg.cn/release/blogv2/dist/pc/img/commentMore.png)
 
+	![点赞](https://csdnimg.cn/release/blogv2/dist/pc/img/commentUnHeart.png)
 
+- - [![tang422622](https://profile.csdnimg.cn/1/9/B/3_tang422622)](https://blog.csdn.net/tang422622)
 
+		[EmailyT](https://blog.csdn.net/tang422622)回复zou song**:**好的，明白了，谢谢您2 年前回复![img](https://csdnimg.cn/release/blogv2/dist/pc/img/commentMore.png)
 
+		![点赞](https://csdnimg.cn/release/blogv2/dist/pc/img/commentUnHeart.png)
+
+	- [![nchu2020](https://profile.csdnimg.cn/9/D/5/3_nchu2020)](https://blog.csdn.net/nchu2020)
+
+		[zou song![img](https://csdnimg.cn/release/blogv2/dist/components/img/bloger@2x.png)](https://blog.csdn.net/nchu2020)回复**:**首次没有，Cookie是由服务器端生成，发送给User-Agent（一般是浏览器），浏览器会将Cookie的key/value保存到某个目录下的文本文件内，下次请求同一网站时就发送该Cookie给服务器（前提是浏览器设置为启用cookie）
+
+https://blog.csdn.net/sally18/article/details/119420414?utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-2.no_search_link&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-2.no_search_link
 
 #### 使用requests下载大型文件分析
 

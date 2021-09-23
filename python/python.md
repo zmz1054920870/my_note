@@ -714,13 +714,25 @@ http://www.123.com/index.html 调用 https://www.123.com/server.php （协议不
 > - ​	***args表示当传入的是非关键字参数的时候,将他打包成一个元组**
 
 ```python
-def func(*args, reverse=True, **kwargs):
-
-    print(kwargs)
+def func(a, b, c, d, *args, demo=True, **kwargs):
+    print(a)
+    print(b)
+    print(c)
+    print(d)
+    print(demo)
     print(args)
-a = func(1, b=2)
->>{'b': 2}
->>(1, )
+    print(kwargs)
+
+
+func(1, 2, 3, 4, 5, 6, 7, demo=False, name=1, age=20)
+
+1
+2
+3
+4
+False
+(5, 6, 7)
+{'name': 1, 'age': 20}
 ```
 
 
@@ -731,7 +743,7 @@ a = func(1, b=2)
 
 > - ​	*** 表示位置参数结束，后面接收的参数必须是关键字参数形式,否则报错**
 > - ​    ***不接收传参,只表示后面传入的参数必须是关键字参数,对参数进行了一次判断**
-> - ​    *** 通常和\**kwargs一起连用,用kwargs来接收传参**
+> - ​    *** 通常和\**kwargs一起使用,用kwargs来接收传参**
 > 	-  **🔺当* 和 \*\*kwargs一起使用的时候\*和\*\*kwargs之间必须存在一个参数（参数形式没有要求,可以是位置参数，也可以是关键字参数，但是传参的时候，必须是关键字参数形式），不然会报错**
 > - ​    **`(*, reverse=True, **kwargs)、(*, reverse, **kwargs)、(*, reverse=True)、(*, reverse)`这几种形式都可以使用**
 
@@ -748,6 +760,38 @@ def func(*, reverse=True, **kwargs):
     print(kwargs)
 a = func(a=1, b=2)
 >>> {'a': 1, 'b': 2}
+```
+
+
+
+```python
+def func(a, b, c, d, *, demo, **kwargs):
+    print(a)
+    print(b)
+    print(c)
+    print(d)
+    print(demo)
+    print(kwargs)
+
+==============1============
+func(1, 2, 3, 4, demo=5, name=1, age=20)
+
+
+
+1
+2
+3
+4
+5
+{'name': 1, 'age': 20}
+==============2============
+func(1, 2, 3, 4, 5, name=1, age=20)
+
+
+Traceback (most recent call last):
+  File "D:/origin/学习代码/interface_auto/all_demo/demo.py", line 23, in <module>
+    func(1, 2, 3, 4, 5, name=1, age=20)
+TypeError: func() takes 4 positional arguments but 5 were given
 ```
 
 

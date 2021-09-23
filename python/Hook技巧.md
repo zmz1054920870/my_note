@@ -44,7 +44,7 @@ def func(a,b):
 
 
 
-#### 还有函数的魔法方法,比如__getattr__
+#### 还有函数的魔法方法,比如`__getattr__`
 
 ```python
 class C(object):
@@ -70,9 +70,11 @@ c.aa
 
 
 
+
+
 #### 高级HOOK技巧
 
-```
+```python
 
 import time
  

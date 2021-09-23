@@ -62,10 +62,11 @@ common/
 #### locust的User类与TaskSet类的关系
 
 ```python
-from locust import HttpUser, TaskSet, constant
+from locust import HttpUser, TaskSet, constant, task
 
 class WebsiteBehavior(TaskSet):
-        @task(1)
+    
+    @task(1)
     def userBehavior(self):
         print(2)
         url = 'http://192.168.0.118:2333/inspirer/new'
@@ -361,6 +362,47 @@ Users (and TaskSets) can declare an on_start method and/or on_stop method. A Use
 
 
 
+```python
+import os
+from locust import TaskSet, HttpUser, constant, task
+
+
+class WebsiteBehavior(TaskSet):
+
+    def on_start(self):
+        print(111111111111111111111111)
+
+    def on_stop(self):
+        print(2222222222222222222222222)
+
+    @task(1)
+    def userBehavior(self):
+        print(2)
+        url = 'http://139.9.154.77:2333/inspirer/new'
+        data = {
+            'content': '%d' % time.time(),
+            'ximg': ''
+        }
+        header = {'token': 'cba91d4a8338066d602f6738zmzjlcc8e730f30a650f10'}
+        res = self.client.post(url=url, json=data, headers=header)
+        print(res.status_code)
+        print(res.json())
+
+
+class WebsitUser(HttpUser):
+    wait_time = constant(0)
+    host = ''
+    tasks = [WebsiteBehavior, ]
+
+
+if __name__ == '__main__':
+    os.system('locust -f ./api.py -u 10 -r 1 --web-host=127.0.0.1')
+```
+
+
+
+
+
 
 
 #### wait_time  属性
@@ -483,9 +525,7 @@ os.system('locust -f locust_demo.py -u 20 -r 1')
 - ​    当abstract = False的时候，该HttpUser或者 User类将会被执行
 - ​    当abstract = True的时候，该HttpUser或者 User类将会被忽略
 
-```
-
-```
+他是针对locustfile.py得方式启动得
 
 
 
@@ -572,12 +612,79 @@ spawning_complete: EventHook
 
 ### Validating responses（自定义验证成功和失败）
 
+> ```python
+> res = self.client.post(url=url, json=data, headers=header)
+> print(res.elapsed.total_seconds())		# 获取时间响应时间，这个响应时间是request发起请求，然后这边接收完数据以后得时间
+> ```
+
 ```python
-with self.client.get("/", catch_response=True) as response:
+with self.client.get("/", catch_response=True) as response:		# catch_response=True 必须填写，不然是不生效的，还是遵循以前的逻辑 status_code < 400就是成功
     if response.text != "Success":
         response.failure("Got wrong response")
     elif response.elapsed.total_seconds() > 0.5:
         response.failure("Request took too long")
+        
+
+# x
+        
+import time
+import os
+from locust import TaskSet, HttpUser, constant, task, events
+
+
+@events.test_start.add_listener
+def test_start(environment, **kwargs):
+    print('开始一个新的测试')
+    print(environment)
+
+
+@events.test_stop.add_listener
+def on_test_stop(environment, **kwargs):
+    print("A new test is ending")
+
+
+class WebsiteBehaviorOne(TaskSet):
+
+    # def on_start(self):
+    #     self.client.post()
+
+    def on_stop(self):
+        print(2222222222222222222222222)
+
+    def wait_time(self):
+        return 0
+
+    @task(1)
+    def userBehavior(self):
+        # print(2)
+        url = 'http://139.9.154.77:2333/inspirer/new'
+        data = {
+            'content': '%d' % time.time(),
+            'ximg': ''
+        }
+        header = {'token': 'cba91d4a8338066d602f6738zmzjlcc8e730f30a650f10'}
+        # res = self.client.post(url=url, json=data, headers=header)
+        # print(res.status_code)
+        # print(res.json())
+        with self.client.post(url=url, json=data, headers=header, catch_response=True) as response:
+            print(response.json()['msg'])
+            print(response.elapsed.total_seconds())
+            if response.json()['msg'] == '操作成功！' and response.elapsed.total_seconds() < 0.200:
+                response.success()
+            # elif response.elapsed.total_seconds() < 1:
+            #     response.success()
+            else:
+                response.failure('失败')
+
+class WebsitUser(HttpUser):
+    constant = 1
+    host = ''
+    abstract = False
+    tasks = [WebsiteBehaviorOne, ]
+
+
+if __name__ == '__main__':
+    os.system('locust -f ./api.py -u 10 -r 1 --web-host=127.0.0.1')
 ```
 
 > ​	**🔺说明：**
