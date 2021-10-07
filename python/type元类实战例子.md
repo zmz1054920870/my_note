@@ -360,9 +360,67 @@ class Behavior(object, metaclass=MetaClass):
 
 b = Behavior('peter', 32)
 b.say()
+
+
+==============================================第二个例子============================
+
+class MetaClass(type):
+
+    def __new__(mcs, *args, **kwargs):
+        print('__new__.args>>', args)
+        print('__new__.kwargs>>', kwargs)
+        return super(MetaClass, mcs).__new__(mcs, *args, **kwargs)
+
+    def __init__(cls, *args, **kwargs):      # 这一个是给MetaClass提供属性的，我们完全可以删除掉
+        print('__init__.args>>', args)
+        print('__init__.kwargs>>', kwargs)
+        cls.xx = 'MMP'
+
+    def __call__(cls, name, address, game):
+        print('__call__.name>>', name)
+        print('__call__.address>>', address)
+        print('__call__.game>>', game)
+        name = name.encode()
+        a = getattr(cls, 'func')
+        a()
+        return super(MetaClass, cls).__call__(name, address, game)
+
+    def func(cls):
+        print('我是func...............')
+        print(cls.xx)
+
+class Behavior(object, metaclass=MetaClass):
+    age = 28
+    gender = '男'
+
+    def __new__(cls, *args, **kwargs):
+        """
+        __call__传过来的参数全部被args接收了.因为__call__传入的就是位置参数
+        所以上面的__new__(cls, *args, **kwargs)可以去掉**kwargs
+        或者也采用位置参数进行接收，__new__(cls, name, address, game)
+        """
+        print('1111111111111:  ', args)
+        print('1111111111111:  ', kwargs)
+        return super(Behavior, cls).__new__(cls)
+
+    def __init__(self, name, address, game: list):
+        self.name = name
+        self.address = address
+        self.game = game
+
+    @property
+    def games(self):
+        return self.game
+
+    @games.setter
+    def games(self, name):
+        return self.game.append(name)
+
+
+a = Behavior(name='张明宝', address='重庆市万州区', game=['剑网三', ])
 ```
 
-
+**🔺总结一下：只要是`__new__`，采用super方法，最后都要加上mcs或者cls。。也只有元类的new里面可以添加参数，其他的暂时没有发现可以添加参数的**
 
 **备注：我终于知道为什么我们再一个py文件中，定义一个类，我们不调用他，直接在pycharm中右键允许。有时候会打印或者输出一些东西了。这些因为，当我们在这个类当中添加一些，比如print或者函数调用。在构建这个类的时候，他内部的方法会被执行一遍，例子如下**
 
@@ -386,4 +444,18 @@ class FF(object):
 https://blog.csdn.net/u012062455/article/details/107454081
 
 https://www.cnblogs.com/Eva-J/articles/8306047.html
+
+
+
+**备注:使用type创建一个类**
+
+```python
+>>> def func(self, name):
+	print(name)
+    
+>>> a = type('Behavior', (object,), {'a':1, 'func': func})
+
+>>> a().func('2222')
+2222
+```
 

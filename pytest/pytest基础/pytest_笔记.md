@@ -1743,9 +1743,11 @@ allure是一个命令行工具，需要去github上下载最新版https://github
 
 
 
-> allure serve report/allure_raw	这里注意指定我们生成的数据的绝对路径，不然没有数据的哦
+> allure serve report/allure_raw	这里注意指定我们生成的数据的绝对路径，不然没有数据的哦。
 
-
+```
+allure serve ./raw_data -h 127.0.0.1 -p 10086
+```
 
 如果有很多测试用例，现在只想做个快速的回归测试，只测试用例级别为blocker和critical级别的测试用例
 

@@ -7,6 +7,10 @@
   print(cc)
   
   >>{'encoding': 'ascii', 'confidence': 1.0, 'language': ''}
+
+
+ord() 函数是 chr() 函数（对于8位的ASCII字符串）或 unichr() 函数（对于Unicode对象）的配对函数，它以一个字符（长度为1的字符串）作为参数，返回对应的 ASCII 数值，或者 Unicode 数值，如果所给的 Unicode 字符超出了你的 Python 定义范围，则会引发一个 TypeError 的异常。
+
 ```
 
 #### 二、json
@@ -176,7 +180,38 @@ print(a)
 
 ```
 
+备注：
 
+- sys.argv返回的是一个列表
+- sys.argv的0号索引位置上，是这个文件的名称，参数是从index 1开始的
+
+```python
+#encoding=utf-8
+
+import getopt
+import sys
+
+def main(argv):
+    try:
+        options, args = getopt.getopt(argv, "hp:i:", ["help", "ip=", "port="])
+    except getopt.GetoptError:
+        sys.exit()
+
+    for option, value in options:
+        if option in ("-h", "--help"):
+            print("help")
+        if option in ("-i", "--ip"):
+            print("ip is: {0}".format(value))
+        if option in ("-p", "--port"):
+            print("port is: {0}".format(value))
+
+    print("error args: {0}".format(args))
+
+if __name__ == '__main__':
+    main(sys.argv[1:])
+```
+
+https://www.cnblogs.com/stan-si/p/6484146.html
 
 
 
@@ -802,21 +837,33 @@ TypeError: func() takes 4 positional arguments but 5 were given
 
 ```python
 class C(object):
-    def __init__(self):
-        self._x = None
- 
+    def __init__(self, name):
+        self._x = name
+
     @property
     def x(self):
         """I'm the 'x' property."""
         return self._x
- 
+
     @x.setter
     def x(self, value):
         self._x = value
- 
+
     @x.deleter
     def x(self):
-        del self._x
+        self._x = None
+
+if __name__ == '__main__':
+    a = C('张三')
+    print(a.x)
+    a.x = 'lisi'
+    print(a.x)
+    del a.x
+    print(a.x)
+    
+张三
+lisi
+None
 ```
 
 
@@ -1021,5 +1068,696 @@ def internal(**kw):
 
 
 
+#### 二十九、文件的读取
 
+**问题：如果我们采用`f.readlin()`的方式一行一行读取文件，那我们什么时候知道文件读取完毕了呢？。**
+
+**以前的错误理解：我以前一直认为，所有的空白行都是空字符。所以不知道如何来判断文件的结尾**
+
+**正确理解：文件中的空白行其实分两种，一种含有隐式字符的空白和（换行符），第二种就是标识文件结尾的空白行，是真正的空字符，表示文件的内容的结束**
+
+**所以：我们在写代码的时候，可以判断最后一行，如果读取了一个空字符，那么就是文件结束了**
+
+**正确代码如下：**
+
+```python
+with open('C://Users//zmz//Desktop//demo.txt', 'rb') as f:
+    while True:
+        data = f.readline
+        if data == b'':
+            print('文件内容结束')
+            break
+        print(data)
+            
+```
+
+
+
+**顺便补充一句：**
+
+`f.readlines()返回的是一个由每行数据组成的列表`
+
+```python
+>>> f.readlines()
+['demo.txt v1\n', 'demo.txt v2\n', 'demo.txt v3\n', '\n', '\n', 'demo.txt v4\n', '\n', '\n', '\n']
+```
+
+**随便加一个校验文件MD5的代码**
+
+```python
+with open('C://Users//zmz//Desktop//demo.txt', 'rb') as file_delect:
+	for data in file_delect.readlines():
+		dig.update(data)
+	print(dig.hexdigest())
+
+```
+
+
+
+
+
+#### 三十、python的异或运算及其乘除法、位移运算
+
+**异或：不同为1，相同为0**
+
+举个例子很好理解：5^3=6，如何得出？首先，5的二进制为0101，3的二进制为0011，分别对每一位求异或，得出：0110，即十进制为6。
+
+
+
+**乘除：和10进制一样的，而且还要简单一些**
+
+python的乘除和10机制的没有区别的。
+
+
+
+**位移运算：**
+
+```python
+5 << 1 == 10     解析：101 向左整体移动1位，低位0补充，变成 1010
+5 >> 1 == 2     解析: 101 向右整体移动1位，低位丢弃，变成 10
+```
+
+
+
+#### 🔺三十一、and、or 和 &（按位与）  |（按位活） ^（按位异或）
+
+**备注：and 和or 和 & 和 | 是不一样的，下面进行分析**
+
+**备注：引入三个函数，ord 和 chr, bin**
+
+- **ord(单个字符), 计算单个字符的ASCII值，返回的是一个十进制的**
+- **chr(number), 传入一个整数（可以是十进制，十六进制，八进制，二进制），返回这个整数对应的字符**
+- **单个字符 -- > ord  --> 十进制 ---> chr 刚好是一个循环**
+- **bin(number):  将一个整数（可以是十进制，十六进制，八进制,二进制），转换成一个二进制的字符。。这里有2个概念，第一个是输入的是整型数据，出来的是一个字符串， 第二个就是，进去的是其他进制，出来变成二进制了。如果进去的就是二进制，相当于把整型变成字符型**
+
+
+
+**下面是ord、chr、bin的演示**
+
+```python
+==============  ord()的演示，只能是单个字符，返回的是一个十进制的 ===============
+>>> a = '张'
+>>> ord(a)
+24352
+
+=============  chr()演示 =================================================
+# 输入10进制
+>>> a = 24352
+>>> chr(a)
+'张
+
+# 输入16进制
+>>> a = 0x5f20
+>>> chr(a)
+'张'
+
+# 输入8进制
+>>> a = 0o57440
+>>> chr(a)
+'张'
+
+# 输入2进制
+>>> a = 0b0101111100100000
+>>> chr(a)
+'张'
+
+=============  bin()演示 =================================================
+# 输入16进制整数
+>>> a = 0x5f20
+>>> bin(a)
+'0b101111100100000'
+
+# 输入10进制整数
+>>> a = 24352
+>>> bin(a)
+'0b101111100100000'
+
+# 输入8进制整数
+>>> a = 0o57440
+>>> bin(a)
+'0b101111100100000'
+
+# 输入2进制整数
+>>> a = 0b101111100100000
+>>> bin(a)
+'0b101111100100000'
+
+
+==============  int()逆运算bin()的演示 =========================================
+int是将各种进制的整数字符，变成十进制整型数据
+# 输入16进制字符串
+>>> a = '0x5f20'
+>>> int(a, 16)
+24352
+
+# 输入8进制字符串
+>>> a = '0o57440'
+>>> int(a, 8)
+24352
+
+# 输入2进制字符串
+>>> a = '0b101111100100000'
+>>> int(a, 2)
+24352
+
+
+
+============= format演示 =================================================
+format格式化，将整型，转换成对应的二进制字符串
+>>> format(10, '0b')
+'1010'
+>>> format(10, '0x')
+'a'
+>>> format(10, '0o')
+'12'
+```
+
+
+
+**and 、or 和 & | 的不同**
+
+```python
+>>> 1 and 2
+2
+>>> 2 and 1
+1
+# and 如果都为真的话，值为and后面的只
+
+
+>>> 1 or 2
+1
+>>> 2 or 1
+2
+# or 如果都为真的话，值为and前面的值
+========================================================================
+>>> 1 & 2
+0
+>>> 2 & 1
+0
+# & , 按位与，现在将1变成二进制 01 ， 2变成二进制 10， 然后每一位进行与操作，最后得到00， 就是十进制0了
+
+
+>>> 1 | 2
+3
+>>> 2 | 1
+3
+# |, 按位或，现在将1变成二进制 01 ， 2变成二进制 10， 然后每一位进行与操作，最后得到11 就是十进制3了
+```
+
+
+
+- 🔺**任何数与自身异或，结果为0，任何2个数异或如果结果为0，那么这两个数一定相同， 任何数与0异或，得本身**
+- **任何数与1与操作，如果结果为0，这个数为偶数，结果为1，这个数为奇数**
+- **左移右移特性：左移一位，相当于乘以2，右移一位，相当于除以2（地板除//）**
+
+```python
+# 判断奇偶：**任何数与1异或，如果结果为0，这个数为奇数，结果为1，这个数为偶数**
+def isodd(x):
+	return True if (x & 1) else False
+```
+
+
+
+```python
+# 二叉查找法： **左移右移特性：左移一位，相当于乘以2，右移一位，相当于除以2（地板除//）**
+def binary_search(list, item):
+    '''
+    :param list: 有序列表
+    :param item: 要查找的元素
+    :return: item在list中的索引，若不在list中返回None
+    '''
+    low = 0
+    high = len(list) - 1
+    while low <= high:
+        midpoint = (low + high) >> 1  # 我们以前喜欢用midpoint = (low + high) // 2,现在采用(low + high) >> 1
+        if list[midpoint] == item:
+            return midpoint
+        elif list[midpoint] < item:
+            low = midpoint + 1
+        elif list[midpoint] > item:
+            high = midpoint - 1
+    return None
+
+a = [1, 2, 5, 7, 8, 9, 13, 33, 55]	# 数据必须有序才行，不然GG了。。
+b = binary_search(a, 13)
+print(b)
+print(a[6])
+
+
+```
+
+
+
+```python
+# 计算一个数值的二进制数中有多少个1
+# 第一种思路：采用偏移个，奇偶判断来做
+def number1Bit(x):
+    count = 0
+    while x:
+    count = count + (x&1)	
+    x = x >> 1
+    return count
+
+# 高级思路
+
+def number1Bit(x):
+    count = 0
+    while x:
+        count = count + 1
+        x = x & (x-1)
+        return count
+    
+# 看不懂是吧：分析一下
+x 1110 0000
+x - 1 1101 1111
+x&(x-1) 1100 0000
+```
+
+
+
+
+
+#### 三十二、bytes字节流和hex字符串之间转换
+
+**前言：我们很多时候看到的数据，都是一些字节流，就是前面加了一个b''这种，底层采用的是二进制，我们可以看到的数据，就只有字节流和字符还有数字。。所以不要把字节流和二进制啊，八进制啊，十六进制搞混淆。计算机底层采用的是二进制，显示出来给我看的只有字节流、字符串、数字这些形式。其他的比如bin生成二进制，我们手动输入的二进制、八进制，虽然我们输入了这些，但是python给你显示出来的时候，会把转换成字符串。。反正就是一句话，python显示给我的数据 要么采用字符串或者数字的形式，要么就是字节流样式**
+
+**比如你在：IDLE里面输入0b11他给显示出来的是3，哪怕我们写到文件里面，它是以3的形式写入的**
+
+**言归正传哈，我们来看看byest和hex字符串之间的转换**
+
+```python
+# utf8编码的
+>>> a = '张明柱哈哈哈哈'
+>>> b = a.encode('utf8')
+>>> b
+b'\xe5\xbc\xa0\xe6\x98\x8e\xe6\x9f\xb1\xe5\x93\x88\xe5\x93\x88\xe5\x93\x88\xe5\x93\x88'
+>>> c = b.hex()
+>>> c
+'e5bca0e6988ee69fb1e59388e59388e59388e59388'
+>>> d = bytes.fromhex(c)
+>>> d
+b'\xe5\xbc\xa0\xe6\x98\x8e\xe6\x9f\xb1\xe5\x93\x88\xe5\x93\x88\xe5\x93\x88\xe5\x93\x88'
+>>> d.decode('utf8')
+'张明柱哈哈哈哈'
+
+
+# gbk编码的
+>>> a = '张明柱哈哈哈哈'
+>>> b = a.encode('gbk')
+>>> b
+b'\xd5\xc5\xc3\xf7\xd6\xf9\xb9\xfe\xb9\xfe\xb9\xfe\xb9\xfe'
+>>> c = b.hex()
+>>> c
+'d5c5c3f7d6f9b9feb9feb9feb9fe'
+>>> d = bytes.fromhex(c)
+>>> d
+b'\xd5\xc5\xc3\xf7\xd6\xf9\xb9\xfe\xb9\xfe\xb9\xfe\xb9\xfe'
+>>> d.decode('gbk')
+'张明柱哈哈哈哈'
+
+
+# unicode-escape编码的
+>>> a = '张明柱哈哈哈哈'
+>>> b = a.encode('unicode-escape')
+>>> b
+b'\\u5f20\\u660e\\u67f1\\u54c8\\u54c8\\u54c8\\u54c8'
+>>> c = b.hex()
+>>> c
+'5c75356632305c75363630655c75363766315c75353463385c75353463385c75353463385c7535346338'
+>>> d = bytes.fromhex(c)
+>>> d
+b'\\u5f20\\u660e\\u67f1\\u54c8\\u54c8\\u54c8\\u54c8'
+>>> d.decode('unicode-escape')
+'张明柱哈哈哈哈'
+
+```
+
+
+
+https://blog.csdn.net/aa2397199142/article/details/50844879/
+
+https://www.cnblogs.com/yangyangming/p/14187968.html
+
+https://blog.csdn.net/QQ_1993445592/article/details/102578595
+
+https://www.cnblogs.com/qq405921147/p/9176691.html
+
+https://www.cnblogs.com/mcladyr/p/12636374.html
+
+https://blog.csdn.net/xiongya8888/article/details/84947232
+
+https://blog.csdn.net/weixin_43411585/article/details/116733560?spm=1001.2014.3001.5501
+
+https://blog.csdn.net/weixin_43411585/article/details/116733560?spm=1001.2014.3001.5501
+
+
+
+#### 三十三、DES3加解密
+
+##### DES3加密
+
+**备注：这是我写的**
+
+**首先：**
+
+- **对于DES3，iv偏移量必须是8个字节**
+- **对于DES3，我们密钥必须是16，24这**
+
+```python
+# 晓多客户端这部就是通过这个加密的，然后发送给后端，后端采用同样的方式解密拿到数据。。
+# 晓多的日志加密，就是使用的这个玩意
+#0d2f9f1d0a844d35ddcd69bb0847534f59d593baca06073066cd2ac3e60edf93e275b5fbdaa3e0a4909ed2dd82731c2fc2841544e4aaf645daaac775b1431315 这是日志中的一段加密。我已经去试过了。就是这样玩的
+from Crypto.Cipher import DES3, AES, DES
+from Crypto.Util.Padding import pad, unpad
+
+
+class Des3Cipher(object):
+
+    def __init__(self, key, iv):
+        self.key = key.encode()
+        self.iv = iv.encode()
+        # self.cipher = DES3.new(self.key, mode=DES3.MODE_CBC, iv=self.iv)		# 写到这里是要报错的，因为每次一次加解密都要重新生成一个cipher对象。。这样才能初始化
+
+    def encrypt(self, text):
+        cipher = DES3.new(self.key, mode=DES3.MODE_CBC, iv=self.iv)				# 每次重新初始化
+        m_date = cipher.encrypt(pad(text.encode(), DES3.block_size, 'pkcs7'))	# CBC填充，填充快DES3.block_size可以自己定义，默认DES3.block_size是8，我们可以是8的倍数，但是必须小于255。没必要填那么长，不然输出的字符超级长，看着眼睛痛
+        return m_date.hex()
+
+    def decrypt(self, text):
+        cipher = DES3.new(self.key, mode=DES3.MODE_CBC, iv=self.iv)				# 每次重新初始化
+        text = bytes.fromhex(text)
+        j_date = unpad(cipher.decrypt(text), DES3.block_size, 'pkcs7')
+        return j_date.decode()
+
+des3 = Des3haha("828d1bc65eefc6c88ca1a5d4", "828d1bc1")
+print('加密', des3.encrypt('我是你爹'))
+print('解密', des3.decrypt('d7a152ae6892a2f27778e37ca7b9ee06'))
+```
+
+
+
+**备注：这是研发他们写的，他妈自己写了一个pkcs7**
+
+```python
+from Crypto.Cipher import DES3
+
+
+class DESPadder(object):
+    def __init__(self, cipher):
+        self.cipher = cipher
+
+    def _pad(self, x):						#  他们自己动手写了一个pkcs7填充
+        len_x = len(x)
+        filling = 8 - len_x % 8
+        fill_char = chr(filling).encode()
+        return x + fill_char * filling
+
+    def _unpad(self, x):					#  又自己写了一个去除填充
+        return x[0:-ord(chr(x[-1]))]
+
+    def encrypt(self, x):
+        return self.cipher.encrypt(self._pad(x))
+
+    def decrypt(self, x):
+        return self._unpad(self.cipher.decrypt(x))
+
+
+class Des3Cipher(object):
+    def __init__(self, key, iv):
+        self.key = key.encode()
+        self.iv = iv.encode()
+
+    def encrypt(self, text):
+        cipher = DESPadder(DES3.new(self.key, DES3.MODE_CBC, self.iv))
+        return cipher.encrypt(text.encode('utf-8')).hex()
+
+    def decrypt(self, text):
+        cipher = DESPadder(DES3.new(self.key, DES3.MODE_CBC, self.iv))
+        return cipher.decrypt(bytes.fromhex(text)).decode()
+
+
+des3 = Des3Cipher("828d1bc65eefc6c88ca1a5d4", "828d1bc6")
+```
+
+
+
+**拓展：**
+
+```python
+# 一个字符我们进行编码处理以后（gbk或者utf8 就这两种，unicode-escape编码有点问题），返回的字节流，其实就是内存中二进制存储以16进制显示给我们。每一个十六进制，代表一个字节，也就是说这个每一个十六进制都不会大于256，像汉字这种的字符，一般占用2-3个字节进行存储，所以，单独一个字符进行encode的时候，返回的将会是2-3十六进制的字节流
+
+>>> '龥'.encode('utf8')
+b'\xe9\xbe\xa5'			# 说明龥字，占3个字节
+
+>>> for i in b'\xe9\xbe\xa5':
+	i
+
+	
+233
+190
+165
+```
+
+
+
+
+
+
+
+某些加密算法要求明文需要按一定长度对齐，叫做块大小(BlockSize)，比如16字节，那么对于一段任意的数据，加密前需要对最后一个块填充到16 字节，解密后需要删除掉填充的数据。
+
+ZeroPadding，数据长度不对齐时使用0填充，否则不填充。
+PKCS7Padding，假设数据长度需要填充n(n>0)个字节才对齐，那么填充n个字节，每个字节都是n;如果数据本身就已经对齐了，则填充一块长度为块大小的数据，每个字节都是块大小。
+PKCS5Padding，PKCS7Padding的子集，块大小固定为8字节。
+由于使用PKCS7Padding/PKCS5Padding填充时，最后一个字节肯定为填充数据的长度，所以在解密后可以准确删除填充的数据，而使用ZeroPadding填充时，没办法区分真实数据与填充数据，所以只适合以\0结尾的字符串加解密。
+————————————————
+版权声明：本文为CSDN博主「土豆吞噬者」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/xiongya8888/article/details/84947232
+
+
+
+https://blog.csdn.net/Lockey23/article/details/79423078
+
+
+
+
+
+  在PKCS5Padding中，明确定义Block的大小是8位
+  而在PKCS7Padding定义中，对于块的大小是不确定的，可以在1-255之间
+
+某些加密算法要求明文需要按一定长度对齐，叫做块大小(BlockSize)，比如16字节，那么对于一段任意的数据，加密前需要对最后一个块填充到16 字节，解密后需要删除掉填充的数据。
+
+  PKCS #7 填充字符串由一个字节序列组成，每个字节填充该字节序列的长度。
+  假定块长度为 8，数据长度为 9，
+  数据： FF FF FF FF FF FF FF FF FF
+  PKCS7 填充： FF FF FF FF FF FF FF FF FF 07 07 07 07 07 07 07
+
+https://blog.csdn.net/aa2397199142/article/details/50844879/
+
+https://blog.csdn.net/weixin_43411585/article/details/108526461
+
+、实现DES的4种模式
+ECB模式（电子密码本模式：Electronic codebook）：ECB是最简单的块密码加密模式，加密前根据加密块大小（如DES为64位）分成若干块，之后将每块使用相同的密钥单独加密，解密同理。ECB不需要偏移量
+CBC模式（密码分组链接：Cipher-block chaining）：CBC模式对于每个待加密的密码块在加密前会先与前一个密码块的密文异或然后再用加密器加密。第一个明文块与一个叫初始化向量的数据块异或，需要偏移量
+CFB模式（密文反馈：Cipher feedback）：与ECB和CBC模式只能够加密块数据不同，CFB能够将块密文（Block Cipher）转换为流密文（Stream Cipher）
+OFB模式（输出反馈：Output feedback）：OFB是先用块加密器生成密钥流（Keystream），然后再将密钥流与明文流异或得到密文流，解密是先用块加密器生成密钥流，再将密钥流与密文流异或得到明文，由于异或操作的对称性所以加密和解密的流程是完全一样的
+4、关于补位PKCS7和PKCS5区别
+PKCS7Padding和PKCS5Padding实际只是协议不一样
+根据相关资料说明：PKCS5Padding明确定义了加密块是8字节，PKCS7Padding加密快可以是1-255之间
+但是封装的DES算法默认都是8字节，所以可以认为PKCS7和PKCS5一样
+数据补位实际是在数据不满8字节的倍数，才补充到8字节的倍数的填充过程
+————————————————
+版权声明：本文为CSDN博主「Shrimay1」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/weixin_43411585/article/details/108526461
+
+
+
+AES
+
+https://blog.csdn.net/QQ_1993445592/article/details/102578595
+
+https://www.cnblogs.com/mcladyr/p/12636374.html
+
+
+
+JS反调试教程
+
+https://blog.csdn.net/weixin_43411585/article/details/116733560?spm=1001.2014.3001.5501
+
+```python
+# p
+import time
+import requests
+import hashlib
+import requests
+import random
+
+a = 'OUTFOX_SEARCH_USER_ID=1247427404@10.169.0.102; OUTFOX_SEARCH_USER_ID_NCOO=2051153968.9088902; _ntes_nnid=c2405d4db8d31fa18b65dc94c34b0e12,1610035132046; JSESSIONID=aaaKiYA6BrV1y8SA3whXx; ___rl__test__cookies={0}'.format(str(int(time.time()*1000)))
+hash_handle = hashlib.md5()
+fanyi_word = '狗'
+hash_handle.update('5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.61 Safari/537.36'.encode())
+url = 'https://fanyi.youdao.com/translate_o?smartresult=dict&smartresult=rule'
+header = {
+    'Referer': 'https://fanyi.youdao.com/',
+    'Origin': 'https://fanyi.youdao.com',
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.61 Safari/537.36',
+    'Cookie': a
+}
+
+
+ts = int(time.time()*1000)
+bv = hash_handle.hexdigest()
+salt = str(ts) + str(random.randint(0, 9))
+hash_handle = hashlib.md5()
+data = "fanyideskweb" + fanyi_word + salt + "Y2FYu%TNSbMCxc3t2u^XT"
+print('11111111', data)
+hash_handle.update(data.encode())
+sign = hash_handle.hexdigest()
+
+data = {
+    'i': fanyi_word,
+    'from': 'AUTO',
+    'to': 'AUTO',
+    'smartresult': 'dict',
+    'client': 'fanyideskweb',
+    'salt': str(salt),
+    'sign': sign,
+    'lts': str(ts),
+    'bv': bv,
+    'doctype': 'json',
+    'version': '2.1',
+    'keyfrom': 'fanyi.web',
+    'action': 'FY_BY_REALTlME'
+}
+print(data)
+res = requests.post(url=url, headers=header, data=data)
+print('111', res.headers)
+print('222', res.request.headers)
+print(res.json())
+print(res.status_code)
+
+```
+
+
+
+
+
+
+
+
+
+##### AES加密
+
+**备注：AES加密和DES3加密其实没有多大的区别**
+
+CBC加密需要一个十六字节的key(密钥)和一个十六字节iv(偏移量)，DES3必须是16 或 24字节的密码（只有这2种情况），和必须8字节的偏移量：比如'828d1张'只有6位数，但是中文在utf编码下占3个字节，所以也是符合8个字节要去的
+
+ECB加密不需要iv （DES3和AES都满足这个要求，毕竟DES3是AES的过度）
+
+
+
+```python
+"""
+AES 的CBC模式
+"""
+from Crypto.Cipher import AES
+from binascii import b2a_hex, a2b_hex
+
+
+# 如果text不足16位的倍数就用空格补足为16位
+def add_to_16(text):
+    if len(text.encode('utf-8')) % 16:
+        add = 16 - (len(text.encode('utf-8')) % 16)
+    else:
+        add = 0
+    text = text + ('\0' * add)
+    return text.encode('utf-8')
+
+
+# 加密函数
+def encrypt(text):
+    key = '9999999999999999'.encode('utf-8')
+    mode = AES.MODE_CBC
+    iv = b'qqqqqqqqqqqqqqqq'
+    text = add_to_16(text)
+    cryptos = AES.new(key, mode, iv)
+    cipher_text = cryptos.encrypt(text)
+    # 因为AES加密后的字符串不一定是ascii字符集的，输出保存可能存在问题，所以这里转为16进制字符串
+    return b2a_hex(cipher_text)
+
+
+# 解密后，去掉补足的空格用strip() 去掉
+def decrypt(text):
+    key = '9999999999999999'.encode('utf-8')
+    iv = b'qqqqqqqqqqqqqqqq'
+    mode = AES.MODE_CBC
+    cryptos = AES.new(key, mode, iv)
+    plain_text = cryptos.decrypt(a2b_hex(text))
+    return bytes.decode(plain_text).rstrip('\0')
+
+
+if __name__ == '__main__':
+    e = encrypt("hello world")  # 加密
+    d = decrypt(e)  # 解密
+    print("加密:", e)
+    print("解密:", d)
+```
+
+
+
+```python
+"""
+AES的ECB模式
+ECB没有偏移量
+"""
+from Crypto.Cipher import AES
+from binascii import b2a_hex, a2b_hex
+
+
+def add_to_16(text):
+    if len(text.encode('utf-8')) % 16:
+        add = 16 - (len(text.encode('utf-8')) % 16)
+    else:
+        add = 0
+    text = text + ('\0' * add)
+    return text.encode('utf-8')
+
+
+# 加密函数
+def encrypt(text):
+    key = '9999999999999999'.encode('utf-8')
+    mode = AES.MODE_ECB
+    text = add_to_16(text)
+    cryptos = AES.new(key, mode)
+
+    cipher_text = cryptos.encrypt(text)
+    return b2a_hex(cipher_text)
+
+
+# 解密后，去掉补足的空格用strip() 去掉
+def decrypt(text):
+    key = '9999999999999999'.encode('utf-8')
+    mode = AES.MODE_ECB
+    cryptor = AES.new(key, mode)
+    plain_text = cryptor.decrypt(a2b_hex(text))
+    return bytes.decode(plain_text).rstrip('\0')
+
+
+if __name__ == '__main__':
+    e = encrypt("hello world")  # 加密
+    d = decrypt(e)  # 解密
+    print("加密:", e)
+    print("解密:", d)
+```
+
+
+
+#### 三十四、字符串转成字典形式（用于cookie转换）
+
+```python
+例如:cookies = "thw=ss; t=qq; cna=123"
+通过:
+dic = {i.split("=")[0]:i.split("=")[1] for i in cookies.split("; ")} ,
+输出: dic = {"thw":"ss","t":"qq","cna":"123"}
+```
 

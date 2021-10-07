@@ -166,7 +166,7 @@ Set-Cookie: dbcl2="218114384:2ydf7SJlS+o"; path=/; domain=.douban.com; expires=T
 
 ```
 
-
+🔺对于本地永久存储的cookie文件路径：C:\Users\zmz\AppData\Local\Google\Chrome\User Data\Default目录下的，Cookies文件，这是一个sqlite文件，需要sqlite数据打开查看
 
 #### cookie的格式
 
@@ -699,3 +699,174 @@ res_two = requests.get(url=url_two)	# res_two.request.header == {'Connection': '
 cookie = res_two.request.header['cookie']
 ```
 
+
+
+## 五、application/x-www-form-urlencoded 和 multipart/form-data
+
+https://www.cnblogs.com/leomei91/p/7676227.html
+
+在学习<form>元素时，enctype属性有三个值
+
+enctype属性表格：
+
+| 值                                | 描述                                                         |
+| --------------------------------- | ------------------------------------------------------------ |
+| application/x-www-form-urlencoded | 在发送前编码所有字符（默认）                                 |
+| multipart/form-data               | 不对字符编码。在使用包含文件上传控件的表单时，必须使用该值。 |
+| text/plain                        | 空格转换为 "+" 加号，但不对特殊字符编码。                    |
+
+其中，当值为multipart/form-data时，<input>元素的type属性必须为file。
+
+type属性表格：
+
+| 值       | 描述                                                         |
+| -------- | ------------------------------------------------------------ |
+| button   | 定义可点击按钮（多数情况下，用于通过 JavaScript 启动脚本）。 |
+| checkbox | 定义复选框。                                                 |
+| file     | 定义输入字段和 "浏览"按钮，供文件上传。                      |
+| hidden   | 定义隐藏的输入字段。                                         |
+| image    | 定义图像形式的提交按钮。                                     |
+| password | 定义密码字段。该字段中的字符被掩码。                         |
+| radio    | 定义单选按钮。                                               |
+| reset    | 定义重置按钮。重置按钮会清除表单中的所有数据。               |
+| submit   | 定义提交按钮。提交按钮会把表单数据发送到服务器。             |
+| text     | 定义单行的输入字段，用户可在其中输入文本。默认宽度为 20 个字符。 |
+
+后来我在学习requests模块时，再次接触到了application/x-www-form-urlencoded和multipart/form-data，下面说说深入的理解：
+
+enctype表示MIME编码。
+
+application/x-www-form-urlencoded ： 窗体数据被编码为名称/值对。这是标准的编码格式。
+
+multipart/form-data ： 窗体数据被编码为一条消息，页上的每个控件对应消息中的一个部分。
+
+text/plain ： 窗体数据以纯文本形式进行编码，其中不含任何控件或格式字符。
+
+补充
+
+form的enctype属性为编码方式，常用有两种： application/x-www-form-urlencoded 和 multipart/form-data ， 默认为application/x-www-form-urlencoded 。
+
+当action为get时候，浏览器用x-www-form-urlencoded的编码方式把form数据转换成一个字串（name1=value1&name2=value2...），然后把这个字串append到url后面，用?分割，加载这个新的url。
+
+当action为post时候，浏览器把form数据封装到http body中，然后发送到server。
+
+如果没有 type=file 的控件，用默认的 application/x-www-form-urlencoded 就可以了。
+
+但是如果有 type=file 的话，就要用到 multipart/form-data 了。浏览器会把整个表单以控件为单位分割，并为每个部分加上Content-Disposition(form-data或者file)、Content-Type(默认为text/plain)、name(控件name)等信息，并加上分割符(boundary)。
+
+ 
+
+**总结**
+
+报文主体会打上标签，这个标签就是MIME类型。通过这个标签，浏览器和服务器就能够知道数据的类型，进而采用合适的方式来处理该数据。
+
+**MIME类型结构**
+
+```
+类型/子类型；可选参数列表（key/value）
+```
+
+MIME常用于Content-Type和Accept首部。
+
+离散类型
+
+MIME直接用来描述对象的类型，即为离散类。
+
+复合类型
+
+复合类型用来描述集合包（集合包中的对象有不同的类型）。
+
+常见的MIME类型
+
+[![复制代码](https://common.cnblogs.com/images/copycode.gif)](javascript:void(0);)
+
+```
+application 应用程序特有的内容格式
+audio 音频格式
+chemical 化学数据集
+image 图片格式
+message 报文格式（复合型）
+model 三维模型
+multipart 多部分对象集合（复合型）
+text 文本
+video 视频
+```
+
+
+
+**上传图片的案例（京东客户端欢迎语）**
+
+上传接口的报文长这样
+
+![image-20211005015700336](image-20211005015700336.png)
+
+
+
+这是添加欢迎语的页面
+
+![image-20211005015950863](image-20211005015950863.png)
+
+第一步：上传图片
+
+第二步：添加欢迎语
+
+
+
+```python
+>>> url = 'https://a3aa97864c3bb83e.jd4.xiaoduoai.com/api/admin/answer_pic/add'
+>>> files = {'file': ('upload.jpg', open('C:\\Users\\zmz\\Desktop\\img\\02.jpg', 'rb'), 'image/jpeg')}
+
+>>> headers = {'content-type': 'multipart/form-data; boundary=----WebKitFormBoundaryEAWxBLpRm0QrAvAU', 'cookie': 'source_data=; SID=2|1:0|10:1633335815|3:SID|44:ZTExYTY5NmIzNDZjNDA4NGJkZDIxNmUwNjhhYWNiMGU=|440b6befc1747f03a73b7fd022ca0c1465becdd25d55ad01c59db52994fc6792; Hm_lvt_103e9b51f831e7a08a4e57fae4d0fb05=1632569113,1633100722,1633331763,1633335817; sensorsdata2015jssdkcross=%7B%22%24device_id%22%3A%2217c4a66b51a10e3-05e854d779b6d14-b7a1a38-2073600-17c4a66b51b1167%22%7D; sa_jssdk_2015_a3aa97864c3bb83e_jd4_xiaoduoai_com=%7B%22distinct_id%22%3A%22%E6%99%BA%E6%99%93%E5%A4%9A%E8%B0%8B%E7%94%9F%E9%B2%9C%E4%B8%93%E8%90%A5%E5%BA%97%3A%E6%99%93%E5%A4%9A%E7%94%9F%E9%B2%9C-zmz%22%2C%22first_id%22%3A%2217c4a66b51a10e3-05e854d779b6d14-b7a1a38-2073600-17c4a66b51b1167%22%2C%22props%22%3A%7B%22%24latest_traffic_source_type%22%3A%22%E7%9B%B4%E6%8E%A5%E6%B5%81%E9%87%8F%22%2C%22%24latest_search_keyword%22%3A%22%E6%9C%AA%E5%8F%96%E5%88%B0%E5%80%BC_%E7%9B%B4%E6%8E%A5%E6%89%93%E5%BC%80%22%2C%22%24latest_referrer%22%3A%22%22%7D%7D; Hm_lpvt_103e9b51f831e7a08a4e57fae4d0fb05=1633335965'}
+# 由于是上传图片，所以这个时候，一定是multipart/form-data; boundary=----WebKitFormBoundaryEAWxBLpRm0QrAvAU 格式，后面的是分割字符
+
+>>> res = requests.post(url=url, headers=header, files=files)
+		 
+>>> res.json()
+		 
+{'code': 0, 'answer_pic': {'id': '615b40d26d1b1b000d2fdabd', 'url': 'https://xdmp-new.oss-cn-hangzhou.aliyuncs.com/answer_pics/129eb3e62b3a4ed197eb486a44c65e27.jpg'}, 'message': '成功'}
+
+>>> data2 = {
+  "is_enable": True,
+  "title": "欢迎页2",
+  "reply": {
+    "answer": "啊大大",
+    "answer_pics": [		# 这里就是前面添加图片后拿到的数据。
+      {
+        "url": "https://xdmp-new.oss-cn-hangzhou.aliyuncs.com/answer_pics/8405c021908548d8acfe5c9483d70416.jpg",	# 图片被添加到阿里云的oss上了，我们post欢迎语的时候，后端就根据这个玩意的id："615b3196329fa1000f6a6bff"， 去oss上面取
+        "id": "615b3196329fa1000f6a6bff"
+      }
+    ],
+    "ageing_id": ""
+  },
+  "recommend_goods_enable": False,
+  "recommend_goods": [],
+  "is_group_selection": False,
+  "source_selection_id": "",
+  "is_target_custom": False,
+  "sale_statuses": [],
+  "customer_groups": [],
+  "shop_id": "5e7dbfa6e4f3320016e9b7d1"
+}
+
+# 这时候图片已经上传上去了（上传到），这个时候在执行，添加欢迎语
+```
+
+**备注：这里有一个问题哈，那就是我在headers里面添加了'content-type': 'multipart/form-data; boundary=----WebKitFormBoundaryEAWxBLpRm0QrAvAU' 就失败。。说参数不对，我也不知道为什么？现在我知道，因为每个浏览器的分割不一样的，而且我用转包看了看，fiddler的分割一直在变换。requests包里面做了处理了，如果我贸然更改的话，后端就根据我提供的分割去找寻数据结尾，那就跑错了，所以呢？我们写的时候，这个玩意，直接就不加了。让别人request包自动去处理把**
+
+下面3个博客非常nice必须看看
+
+https://blog.csdn.net/sinat_38364990/article/details/70867357
+
+https://blog.csdn.net/wwlhsgs/article/details/45075327
+
+https://www.cnblogs.com/brucejia/archive/2012/12/24/2831060.html
+
+https://www.cnblogs.com/leafs99/p/curl_get_post.html
+
+https://www.cnblogs.com/kaibin/p/6635134.html
+
+https://blog.csdn.net/bqw18744018044/article/details/81175236?utm_term=pythonrequests%E5%8F%91%E9%80%81%E8%A1%A8%E5%8D%95&utm_medium=distribute.pc_aggpage_search_result.none-task-blog-2~all~sobaiduweb~default-0-81175236&spm=3001.4430
+
+https://blog.csdn.net/qq_32743235/article/details/104702796
+
+https://blog.csdn.net/qq_32743235/article/details/104702796

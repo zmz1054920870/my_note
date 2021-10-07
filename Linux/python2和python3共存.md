@@ -56,7 +56,7 @@ vim /usr/bin/yum
 将#!/usr/bin/python  改成#!/usr/bin/python2
 """
 
-pip install -i https://pypi.tuna.tsinghua.edu.cn/simple --upgrade gevent==1.4.0	#这一句好像没有用
+pip install -i https://pypi.tuna.tsinghua.edu.cn/simple --upgrade gevent==1.4.0	#这一句好像没有用，就是没用，这是给flask框架y
 ```
 
 

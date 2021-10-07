@@ -1,4 +1,4 @@
-# **HTML** 
+# **pHTML** 
 
 ```
 Python基础语法都是需要掌握的，web开发重点在于django、flask、Tornado;框架和数据库的ORM映射；还需要了解前端html、css、js等，以及部分前端框架，比如bootstrap、layui、vue、react等（有的公司后端只用写后端，不用了解前端任何，只需要提供接口就好）。还需要多看看别人网站的优点。
@@ -590,7 +590,6 @@ example ----> img[src][alt='图片1']
 > 注意：上面的当digital 等于"n"的时候表示所有
 > 
 > ```
->
 
 ### 超链接相关的伪类（不全是a专属哈）
 
