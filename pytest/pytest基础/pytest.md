@@ -2,6 +2,18 @@
 
 
 
+**allure生成报告**
+
+```python
+pytest.main(['-s', '-v', '--reruns=0', '--alluredir=./report'])	 # 在当前目录下生成一个report 报告文件夹
+
+allure generate ./report/ -o ./allure_reports/html/ --clean		# 将当前文件夹的report文件下的json数据，输出到当前文件下的allure_reports目录的html目录下
+```
+
+![image-20211021212040665](image-20211021212040665.png)
+
+
+
 # 一、运行规则
 
 [`pytest`—官方文档](https://www.osgeo.cn/pytest/reference.html#pytest-fail)

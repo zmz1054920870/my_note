@@ -1501,6 +1501,95 @@ des3 = Des3Cipher("828d1bc65eefc6c88ca1a5d4", "828d1bc6")
 
 
 
+**下面是我讲pad和unpad放到一起使用 的情况**
+
+```python
+from Crypto.Cipher import DES3
+
+
+class DesHandle(object):
+
+    def __init__(self, key, iv):
+        self.key = key.encode('gbk')
+        self.iv = iv.encode('gbk')
+
+    def _pad(self, x):
+        len_x = len(x)
+        filling = 128 - len_x % 128
+        fill_char = chr(filling).encode()
+        return x + fill_char * filling
+
+    def _unpad(self, x):
+        return x[0: -ord(chr(x[-1]))]
+
+    def encrypt(self, text):
+        text = text.encode('gbk')
+        cipher = DES3.new(self.key, DES3.MODE_CBC, self.iv)
+        e_text = cipher.encrypt(self._pad(text))
+        return e_text.hex()
+
+    def decrypt(self, m_text):
+        m_text = bytes.fromhex(m_text)
+        cipher = DES3.new(self.key, mode=DES3.MODE_CBC, iv=self.iv)
+        padded_text = cipher.decrypt(m_text)
+        text = self._unpad(padded_text)
+        return text.decode('gbk')
+
+
+des3 = DesHandle("828d1bc65eefc6c88ca1a5d4", "828d1bc6")
+a = des3.encrypt('我是你爹发士大夫士大夫大师傅dsfsdfsf')
+print('加密', a)
+print('解密', des3.decrypt(a))
+```
+
+
+
+**同理将上面的改成AES加密**
+
+```python
+from Crypto.Cipher import AES
+
+
+class DesHandle(object):
+
+    def __init__(self, key, iv):
+        self.key = key.encode('gbk')
+        self.iv = iv.encode('gbk')
+
+    def _pad(self, x):
+        len_x = len(x)
+        filling = 128 - len_x % 128
+        fill_char = chr(filling).encode()
+        return x + fill_char * filling
+
+    def _unpad(self, x):
+        return x[0: -ord(chr(x[-1]))]
+
+    def encrypt(self, text):
+        text = text.encode('gbk')
+        cipher = AES.new(self.key, AES.MODE_CBC, self.iv)
+        e_text = cipher.encrypt(self._pad(text))
+        return e_text.hex()
+
+    def decrypt(self, m_text):
+        m_text = bytes.fromhex(m_text)
+        cipher = AES.new(self.key, mode=AES.MODE_CBC, iv=self.iv)
+        padded_text = cipher.decrypt(m_text)
+        text = self._unpad(padded_text)
+        return text.decode('gbk')
+
+
+des3 = DesHandle("828d1bc65eefc6c88ca1a5d4", "828d1bc612345678")
+a = des3.encrypt('我是你爹发士大夫士大夫大师傅dsfsdfsf')
+print('加密', a)
+print('解密', des3.decrypt(a))
+
+```
+
+
+
+
+
 **拓展：**
 
 ```python
@@ -1650,7 +1739,7 @@ print(res.status_code)
 
 **备注：AES加密和DES3加密其实没有多大的区别**
 
-CBC加密需要一个十六字节的key(密钥)和一个十六字节iv(偏移量)，DES3必须是16 或 24字节的密码（只有这2种情况），和必须8字节的偏移量：比如'828d1张'只有6位数，但是中文在utf编码下占3个字节，所以也是符合8个字节要去的
+CBC加密需要一个十六字节或者24字节的key(密钥)和一个十六字节iv(偏移量)，DES3必须是16 或 24字节的密码（只有这2种情况），和必须8字节的偏移量：比如'828d1张'只有6位数，但是中文在utf编码下占3个字节，所以也是符合8个字节要去的
 
 ECB加密不需要iv （DES3和AES都满足这个要求，毕竟DES3是AES的过度）
 
@@ -1759,5 +1848,73 @@ if __name__ == '__main__':
 通过:
 dic = {i.split("=")[0]:i.split("=")[1] for i in cookies.split("; ")} ,
 输出: dic = {"thw":"ss","t":"qq","cna":"123"}
+```
+
+
+
+
+
+#### 三十五、字典，数字当key
+
+字典要数字当key，只能采用 dict[1] = 2 这种方式
+
+```python
+data = {}
+data[0] = 1
+print(data)
+
+{0: 1}
+
+
+num = int(input())
+data_num = {}
+for i in range(num):
+    data = []
+    a, b = input().split()
+    data.append(int(a))
+    data.append(int(b))
+    if data[0] in data_num.keys():
+        data_num[data[0]] += data[1]
+    else:
+        data_num[data[0]] = data[1]
+        
+for key in sorted(data_num.keys()):
+    print(key, data_num[key])
+```
+
+ 
+
+
+
+#### 三十六、添加数据法
+
+往往我们在根据索引操作列表的时候，会出现超出索引边界的bug，这个时候我们就可以采用添加无效数据的方式来解决，这样思路会非常清晰
+
+```python
+# 例子：输入一个字符串（包含大小写字母，和数字）,一个字母的大小写我们视为相同字符,输出相邻相同字符的个数，要求个数前面为小写字符后面跟个数
+例：
+输入：
+aaA23bbbBbbbbb
+输出：
+a32131b9
+
+input_data = input()
+data_list = list(input_data)
+output_data = ''
+data_list.append('|')				# 这里就是了。因为我们要比较两个相邻字符。当我们遍历到最后一个字符的时候，i+1 就超出了边界了，所有我们可以引入一个无效字符进行处理。
+temp_count = 1
+for i in range(len(data_list)-1):
+    if data_list[i].lower() == data_list[i+1].lower():
+        temp_count += 1
+
+    else:
+        output_data = output_data + data_list[i].lower() + str(temp_count)
+        temp_count = 1
+
+print(output_data)
+
+
+
+# 例子2：车库停车计算。1代表已停车，0未停车。大车占3个车位，中车占2个车位，小车占1个c
 ```
 

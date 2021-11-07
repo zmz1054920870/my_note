@@ -28,7 +28,52 @@ mkdir -p /root/test/demo
 # 判断一个文件的大小
 du -sh /usr/lib64/mysql
 
-# 将一个文件内容n
+# 🔺🔺 通过yum只下载软件到指定的位置，不安装(例子是安装tree命令)
+yum -y install tree --downloadonly --downloaddir=/root
+
+# 查询命令
+which       查看可执行文件的位置 ， 是在环境变量路径中去查询/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin:/user/src:/root/jdk1.8.0_211/bin
+
+----------------------------------
+
+whereis     查看文件的位置（也是到环境变量中去查询）​
+搜索命令所在路径及帮助文档所在位置
+
+只能用于查找在linux系统中存在或安装的程序文件，不能用于查找普通文件，支持模糊查询
+
+-b 只查找可执行文件的位置
+
+-m 只查找帮助文件
+
+
+
+locate      配合数据库查看文件位置
+
+
+
+# 查看centos的版本号
+cat /etc/redhat-release
+CentOS Linux release 7.6.1810 (Core)
+
+# lsof(list open files)：列出当前系统所有打开的文件，显示进程、PID、打开的文件等情况
+lsof -i
+COMMAND     PID   USER   FD   TYPE  DEVICE SIZE/OFF NODE NAME
+chronyd     543 chrony    5u  IPv4   12237      0t0  UDP localhost:323 
+chronyd     543 chrony    6u  IPv6   12238      0t0  UDP localhost:323 
+dhclient    684   root    6u  IPv4   13713      0t0  UDP *:bootpc 
+
+# 利用for循环批量创建账号，并设置密码
+[root@hecs-263993-0002 alex]# for i in `seq 1 10`
+> do
+> useradd user$i
+> echo "redhat" | passwd --stdin user$i
+> done
+
+# 批量对一列数据进行相加
+du ./local |awk 'BEGIN{sum=0}{sum+=$5}END{print sum}' 
+
+ls -l |awk 'BEGIN{sum=0}{sum+=$5}END{print sum/1024}'
+
 ```
 
 

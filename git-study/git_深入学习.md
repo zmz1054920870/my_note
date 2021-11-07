@@ -809,7 +809,7 @@ Changes to be committed:
 ***
 
 ```bash
-git config --global alias.lol "log --oneline --decorate --graph --all"
+git config --global alias.lol "log --oneline --graph --decorate --all"	# graph必须在--decorate 前面不然要b
 ```
 
 

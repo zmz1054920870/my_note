@@ -1,0 +1,297 @@
+[第一章 NFS基本应用](https://www.cnblogs.com/f-ck-need-u/p/7305755.html)
+
+https://zhuanlan.zhihu.com/p/31626338
+
+https://www.cnblogs.com/sfqas/p/12181074.html
+
+https://blog.csdn.net/csdn100861/article/details/51440563
+
+
+
+https://www.cnblogs.com/biebiejiujiu/p/13131016.html  NFS和NAS的关闭
+
+构建NFS文件共享协议
+
+**术语**
+
+```bash
+ACL			# 访问控制权限
+anonymous	# 匿名
+squash		# 压缩
+NAS			# Network Attached Storage 网络附加存储
+SAN			# Storage Area Network 存储区域网络
+NIS			# 英文的全称是network information service，也叫yellow pages。在Linux中，NIS是一个基于RPC的client/server系统，需要使用 RPC 服务。
+SAN and NAS # 一体双活：一套设备一套总裁一种网络 ，简称3个1
+BGP			# 边界网关协议
+DACL		# 自由访问控制列表：对对象持有者控制访问对象，并标明特定的用户，特定的组是否能持有对象。**简单一句话就是说，定义哪个用户，或哪个用户所属的组访问该对象的权限。**
+
+SACL		# 系统访问控制列表：用来记录某个安全对象被访问的情况，也可以理解为**当用户去访问的时候具有对该安全对象的权限！**，比如读、写、运行等的存取控制权限细节的列表
+
+ACL			# 访问控制列表：DACL和SACL构成了整个存储控制列表`Access Control List`
+
+ACE			# 访问控制项：ACL中的每一项，我们叫做ACE（Access Control Entry）
+
+Securable Object	# 安全d： 是拥有SD(安全描述符)的Windows的对象，所有的被命名的Windows的对象都是安全对象，但是一些没有命名的对象是安全对象，如：进程和线程，也有安全描述符SD。
+```
+
+
+
+## 1.1 概述
+
+网络文件系统。顾名思义，就是跨网络的文件系统，将远程主机上的文件系统(或目录)存放在本地主机上，就像它本身就是本地文件系统一样。在Windows环境下有`cifs`协议实现的网络文件系统，在Unix环境下，最出名是由NFS协议实现的NFS文件系统。
+
+
+
+## 1.2 RPC不可不知的原理
+
+要介绍NFS，必然要先介绍RPC。RPC是remote procedure call的简写，人们都将其译为"远程过程调用"，它是一种框架，这种框架在大型公司应用非常多。而NFS正是其中一种，此外NIS、hadoop也是使用rpc框架实现的。
+
+
+
+#### 1.2.1 RPC 原理
+
+所谓的remote procedure call，就是在本地调用远程主机上的procedure。以本地执行"cat -n ~/abc.txt"命令为例，在本地执行cat命令时，会发起某些系统调用(如open()、read()、close()等)，并将cat的选项和参数传递给这些函数，于是最终实现了文件的查看功能。在RPC层面上理解，上面发起的系统调用就是procedure，每个procedure对应一个或多个功能。而rpc的全名remote procedure call所表示的就是实现远程procedure调用，让远程主机去调用对应的procedure。
+
+上面的cat命令只是本地执行的命令，如何实现远程cat，甚至其他远程命令？通常有两种可能实现的方式：
+
+(1).使用ssh类的工具，将要执行的命令传递到远程主机上并执行。但ssh无法直接调用远程主机上cat所发起的那些系统调用(如open()、read()、close()等)。
+
+(2).使用网络socket的方式，告诉远程服务进程要调用的函数。但这样的主机间进程通信方式一般都是daemon类服务，daemon类的客户端(即服务的消费方)每调用一个服务的功能，都需要编写一堆实现网络通信相关的代码。不仅容易出错，还比较复杂。
+
+而rpc是最好的解决方式。rpc是一种框架，在此框架中已经集成了网络通信代码和封包、解包方式(编码、解码)。以下是rpc整个过程，以cat NFS文件系统中的a.sh文件为例。
+
+
+
+NFS client  解析命名，提取procedure id 和 参数--> RPC client ，RPC Client 封装 procedure id ，program id，参数  ,通过socket ------> RPC Server , RPC Server 解包 ---- > 给 NFS server 进行执行，然后返回直接结果给 RPC Server ，然后原路返回
+
+
+
+#### 1.2.2 RPC 工具介绍
+
+在centos6/7 上， rpc server 由 rpcbind 程序实现， rpcbind包里面有 rpcbind
+
+```bash
+[root@xuexi ~]# yum -y install rpcbind
+
+[root@xuexi ~]# rpm -ql rpcbind | grep bin/
+/usr/sbin/rpcbind
+/usr/sbin/rpcinfo
+```
+
+其中rpcbind是rpc主程序，在rpc服务端该程序必须处于已运行状态，其**默认监听在111端口**。rpcinfo是rpc相关信息查询工具
+
+对于rpc而言，其所直接管理的是programs，programs由一个或多个procedure组成。这些program称为RPC program或RPC service。
+
+如下图，其中NFS、NIS、hadoop等称为网络服务，它们由多个进程或程序(program)组成。例如NFS包括rpc.nfsd、rpc.mountd、rpc.statd和rpc.idmapd等programs，其中每个program都包含了一个或多个procedure，例如rpc.nfsd这个程序包含了如OPEN、CLOSE、READ、COMPOUND、GETATTR等procedure，rpc.mountd也主要有MNT和UMNT两个procedure。
+
+![image-20211106215755781](image-20211106215755781.png)
+
+
+
+对于RPC而言，它是不知道NFS/NIS/hadoop这一层的，它直接管理programs。每个program启动时都需要找111端口的rpc服务登记注册，然后RPC服务会为该program映射一个program number以及分配一个端口号。其中每个program都有一个唯一与之对应的program number，它们的映射关系定义在/etc/rpc文件中。以后rpc server将使用program number来判断要调用的是哪个program中的哪个procedure(因为这些都是rpc client封装在"call message"中的)，并将解包后的数据传递给该program和procedure。
+
+例如只启动rpcbind时。
+
+
+
+```bash
+root@xuexi ~]# systemctl start rpcbind.service
+
+[root@xuexi ~]# rpcinfo -p localhost
+   program vers proto   port  service
+    100000    4   tcp    111  portmapper
+    100000    3   tcp    111  portmapper
+    100000    2   tcp    111  portmapper
+    100000    4   udp    111  portmapper
+    100000    3   udp    111  portmapper
+    100000    2   udp    111  portmapper
+```
+
+其中第一列就是program number，第二列vers表示对应program的版本号，最后一列为RPC管理的RPC service名，其实就是各program对应的称呼。
+
+```bash
+[root@xuexi ~]# systemctl start nfs.service
+
+[root@xuexi ~]# rpcinfo -p localhost
+   program vers proto   port  service
+    100000    4   tcp    111  portmapper
+    100000    3   tcp    111  portmapper
+    100000    2   tcp    111  portmapper
+    100000    4   udp    111  portmapper
+    100000    3   udp    111  portmapper
+    100000    2   udp    111  portmapper
+    100024    1   udp  56229  status
+    100024    1   tcp  57226  status
+    100005    1   udp  20048  mountd
+    100005    1   tcp  20048  mountd
+    100005    2   udp  20048  mountd
+    100005    2   tcp  20048  mountd
+    100005    3   udp  20048  mountd
+    100005    3   tcp  20048  mountd
+    100003    3   tcp   2049  nfs
+    100003    4   tcp   2049  nfs
+    100227    3   tcp   2049  nfs_acl
+    100003    3   udp   2049  nfs
+    100003    4   udp   2049  nfs
+    100227    3   udp   2049  nfs_acl
+    100021    1   udp  48609  nlockmgr
+    100021    3   udp  48609  nlockmgr
+    100021    4   udp  48609  nlockmgr
+    100021    1   tcp  50915  nlockmgr
+    100021    3   tcp  50915  nlockmgr
+    100021    4   tcp  50915  nlockmgr
+```
+
+```bash
+nfs	 	----  	对应rpc.nfsd 为nfs服务的主进程，端口号为2049
+mountd	----	对应rpc.mountd程序。它为客户端的mount和umount命令提供服务
+nlockmgr ----	对应rpc.statd程序。用于维护文件锁和文件委托相关功能
+nfs_acl和status	访问控制列表和状态信息维护的program。
+```
+
+可以看到，每个program都启动了不同版本的功能。其中nfs program为rpc.nfsd对应的program，为nfs服务的主进程，端口号为2049。mountd对应的program为rpc.mountd，它为客户端的mount和umount命令提供服务，即挂载和卸载NFS文件系统时会联系mountd服务，由mountd维护相关挂载信息。nlockmgr对应的program为rpc.statd，用于维护文件锁和文件委托相关功能，在NFSv4以前，称之为NSM(network status manager)。nfs_acl和status，很显然，它们是访问控制列表和状态信息维护的program。
+
+再看看启动的相关进程信息。
+
+```bash
+[root@xuexi ~]# ps aux | grep -E "[n]fs|[r]pc"
+root        748  0.0  0.0      0     0 ?        S<   Jul26   0:00 [rpciod]
+rpc        6127  0.0  0.0  64908  1448 ?        Ss   Jul26   0:00 /sbin/rpcbind -w
+rpcuser    6128  0.0  0.0  46608  1836 ?        Ss   Jul26   0:00 /usr/sbin/rpc.statd --no-notify
+root       6242  0.0  0.0      0     0 ?        S<   Jul26   0:00 [nfsiod]
+root       6248  0.0  0.0      0     0 ?        S    Jul26   0:00 [nfsv4.0-svc]
+root      17128  0.0  0.0  44860   976 ?        Ss   02:49   0:00 /usr/sbin/rpc.mountd
+root      17129  0.0  0.0  21372   420 ?        Ss   02:49   0:00 /usr/sbin/rpc.idmapd
+root      17134  0.0  0.0      0     0 ?        S<   02:49   0:00 [nfsd4]
+root      17135  0.0  0.0      0     0 ?        S<   02:49   0:00 [nfsd4_callbacks]
+root      17141  0.0  0.0      0     0 ?        S    02:49   0:00 [nfsd]
+root      17142  0.0  0.0      0     0 ?        S    02:49   0:00 [nfsd]
+root      17143  0.0  0.0      0     0 ?        S    02:49   0:00 [nfsd]
+root      17144  0.0  0.0      0     0 ?        S    02:49   0:00 [nfsd]
+root      17145  0.0  0.0      0     0 ?        S    02:49   0:00 [nfsd]
+root      17146  0.0  0.0      0     0 ?        S    02:49   0:00 [nfsd]
+root      17147  0.0  0.0      0     0 ?        S    02:49   0:00 [nfsd]
+root      17148  0.0  0.0      0     0 ?        S    02:49   0:00 [nfsd]
+```
+
+其中有一项/usr/sbin/rpc.idmapd进程，该进程是提供服务端的uid/gid <==> username/groupname的映射翻译服务。客户端的uid/gid <==> username/groupname的映射翻译服务则由"nfsidmap"工具实现，详细说明见下文。
+
+
+
+
+
+## 1.4 配置到处目录和挂载使用
+
+#### 1.4.1 配置nfs到处目录
+
+在将服务端的目录共享(share)或者说导出(export)给客户端之前，需要先配置好要导出的目录。比如何人可访问该目录，该目录是否可写，以何人身份访问导出目录等。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+🔺🔺program 和 program number的映射路径在 /etc/rpc 文件里面
+
+```bash
+# 查看本地的映射关系(procedure number 和 )
+rpcinfo -p localhost
+
+# 启动rpcbind服务
+systemctl start rpcbind.service
+
+# 启动nfs 服务
+systemctl start nfs.service
+
+# 查看centos的版本号
+cat /etc/redhat-release
+CentOS Linux release 7.6.1810 (Core)
+
+
+# NFS的常用目录
+/etc/exports                   NFS服务的主要配置文件
+
+/usr/sbin/exportfs             NFS服务的管理命令
+
+/usr/sbin/showmount             客户端的查看命令
+
+/var/lib/nfs/etab             记录NFS分享出来的目录的完整权限设定值
+
+/var/lib/nfs/xtab             记录曾经登录过的客户端信息
+
+# 对于nfs服务器来说，查看有哪些客户端连过来
+showmount -a
+All mount points on hecs-263993-0001:
+
+# 在nfs客户端上，查看远程有哪些挂载点(客户端ip为192.168.0.172)
+showmount -e 192.168.0.83
+Export list for 192.168.0.83:
+/data/nfs-share *
+
+
+```
+
+
+
+、
+
+**问题收集**
+
+```bash
+nfs4 挂载文件系统，属于主为nobody， 不为root
+```
+
+
+
+
+
+
+
+
+
+https://www.cnblogs.com/sfqas/p/12181074.html
+
+https://blog.csdn.net/csdn100861/article/details/51440563
+
+https://www.cnblogs.com/merely/p/10793877.html
+
+https://langyastudio.blog.csdn.net/article/details/78518936?spm=1001.2101.3001.6661.1&utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-1.no_search_link&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-1.no_search_link
+
+
+
+https://langyastudio.blog.csdn.net/article/details/78518936?spm=1001.2101.3001.6661.1&utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-1.no_search_link&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-1.no_search_link
+
+
+
+https://www.cnblogs.com/f-ck-need-u/p/7305755.html
+
+
+
+http://www.szliwen.com/802.html
+
+https://www.cnblogs.com/sunjj/p/12273869.html
+
+
+
+https://www.cnblogs.com/merely/p/10793877.html
+
+https://zhuanlan.zhihu.com/p/31626338
+
+https://blog.csdn.net/cusi77914/article/details/107113548

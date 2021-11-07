@@ -26,6 +26,14 @@ selenium进阶之四大操作和三大切换
 
 https://blog.csdn.net/fbher/article/details/107090171
 
+
+
+🔺🔺🔺练习selenium的网站 -- 很牛逼的，什么样式的别人都给你准备了
+
+https://www.sahitest.com/demo/
+
+
+
 # 一、定位
 
 ### 1、CSS选择器定位
@@ -232,4 +240,240 @@ Xpath 的功能非常强大，不仅能够完成界面定位的任务，而且�
 避免使用索引号
 擅用 console 调试
 相对路径，属性值，文本内容，Axis 可以任意组合，当然属性值和文本内容的模糊匹配也支持和上述方式任意组合，Axis 可以嵌套使用。
+
+```js
+1. //NODE[not(@class)] 所有节点名为node,且不包含class属性的节点
+2. //NODE[contains(text(),substring] 所有节点名为node,且其文本中包含substring的节点
+3. //NODE[contains(name(),'C')] 所有名字中包含字母C的节点
+4. //ul[count(li)=2] 所有包含两个li孩子节点的ul节点
+5. //*[name()='div'] 所有名字为div的节点，等同于//div
+6. //div[count(div)=5]/*[name()='div' and position() mod 2=1]	所有奇数位置的div节点
+7. //div[position() mod 2 = 0] 偶数位置的d节点
+8. //span[text()='收到的商品有某种问题']/ancestor::div[last()]	   span的父类最后一个
+9. //span[text()='收到的商品有某种问题']/ancestor::div[last()-1]	   span的父类倒数第二个
+```
+
+
+
+
+
+# 二、参数说明
+
+```python
+driver = webdriver.Chrome(executable_path='C://Users//zmz//Desktop//chromedriver.exe')
+
+    def __init__(self, executable_path="chromedriver", port=0,
+                 options=None, service_args=None,
+                 desired_capabilities=None, service_log_path=None,
+                 chrome_options=None, keep_alive=True):
+        """
+        Creates a new instance of the chrome driver.
+
+        Starts the service and then creates new instance of chrome driver.
+
+        :Args:
+         - executable_path - path to the executable. If the default is used it assumes the executable is in the $PATH
+         - port - port you would like the service to run, if left as 0, a free port will be found.
+         - options - this takes an instance of ChromeOptions
+         - service_args - List of args to pass to the driver service
+         - desired_capabilities - Dictionary object with non-browser specific
+           capabilities only, such as "proxy" or "loggingPref".
+         - service_log_path - Where to log information from the driver.
+         - chrome_options - Deprecated argument for options
+         - keep_alive - Whether to configure ChromeRemoteConnection to use HTTP keep-alive.
+        """
+```
+
+
+
+https://www.cnblogs.com/yoyoketang/p/14084401.html
+
+https://www.cnblogs.com/yoyoketang/p/15132889.html	# 怎么使用selenium操作已经打开的chrome浏览器
+
+
+
+#### 2.1 样例
+
+```python
+import allure
+import pytest
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options as CH_Options
+from selenium.webdriver.firefox.options import Options as FF_Options
+from config.globalparam import pro_ini_path
+from local_lib.API.common import readconfig
+from local_lib.UI.page.page_common import PageCommon
+
+read = readconfig.ReadConfig(pro_ini_path)
+driver_type = read.getValue('UIConfig', 'driver_type')
+driver = None
+
+# 启动浏览器
+# chromedriver各大版本下载地址 http://npm.taobao.org/mirrors/chromedriver/
+@pytest.fixture(scope='session')
+def browser():
+    """
+    全局定义浏览器驱动
+    :return:
+    """
+    global driver
+    global driver_type
+
+    if driver_type == "chrome":
+        # 本地chrome浏览器
+        driver = webdriver.Chrome()
+        driver.maximize_window()
+
+    elif driver_type == "firefox":
+        # 本地firefox浏览器
+        driver = webdriver.Firefox()
+        driver.set_window_size(1920, 1080)
+
+    elif driver_type == "chrome-headless":
+        # chrome headless模式
+        chrome_options = CH_Options()
+        chrome_options.add_argument("--headless")
+        chrome_options.add_argument('--disable-gpu')
+        chrome_options.add_argument("--window-size=1920x1080")
+        driver = webdriver.Chrome(options=chrome_options)
+
+    elif driver_type == "firefox-headless":
+        # firefox headless模式
+        firefox_options = FF_Options()
+        firefox_options.headless = True
+        driver = webdriver.Firefox(firefox_options=firefox_options)
+    else:
+        raise NameError("driver驱动类型定义错误！")
+    url = PageCommon().get_login_url()
+    driver.get(url)
+    yield driver
+    driver.quit()
+    print("test end!")
+
+
+# # ui自动化基础网址
+# # @pytest.fixture(scope="session")
+# # def base_url():
+# #     url = PageCommon().get_login_url()
+# #     return url
+
+# @pytest.hookimpl(tryfirst=True, hookwrapper=True)
+# def pytest_runtest_makereport(item, call):
+#     outcome = yield
+#     rep = outcome.get_result()
+#     if rep.when == "call" and rep.failed:
+#         mode = "a" if os.path.exists("failed_screenshots") else "w"
+#         with open("failed_screenshots", mode) as f:
+#             if "tmpdir" in item.fixturenames:
+#                 extra = "(%s)" % item.funcargs["tmpdir"]
+#             else:
+#                 extra = ""
+#             f.write(rep.nodeid + extra + "\n")
+#         with allure.step("添加失败截图"):
+#             allure.attach(driver.get_screenshot_as_png(), "失败截图", allure.attachment_type.PNG)
+```
+
+
+
+
+
+
+
+
+
+# 二十、命令集合
+
+
+
+#### 1、driver的属性
+
+```python
+# 获取当前页面url
+driver.current_url
+
+# 获取当dirver的名字, 输出Chrome或者 FireFox
+driver.name
+```
+
+
+
+```python
+# 获取当前页面的title， 如下图红色矩形包裹的范围
+driver.title
+```
+
+![image-20211024194432151](image-20211024194432151.png)
+
+
+
+
+
+```python
+# 获取页面的源码
+driver.page_source
+```
+
+
+
+```python
+# 获取当前的句柄
+driver.current_window_handle
+CDwindow-E3AA380ECDF8A599B6B4E33A9C7C4F0C
+
+# 获取所有window句柄
+driver.window_handles
+['CDwindow-E3AA380ECDF8A599B6B4E33A9C7C4F0C']
+```
+
+
+
+#### 2、driver的方法
+
+```python
+driver.back()
+
+driver.forward()
+
+driver.refresh()
+```
+
+![image-20211024195122716](image-20211024195122716.png)
+
+
+
+```python
+# 关闭窗口
+driver.close()
+
+
+# 退出浏览器
+driver.quit()
+```
+
+![image-20211024195324338](image-20211024195324338.png)
+
+
+
+
+
+```python
+# 切换到内联框
+driver.switch_to.frame()
+
+# 切换到活动元素
+driver.switch_to.active_element()
+
+# 切换到alter弹窗
+driver.switch_to.alter()
+
+# 切换到默认的内容
+driver.switch_to.default_content()
+
+# 切换到
+driver.switch_to.window()
+```
+
+
+
+#### 3、 webElement的属性-- 元素的属性
 

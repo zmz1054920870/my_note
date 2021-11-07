@@ -79,14 +79,14 @@ file    		r:cat/more/less/tail/head
 				x:bash
 
 dictionary		r:ls, ll
-				w:touch rm
+				w:touch rm mkdir
 				x:cd, 文件没有执行权限，你进都进不去
 				
 r=4 w=2 x=1
 所以 chmod 755 file  中的
-7 等于 rwx=4 + 2 + 1 这是拥有者的权限
-5 等于 r-x=4 + 0 + 1 这是组的权限
-5 等于 r-x=4 + 0 + 1 这是其他人的权限
+7 等于 rwx=4 + 2 + 1 这是拥有者的权限 	owner
+5 等于 r-x=4 + 0 + 1 这是组的权限		 group	
+5 等于 r-x=4 + 0 + 1 这是其他人的权限 	o
 ```
 
 
@@ -280,6 +280,22 @@ echo `ps`
 
 
 ##### 3.4 shell的重定向
+
+▲🔺**输入重定向是从文件中读取数据，输出重定向是将数据写入到文件中**
+
+**更加高级的重定向**
+
+```bash
+for i in `seq 1 10`;
+	do
+		useradd user$i
+		echo 'mima' | passwd --stdin user$i	# 使用--stdin 来接收标准输入，echo 'mima' 作为标准输入到屏幕，通过管道符传递给 --stdin ，实际
+	done
+
+
+```
+
+
 
 ###### llinux中的三种IO设备：
 
