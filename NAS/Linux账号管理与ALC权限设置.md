@@ -242,16 +242,17 @@ useradd -u 1000 bob		# 这个玩意一般还是让系统自己指定比较好
 > done
 
 
----------------------------修改用户------------------------------------------------
+---------------------------修改用户 usermod-----------------------------------------------
 # 12、修改用户shell
 usermod tom -s /bin/bash
 
 # 13、修改用户的家目录
 usermod tom -c 'xxxxxx'
 
-----------------------------修改密码--------------------------------------------
+----------------------------修改密码 passwd--------------------------------------------
 # 14、给我tom添加一个密码（必须是root用户才有权限添加密码，哪怕将这个用户被添加到root组里面也不行）
 passwd bob
+>请输入密码：
 
 # 15、查看用户的密码信息
 passwd -S alex
@@ -260,7 +261,7 @@ alex PS 2021-11-07 0 99999 7 -1 (Password set, SHA512 crypt.)
 # 16、将一个用户的密码删除
 passwd -d bob
 
----------------------------删除用户---------------------------------------------
+---------------------------删除用户 userdel---------------------------------------------
 # 17、只删除用户
 userdel tom
 
@@ -288,8 +289,95 @@ chage -M 20 tom
 
 # 24、警告时间
 chage -W 7 tom
+
+# 25、列出一个用户的所有密码信息
 ```
 
 ![image-20211108010724679](image-20211108010724679.png)
+
+## ALC
+
+🔺🔺 ALC是综合然后取最最小的权限（75 > 71） 那么它的权限就是71
+
+```bash
+# 1、获取一个文件得ACL
+getfacl test.txt
+
+# file: text.txt
+# owner: root
+# group: root
+user::rw-
+group::r--
+other::r--
+
+
+
+# 2、设置一个用户得ACL
+setfacl -m u:alex:rw test.txt		# -m 是 modify
+[root@hecs-263993-0002 ~]# getfacl test.txt 
+# file: test.txt
+# owner: root
+# group: root
+user::rw-
+user:alex:rw-
+group::r--
+mask::r--
+other::r--
+
+# 3、但我们设置了ACL以后，ll的时候我们发现这个文件后面变成了+号
+[root@hecs-263993-0002 ~]# ll
+total 12
+-rw-r--r--  1 root root 32 Nov  7 17:14 demo.txt
+-rw-r--r--  1 root root  5 Aug 26 16:52 tcp_keepalive_time~
+-rw-r--r--+ 1 root root 38 Nov  7 17:14 test.txt
+
+# 4、删除所有acl
+setfacl -b test.txt
+# file: test.txt
+# owner: root
+# group: root
+user::rwx
+group::r--
+other::rwx
+
+# 5、删除指定的acl
+setfacl -x u:alex test.txt
+# file: test.txt
+# owner: root
+# group: root
+user::rwx
+user:jack:rwx
+group::r--
+mask::rwx
+other::rwx
+
+# 6、设置默认的ACL（默认的ACL不会对当前的文件生效，只对之后的文件生效，所以默认ACL一般是针对文件夹的，后面新建的文件，会继承这个默认acl的值）
+案例：我们现在想给test文件中，以后新建的所有文件针对alex用户都生成alc（这时候我们就要使用默认acl了，不然每次新建一个文件，我们都要去手动设置，太麻烦了）
+setfacl -d -m u:alex:- test
+# file: test
+# owner: root
+# group: root
+user::rwx
+group::rwx
+other::rwx
+default:user::rwx
+default:user:jack:---
+default:group::rwx
+default:mask::rwx
+default:other::rwx
+
+这个时候我们touch一个新的文件，那么它的acl中，就包含有继承过来的
+
+
+# 7、mask条目
+为文件的owner、other之外的人指定的最大的权限，通过这个mask最大的权限来指定权限的边界。mask是针对特定的用户，tom 、 jack和group的最大的权限
+
+# 8、指定mask
+setfacl -m mask:r-- tes
+```
+
+![image-20211110002247290](image-20211110002247290.png)
+
+
 
 https://luoyiran.blog.csdn.net/article/details/80347558?spm=1001.2101.3001.6650.1&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-1.no_search_link&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-1.no_search_link
