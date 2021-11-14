@@ -252,6 +252,55 @@ Export list for 192.168.0.83:
 
 、
 
+```
+[root@hecs-263993-0001 ~]# tcpdump src 192.168.172
+tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
+listening on eth0, link-type EN10MB (Ethernet), capture size 262144 bytes
+^C
+0 packets captured
+0 packets received by filter
+0 packets dropped by kernel
+[root@hecs-263993-0001 ~]# tcpdump dst 192.168.0.172
+tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
+listening on eth0, link-type EN10MB (Ethernet), capture size 262144 bytes
+17:22:37.099166 IP hecs-263993-0001 > 192.168.0.172: ICMP echo reply, id 31866, seq 1, length 64
+17:22:38.099392 IP hecs-263993-0001 > 192.168.0.172: ICMP echo reply, id 31866, seq 2, length 64
+17:22:39.099395 IP hecs-263993-0001 > 192.168.0.172: ICMP echo reply, id 31866, seq 3, length 64
+17:22:40.099335 IP hecs-263993-0001 > 192.168.0.172: ICMP echo reply, id 31866, seq 4, length 64
+17:22:41.099299 IP hecs-263993-0001 > 192.168.0.172: ICMP echo reply, id 31866, seq 5, length 64
+17:22:42.099292 IP hecs-263993-0001 > 192.168.0.172: ICMP echo reply, id 31866, seq 6, length 64
+
+```
+
+
+
+```
+[root@hecs-263993-0001 ~]# tcpdump src 192.168.0.172
+tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
+listening on eth0, link-type EN10MB (Ethernet), capture size 262144 bytes
+17:22:52.301007 IP 192.168.0.172 > hecs-263993-0001: ICMP echo request, id 31879, seq 1, length 64
+17:22:53.301339 IP 192.168.0.172 > hecs-263993-0001: ICMP echo request, id 31879, seq 2, length 64
+17:22:54.301383 IP 192.168.0.172 > hecs-263993-0001: ICMP echo request, id 31879, seq 3, length 64
+17:22:57.310639 ARP, Request who-has hecs-263993-0001 tell 192.168.0.172, length 28
+17:23:23.854255 IP 192.168.0.172.xact-backup > hecs-263993-0001.nfs: Flags [.], ack 3044022472, win 999, options [nop,nop,TS val 2945330176 ecr 2945272023], length 0
+17:23:23.854292 IP 192.168.0.172.xact-backup > hecs-263993-0001.nfs: Flags [P.], seq 1:129, ack 1, win 999, options [nop,nop,TS val 2945330176 ecr 2945272023], length 128: NFS request xid 37807196 124 getattr fh 0,1/53
+17:23:23.854494 IP 192.168.0.172.xact-backup > hecs-263993-0001.nfs: Flags [.], ack 85, win 999, options [nop,nop,TS val 2945330176 ecr 2945332183], length 0
+17:23:28.855874 ARP, Reply 192.168.0.172 is-at fa:16:3e:02:c4:4a (oui Unknown), length 28
+17:24:24.014256 IP 192.168.0.172.xact-backup > hecs-263993-0001.nfs: Flags [.], ack 85, win 999, options [nop,nop,TS val 2945390336 ecr 2945332183], length 0
+17:24:24.014270 IP 192.168.0.172.xact-backup > hecs-263993-0001.nfs: Flags [P.], seq 129:257, ack 85, win 999, options [nop,nop,TS val 2945390336 ecr 2945332183], length 128: NFS request xid 54584412 124 getattr fh 0,1/53
+17:24:24.014451 IP 192.168.0.172.xact-backup > hecs-263993-0001.nfs: Flags [.], ack 169, win 999, options [nop,nop,TS val 2945390336 ecr 2945392343], length 0
+17:24:29.015946 ARP, Reply 192.168.0.172 is-at fa:16:3e:02:c4:4a (oui Unknown), length 28
+
+```
+
+
+
+
+
+
+
+
+
 **问题收集**
 
 ```bash
