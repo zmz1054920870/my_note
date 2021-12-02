@@ -15,8 +15,8 @@
 ```python
 class Person(object):
 
-def __call__(self):
-    print('__call__')
+    def __call__(self):
+        print('__call__')
 
 person = Person()
 person()
@@ -24,11 +24,11 @@ person()
 
 \__call__方法中也可以传递参数
 
-```pythons
+```python
 class Person(object):
 
-def __call__(self, behavior: str):
-    print('__call__: ' + behavior)
+    def __call__(self, behavior: str):
+        print('__call__: ' + behavior)
 
 person = Person()
 person('hello')
@@ -39,9 +39,9 @@ person('hello')
 ```python
 class Person(object):
 
-def __call__(self, behavior: str):
-    print('__call__: ' + behavior)
-    return 'world'
+    def __call__(self, behavior: str):
+        print('__call__: ' + behavior)
+        return 'world'
 
 person = Person()
 res = person('hello')
@@ -57,17 +57,17 @@ print(res)
 ```python
 class Person(object):
 
-def __new__(cls, *args, **kwargs):
-    print('Demo __new__')
-    return super(Person, cls).__new__(cls)
+    def __new__(cls, *args, **kwargs):
+        print('Demo __new__')
+        return super(Person, cls).__new__(cls)
 
-def __init__(self, name, age):
-    print('Demo __init__')
-    self.name = name
-    self.age = age
+    def __init__(self, name, age):
+        print('Demo __init__')
+        self.name = name
+        self.age = age
 
-def __call__(self, behavior: str):
-    print('Demo __call__ : ' + behavior)
+    def __call__(self, behavior: str):
+        print('Demo __call__ : ' + behavior)
 
 person = Person(name='perter', age=18)
 person('hello')
@@ -422,7 +422,7 @@ a = Behavior(name='张明宝', address='重庆市万州区', game=['剑网三', 
 
 **🔺总结一下：只要是`__new__`，采用super方法，最后都要加上mcs或者cls。。也只有元类的new里面可以添加参数，其他的暂时没有发现可以添加参数的**
 
-**备注：我终于知道为什么我们再一个py文件中，定义一个类，我们不调用他，直接在pycharm中右键允许。有时候会打印或者输出一些东西了。这些因为，当我们在这个类当中添加一些，比如print或者函数调用。在构建这个类的时候，他内部的方法会被执行一遍，例子如下**
+**备注：我终于知道为什么我们再一个py文件中，定义一个类，我们不调用他，直接在pycharm中右键运行。有时候会打印或者输出一些东西了。这些因为，当我们在这个类当中添加一些，比如print或者函数调用。在构建这个类的时候，他内部的方法会被执行一遍，例子如下**
 
 ```python
 def test_exec():
@@ -459,3 +459,12 @@ https://www.cnblogs.com/Eva-J/articles/8306047.html
 2222
 ```
 
+https://blog.csdn.net/qq_41359051/article/details/86764867
+
+https://youguanxinqing.xyz/archives/42/
+
+https://blog.csdn.net/diuqing7841/article/details/101455171?utm_medium=distribute.pc_aggpage_search_result.none-task-blog-2~aggregatepage~first_rank_ecpm_v1~rank_v31_ecpm-3-101455171.pc_agg_new_rank&utm_term=abc%E5%BA%93+python&spm=1000.2123.3001.4430
+
+
+
+https://www.zhihu.com/column/c_1022445740982824960

@@ -1918,3 +1918,63 @@ print(output_data)
 # 例子2：车库停车计算。1代表已停车，0未停车。大车占3个车位，中车占2个车位，小车占1个c
 ```
 
+
+
+#### 三十七、`__str__`和`__repr__`的区别
+
+有时候我们想让屏幕打印的结果不是对象的内存地址，而是它的值或者其他可以自定义的东西，以便更直观地显示对象内容，可以通过在该对象的类中创建或修改`__str__()`或`__repr__()`方法来实现（显示对应方法的返回值）
+注意：`__str__()`方法和`__repr__()`方法的返回值只能是字符串！
+
+**关于调用两种方法的时机**
+
+- 使用print()时
+- 使用**%s**和**f'{}'**拼接对象时
+- 使用**str(x)**转换对象x时
+
+在上述三种场景中，会优先调用对象的`__str__()`方法；若没有，就调用`__repr__()`方法；若再没有，则显示其内存地址。
+
+特别地，对于下面两种场景：
+
+- 用**%r**进行字符串拼接时
+- 用**repr(x)**转换对象x时
+
+则会调用这个对象的`__repr__()`方法；若没有，则不再看其是否有`__str__()`方法，而是显示其内存地址。
+Django中打印queryset时,会调用__repr__方法
+
+
+
+**总结：如果我们只使用到一个的时候，我建议使用`__repr__`,因为它包含面更广**
+
+**特性：**
+
+- 只能返回一个字符串，哪怕你返回了函数，这个函数调用也是返回的字符串也不行，只能是返回字符串。像下面的例子都是错误的
+
+```python
+def demo():
+    return 11111111111
+
+
+class BoatFactory(object):
+    def __str__(self):
+        return demo()
+```
+
+
+
+
+
+### 三十八、计算一个文件有多少个非空字符串
+
+
+
+```python
+from collections import Iterable
+with open(r'C:\Users\zmz\Desktop\test-tb-jenkins\log\2021-09-27.log', encoding='utf-8') as file:
+    print(isinstance(f))
+    generator_list = [len(word) for line in file for word in line.split()]
+    # l = sum([len(word) for line in file for word in line.split()])
+    # print(l)
+
+print(generator_list, len(generator_list))
+```
+

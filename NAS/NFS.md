@@ -105,7 +105,7 @@ Windows 以及 Mac 备份。有了 NAS 后 Time Machine 就能用上了，再也
 
 
 
-
+mount \\192.168.0.118\data\nfs-share x:
 
 
 

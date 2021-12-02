@@ -1,3 +1,7 @@
+[翻译网站](https://yiyibooks.cn/information/qy/django2/)
+
+[官网](https://docs.djangoproject.com/zh-hans/2.2/)
+
 
 
 # 一、HTTP
@@ -435,7 +439,7 @@ D://origin//学习代码//my_django_project//my_django_project//settins.py
 
 
 
-
+https://edu.csdn.net/course/detail/26980
 
 # 四、django中的MTV与MVC模式详解
 
@@ -483,6 +487,12 @@ Django follows the MVC pattern closely, however it does use its own logic in the
 ![image-20210830211403570](image-20210830211403570.png)
 
 ![image-20210830211412832](image-20210830211412832.png)
+
+
+
+
+
+🔺🔺  写项目，我们首先写 V
 
 
 
@@ -582,6 +592,93 @@ sys.path.insert(0,os.path.join(BASE_DIR,'apps'))
 
 
 
+# 六、认识文件
+
+![image-20211130233126089](image-20211130233126089.png)
+
+## 6.1 setting文件
+
+```python
+# app 注册配置
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+
+]
+
+
+# 中间件
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+
+# 根及路由地址
+ROOT_URLCONF = 'mysite.urls'
+"""
+我们看看，这个根及路由地址，是mysite.urls,这说明，我们的网站访问进来，首先是去mysite.urls文件中去找对于的地址，所以后面我们的路由都要在mysite.urls文件中进行注册
+"""
+
+# 模板
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+
+# 部署上线
+WSGI_APPLICATION = 'mysite.wsgi.application'
+
+
+# 配置数据库
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
+
+
+# Internationalization 国际化
+# https://docs.djangoproject.com/en/2.2/topics/i18n/
+
+LANGUAGE_CODE = 'en-us'
+
+TIME_ZONE = 'UTC'
+
+USE_I18N = True
+
+USE_L10N = True
+
+USE_TZ = True
+
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/2.2/howto/static-files/
+
+# 静态
+STATIC_URL = '/static/'
+```
 
 
 
@@ -589,6 +686,78 @@ sys.path.insert(0,os.path.join(BASE_DIR,'apps'))
 
 
 
+# 七、流程
+
+
+
+**第一步：创建项目django-admin startproject xxxx**
+
+
+
+**第二步：创建我们的app**
+
+```bash
+python manage.py startapp app
+```
+
+
+
+**第三步：注册我们的app**
+
+在setting中注册我们的app
+
+```python
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'app',			# 注册我们的app, 注意了，这后面是有一个逗号的
+    
+]
+```
+
+
+
+
+
+# 八、models --- ORM 对象关系映射
+
+
+
+## 8.1 ORM讲解
+
+O:	object
+
+R:	relation
+
+M:	map
+
+他的作用是大大简化操作 原生SQL 去操作数据，采用对象的方式去编写SQL
+
+比如我们创建mysql表的时候，我们需要 
+
+```SQL
+create table `testmd5` (
+	`id` int(4) not null,
+	`name` varchar(20) not null,
+	`pwd` varchar(50) not null,
+	primary key (`id`)
+) engine = innodb default character set = utf8
+```
+
+我们完全可以创建一个类，这个类就叫这个表名
+
+```python
+class testmd5:
+	id = int(4)
+	name = xxx
+	pwd = yyy
+```
+
+一个对象通过ORM 以后，变成一个原生的SQL语句， 也可以反过来
 
 
 
@@ -596,21 +765,127 @@ sys.path.insert(0,os.path.join(BASE_DIR,'apps'))
 
 
 
+## 8.2 举例实战
+
+
+
+#### 8.2.1 分析
+
+已王者荣耀英雄来距离
+
+跟进数据的三大范式，每一列数据都和主键直接相关，而不能间接相关
+
+我们设计两张表
+
+一个英雄类表
+
+- 类型 -- title
+
+
+
+英雄表
+
+- 性别
+- 姓名
+- 年龄
+
+
+
+#### 8.2.2 设计模型类
+
+
+
+**第一步：在models.py 中设计模型**
+
+![image-20211130235429165](image-20211130235429165.png)
+
+
+
+```python
+from django.db import models
+
+# Create your models here.
+
+# django的models新增数据库表时，如果不设置主键，会默认新增一个id为主键，如果我们想自己设置一个字段为主键，需加个参数primary_key=True
+# 英雄类型表
+
+
+class HeroType(models.Model):
+
+    t_id = models.IntegerField(verbose_name='英雄类型ID', primary_key=True)
+    title = models.CharField(verbose_name='名称', max_length=5)   # verbose_name 相当于我们的comment注释
+
+
+# 英雄表
+class Hero(models.Model):
+
+    name = models.CharField(verbose_name='姓名', max_length=10)
+    gender = models.IntegerField(verbose_name='性别', max_length=1)
+    age = models.IntegerField(verbose_name='年龄', max_length=3)
+    t_id = models.IntegerField(verbose_name='英雄类型ID')
+```
 
 
 
 
 
+**第二步：迁移文件**
+
+https://www.cnblogs.com/jiarenanhao/p/9975781.html
+
+- django的model会自动给我们创建主键
+- python manage.py makemigrations      # 迁移数据库，这个时候会在migrations目录下生成一个0001_inital.py文件
+
+
+
+**这里有一个坑：**
+
+那就是我执行python manage.py makemigrations 的时候提示我们No changes detected
+
+这是为什么呢？ 这是因为我没有在setting中注册我的app。只要在setting中注册了以后就好了
+
+
+
+**其他收集**
+
+```python
+# 暂时不知道有什么用
+python manage.py makemigrations --empty wangzhe
+```
 
 
 
 
 
+**第三步：生成数据库表**
+
+python manage.py migrate                     # 根据上一句代码生成数据表
+
+
+
+这个时候我们的项目根目录下会生成一个db.sqlite3，小型数据库（因为我们还没有关联我们的mysql）
+
+![image-20211201004832612](image-20211201004832612.png)
 
 
 
 
 
+**第四步：配置sqlite3**
+
+![image-20211201005005730](image-20211201005005730.png)
+
+下载依赖
+
+![image-20211201005451964](image-20211201005451964.png)
+
+找到我们的db
+
+![image-20211201005731356](image-20211201005731356.png)
+
+
+
+https://blog.csdn.net/qq_21182587/article/details/69573850
 
 
 
