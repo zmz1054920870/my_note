@@ -721,6 +721,116 @@ INSTALLED_APPS = [
 
 
 
+**第四步：构建models**
+
+```python
+from django.db import models
+
+# Create your models here.
+
+# django的models新增数据库表时，如果不设置主键，会默认新增一个id为主键，如果我们想自己设置一个字段为主键，需加个参数primary_key=True
+# 英雄类型表
+
+
+class HeroType(models.Model):
+
+    title = models.CharField(verbose_name='名称', max_length=5)   # verbose_name 相当于我们的comment注释
+
+
+# 英雄表
+class Hero(models.Model):
+
+    name = models.CharField(verbose_name='姓名', max_length=10)
+    gender = models.IntegerField(verbose_name='性别', max_length=1)
+    age = models.IntegerField(verbose_name='年龄', max_length=3)
+    ht = models.ForeignKey(to=HeroType, on_delete=models.CASCADE)
+```
+
+
+
+**第五步：创建模板**
+
+![image-20211204160052651](image-20211204160052651.png)
+
+
+
+**第六步：配置模板路径**
+
+进入setting.py文件
+
+```python
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],	# 配置模板
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+```
+
+
+
+**第七步：建立视图**
+
+```python
+from django.shortcuts import render
+
+# Create your views here.
+
+from wangzhe.models import *
+
+
+def index(request):
+    """
+    接收用户请求，处理业务逻辑
+    :param request:
+    :return:
+    """
+    return render(request, template_name='index.html')
+```
+
+
+
+```python
+def render(request, template_name, context=None, content_type=None, status=None, using=None):
+    """
+    Return a HttpResponse whose content is filled with the result of calling
+    django.template.loader.render_to_string() with the passed arguments.
+    """
+    content = loader.render_to_string(template_name, context, request, using=using)
+    return HttpResponse(content, content_type, status)
+```
+
+
+
+**第八步：创建路由**
+
+```python
+from django.contrib import admin
+from django.urls import path
+from wangzhe import views				# 导入我们的视图
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('index/', views.index),		# 注册路由
+]
+
+```
+
+
+
+
+
+
+
 
 
 # 八、models --- ORM 对象关系映射
@@ -795,7 +905,7 @@ class testmd5:
 
 
 
-**第一步：在models.py 中设计模型**
+##### **第一步：在models.py 中设计模型**
 
 ![image-20211130235429165](image-20211130235429165.png)
 
@@ -829,7 +939,7 @@ class Hero(models.Model):
 
 
 
-**第二步：迁移文件**
+##### **第二步：迁移文件**
 
 https://www.cnblogs.com/jiarenanhao/p/9975781.html
 
@@ -891,6 +1001,51 @@ https://blog.csdn.net/qq_21182587/article/details/69573850
 
 
 
+## 8.2.3 常用的操作手法
+
+
+
+#### 1、时间的使用技巧
+
+```python
+gmt_create = models.DateField(verbose_name='创建时间', auto_now_add=True)
+gmt_update = models.DateField(verbose_name='更新时间', auto_now=True)
+```
+
+- auto_now_add=True , 创建速度的时候自动给你添加当前的时间
+- auto_now=True , 修改数据的时候，自动更新为当前时间
+
+
+
+#### 2、选择型结构的设计
+
+```python
+class Student(models.Model):
+    """
+    学生表
+    """
+
+    name = models.CharField(verbose_name='姓名', max_length=5)
+    age = models.IntegerField(verbose_name='年龄', max_length=3)
+    # 选择型数据库结构
+    gender = (
+        ('0', '男'),
+        ('1', '女'),
+        ('2', '未知')
+    )
+    gender = models.CharField(verbose_name='性别', choices=gender, max_length=10)
+    grade = models.ForeignKey(to=Grade, on_delete='CASCADE')
+    gmt_create = models.DateTimeField(verbose_name='创建时间', auto_now_add=True)
+    gmt_update = models.DateTimeField(verbose_name='更新时间', auto_now=True)
+
+```
+
+![image-20211204223434064](image-20211204223434064.png)
+
+
+
+
+
 
 
 
@@ -909,4 +1064,318 @@ https://www.cnblogs.com/yoyo008/category/1221693.html
 
 
 ```
+
+
+
+
+
+# 九、模板语言的使用
+
+
+
+#### 1、render的context参数怎么传
+
+![image-20211204163029738](image-20211204163029738.png)
+
+> 配合模板语言使用的时候，render的context参数必须是一个字典
+>
+> 模板语言是根据字段的键，找到对应的值，如ht这个键对应hts这个iterable对象。然后再遍历
+
+
+
+#### 2、显示别名
+
+当我们使用选择性数据类型的时候，页面中显示他的别名。
+
+models模板如下
+
+```python
+class StudentInfo(models.Model):
+
+    name = models.CharField(verbose_name='学生姓名', max_length=20)
+    gender_choice = (
+        ('0', '女'),
+        ('1', '男'),
+        ('2', '未知')
+    )
+    gender = models.CharField(verbose_name='学生姓名', choices=gender_choice, max_length=20)
+    age = models.IntegerField(verbose_name='学生年龄', max_length=3, null=False)
+    id_delete = models.BooleanField(verbose_name='是否伪装删除', default=False)
+    create_time = models.DateTimeField(verbose_name='创建时间', auto_now_add=True)
+    update_time = models.DateTimeField(verbose_name='更新时间', auto_now=True)
+    grade = models.ForeignKey(verbose_name='外键连接-Grade表', to=Grade, on_delete=True)
+```
+
+其中: `gender`字段使用了`gender_choice`
+
+```python
+gender_choice = (
+        ('0', '女'),
+        ('1', '男'),
+        ('2', '未知')
+    )
+```
+
+这里有一个问题：那就是我们在模板中直接使用`{{ student.gender }}`的时候，显示的却是0、1、2这种样式，这样用户就不知道这到底是什么意思了
+
+所以我们可以在模板在这样做
+
+```python
+{% for student in students %}
+            <li>{{ student.name }}</li>
+            <li>{{ student.get_gender_display }}</li>		# student.get_我们的字段名_display
+            <li>{{ student.age }}</li>
+            <li>-----------------</li>
+ {% endfor %}
+```
+
+- 写法是固定的，前面get + 下划线 + 字段名 + 下划线 + display
+
+
+
+
+
+
+
+# 十、路由的设置
+
+## 10.1 正则匹配路由
+
+- 必须导入re_path
+
+```python
+# 路由
+
+from django.urls import path, re_path
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('index/', views.index),
+    re_path(r'^type/\d', views.show_hero)
+]
+
+# 视图
+def show_hero(request):
+    """
+    英雄的视图
+    :return:
+    """
+    all_hero = HeroType.objects.all()
+    hero_context = {
+        'he': all_hero
+    }
+    return HttpResponse(content=b'ok')
+```
+
+
+
+
+
+
+
+
+
+
+
+## 10.2 关键字
+
+- 采用`<int:id>`这关键字的时候，我们要注意，这个id是会传到视图里面去的，所以我们在视图那边必须接收这个参数，不然报错
+- 如果路由里面是传入的id， 那边视图里面也必须是id，他们的名字必须一样，不然报错。也就是说当我们路由里面是`<int:id>`, 那么我们视图里面的形参也必须叫id，不能是`show_hero(request, id1)`
+
+```python
+# 路由
+from django.contrib import admin
+from django.urls import path
+from wangzhe import views
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('index/', views.index),
+    path('show_hero/<int:id>', views.show_hero)
+]
+
+# 视图
+def show_hero(request, id):
+    """
+    英雄的视图
+    :return:
+    """
+    all_hero = HeroType.objects.all()
+    hero_context = {
+        'he': all_hero
+    }
+    return HttpResponse(content=str(id).encode())
+```
+
+
+
+
+
+
+
+
+
+```
+from django.shortcuts import HttpResponse
+from django.http import HttpResponse
+
+from django.db import models
+from django.urls import path, re_path
+```
+
+
+
+
+
+# 十一、管理后台的使用
+
+
+
+### 注册管理后天账号
+
+```python
+python manage.py createsuperuser
+```
+
+![image-20211204175610507](image-20211204175610507.png)
+
+![image-20211204180220027](image-20211204180220027.png)
+
+
+
+#### 注册我们的数据库到我们的管理后台
+
+也可以不用把我们的数据库注册到我们的管理后台，因为我是为了学习嘛。学学也无妨
+
+**wangzhe > admin.py**
+
+```python
+# admin.py
+from django.contrib import admin
+from wangzhe.models import HeroType, Hero
+
+# Register your models here.
+
+
+admin.site.register(Hero)
+admin.site.register(HeroType)
+```
+
+![image-20211204180328191](image-20211204180328191.png)
+
+![image-20211204180843235](image-20211204180843235.png)
+
+#### 美化的后台显示
+
+```python
+class HeroType(models.Model):
+
+    title = models.CharField(verbose_name='名称', max_length=5)  # verbose_name 相当于我们的comment注释
+
+    def __str__(self):
+        return self.title
+
+
+# 英雄表
+class Hero(models.Model):
+
+    name = models.CharField(verbose_name='姓名', max_length=10)
+    gender = models.IntegerField(verbose_name='性别', max_length=1)
+    age = models.IntegerField(verbose_name='年龄', max_length=3)
+    ht = models.ForeignKey(to=HeroType, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
+```
+
+![image-20211204181425539](image-20211204181425539.png)
+
+
+
+
+
+# 十二、其他设置
+
+
+
+
+
+## 1、时区设置
+
+文件setting.py
+
+```python
+LANGUAGE_CODE = 'en-us'
+
+TIME_ZONE = 'Asia/Shanghai'
+
+USE_I18N = True
+
+USE_L10N = True
+
+USE_TZ = False
+
+```
+
+- 修改`TIME_ZONE = 'Asia/Shanghai'`
+- 修改`USE_TZ = False`
+
+源码为证
+
+路径`env\Lib\site-packages\django\utils\timezone.py`(224-232)
+
+```python
+def now():
+    """
+    Return an aware or naive datetime.datetime, depending on settings.USE_TZ.
+    """
+    if settings.USE_TZ:
+        # timeit shows that datetime.now(tz=utc) is 24% slower
+        return datetime.utcnow().replace(tzinfo=utc)
+    else:
+        return datetime.now()
+```
+
+
+
+## 2、注册APP（注册应用）
+
+注册应用有两种方式
+
+```
+'front_page.apps.FrontPageConfig',
+```
+
+**第一种：直接在我们的setting.py的installed_apps中填写我们的应用名字**
+
+```python
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'front_page',
+]
+```
+
+
+
+**第二种：以类的方式进行添加，模仿django**
+
+```python
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'front_page.apps.FrontPageConfig',
+]
+```
+
+这个`front_page.apps.FrontPageConfig`就是 apps.py中的类
+
+![image-20211205142744176](image-20211205142744176.png)
 

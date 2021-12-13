@@ -7,7 +7,7 @@
 代码快速格式化，让代码简洁规整：Ctrl + Alt + L
 自动缩进：Ctrl + Alt + I 
 进/取消缩进：Tab / Shift + Tab
-
+快速切换字符串的大小写： ctrl
 
 
 移动当前行	ctrl + shift + ↑ 或者 ↓

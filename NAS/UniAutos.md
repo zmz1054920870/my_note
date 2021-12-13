@@ -99,6 +99,143 @@ ComponentObj.owningDevice.dispatch(cmd)
 
 
 
+## 八、工程配置
+
+
+
+```xml
+测试套
+测试床
+<test_set_file>测试套的xml文件的绝对路径</test_set_file>
+<testbed_file>测试床的xml文件的绝对路径</testbed_file>
+<execution_parameters>
+	<param name='stop_on_error' value='1' />
+    <param name='logging_level' value='DEBUG'/>
+</execution_parameters>
+```
+
+
+
+
+
+## 九、脚本结构
+
+```xml
+<test name='deploy_all' run='1' type='case'>	# ②找到这个类名，生成一个实例
+	<identities>
+    	<identity id='deploy_all_smoke_x86' name='test_id'/> # ③生成的实例就是通过这个test_id id='deploy_all_smoke_x86' 来命名实例的
+        <identity id='' name='url' />
+    </identities>
+    <location>FusionStorage8\deploy\deploy_all</location>		# ①通过这个类文件
+    <parameters>
+    	<param name='evs_deploy' value='True' />
+        <param name='package_type' value='debug' />
+    </parameters>
+	<tags>
+        <tag/>
+    </tags>
+</test>
+# ④然后去执行这个实例， 再把这个结果回填
+```
+
+测试套文件命名必须包括'testset' 字符
+
+我们自动化执行的时候，逻辑是这样的，我们回去把所有包含testset资源的xml文件抓出来，把xml文件抓出来以后，我再把我这一次拿到的test_id,在每一个xml文件中去遍历，我遍历到了，我就会把这个结构体给抓出来。所以这里就会出现一个问题，就是大家想要顺序执行的时候，为什么我这个case，最终下发到执行器上不是顺序执行的。
+
+
+
+## 十、获取主机
+
+```xml
+<hosts>
+	<host id=1>
+    	<communication debug_password='' debug_username='' ipv4_address='8.44.128.235' ipv6_address='' password='huawei@123' port='22' type='standSSHl' username='root' />
+        <detail cpuCoreNum='' dbPassword='' dbUser='' gridPassword='' gridUser='' host_role='NFS_CLIENT' oraclePassword='' os='Linux' tools_path='/home/testTools/' type='Virtual' version='linux' wwn=''/>
+    </host>
+
+</hosts>
+```
+
+
+
+```python
+self.nfs_clients = self.resource.getHost('NFS_CLIENT')
+self.fi_clients = self.resource.getHost('FI_CLIENT')
+
+# 命令下发
+self.nfs_client.run({'command': ['sh', '-c', 'kill -9 %s' % self.process_id]}, 'sessionType': 'adminCli')
+sessionType 这个就是切换到哪个命令视图下，不然就在当前命令视图下进行执行命令了
+
+
+# 下IO
+self.sdtester = self.nfs_clients.getIOTool('sdtester') # 如果要vdbench， 这里面就写vdbench就是行了
+self.sdtester.startIO(lunlist=self.lunlist,
+                      blockSize=['512B', '3K', '128K', '256K', '2M'],
+                      rwType = [2, 3],
+                      rwMode = [0, 1]
+                     )
+
+# 获取改业务的对象的全部属性，不知道企业这边有没有这个玩意
+self.region = self.resource.getDevice('region', '1')		# 获取region对象
+self.fsm = self.region.getSpecifyServiceNode('fsm')[0]		# 获取具体的fsm
+tier_policy = self.fsm.createTierMigrationPolicy(name='125', fs_id='1', stratege='cold', migration_type='Periodic', path_name='/')												# 创建业务对象
+
+
+```
+
+- run 有回显，但是不会解析回显，是一个字符串
+- dispath会回显，返回的是一个字典
+
+
+
+
+
+## 十一、Wrapper
+
+分布式的wrapper
+
+Wrapper > Template > ProductModel > Roc > cmd > OceanStor100D810.py
+
+这里的就是wrapper， 讲命令的空格转换成了下划线
+
+企业的wrapper
+
+Wrapper > Template > ProductModel > OceanStor > cmd > * 
+
+```python
+device.dispatch('create_namespace_general', params)
+create_namespace_general 就是我们的wrapper名字， params这个玩意怎么传，就需要去具体的wrapper中查看了
+```
+
+
+
+
+
+## 十二、业务封装
+
+业务模块CLi命令中具有create \ change \delete \show等配套命令，且重用度较高的业务，一般会封装为Component、Component命令一般取CLI命令中间字段然后首字母大写，如
+
+```
+create namespace general		component名: Namespace           如果末尾什么general ，就会把general 去掉，取中间的
+create tier_deletion_pplicy		component名: TierDeletionPolicy	`
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
