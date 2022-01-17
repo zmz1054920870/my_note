@@ -438,7 +438,19 @@ def index(request):
 
 
 
+```
+SELECT 
+`Student`.`id`, `Student`.`is_deleted`, `Student`.`is_deleted_two`, `Student`.`is_deleted_three`, `Student`.`create_time`, `Student`.`update_time`, `Student`.`name`, COUNT(`Student_hobbies`.`hobby_id`) AS `hobbies__count` 
+FROM `Student` 
+LEFT OUTER JOIN 
+`Student_hobbies` 
+ON 
+(`Student`.`id` = `Student_hobbies`.`student_id`) 
+GROUP BY 
+`Student`.`id` 
+ORDER BY NULL
 
+```
 
 
 

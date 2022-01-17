@@ -101,6 +101,8 @@ class Category(models.Model):
     > | width_field=None  |        上传图片的高度保存的数据库字段名（字符串）         |
     > | height_field=None |        上传图片的宽度保存的数据库字段名（字符串）         |
 
+  ![image-20220108233217013](image-20220108233217013.png)
+
 - URLField: 真实的地址
 
 

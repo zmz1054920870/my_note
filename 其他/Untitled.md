@@ -61,3 +61,19 @@ seq ack 分析
 https://blog.csdn.net/wang7dao/article/details/16805337
 
 https://blog.csdn.net/gh201030460222/article/details/80573526/
+
+
+
+
+
+```sql
+DECLARE @i int
+SET @i = 1
+WHILE (@i <=10000000)
+BEGIN
+INSERT INTO A_User(username,password,addtime,token,roleid)
+VALUES('manage6'+CONVERT( CHAR(12), cast(ceiling(rand() * @i*10) as int) ),CONVERT( CHAR(12), cast(ceiling(rand() * @i) as int) ),'2016-11-08 05:01:40',CONVERT( CHAR(14), cast(ceiling(rand() * @i*100) as int) ),cast(ceiling(rand() * 6) as int))
+SET @i = @i + 1
+END
+```
+
