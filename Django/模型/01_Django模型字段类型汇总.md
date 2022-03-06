@@ -231,16 +231,23 @@ class News(BaseModel):
 
 通过选项实现对字段的约束，选项如下：
 
-- null：如果为True，表示允许为空，默认值是False。
-- blank：如果为True，则该字段允许为空白，默认值是False。
-- **对比：null是数据库范畴的概念，blank是表单验证范畴的。**
+- null：如果为True，表示允许为空，默认值是False，不允许为空。
+- blank：如果为True，则该字段允许为空白，默认值是False，不允许为空。
+- **对比：null是数据库范畴的概念（什么意思呢？如果我们使用mysql，使用了null，那么真实的数据库中这个字段是否为空受模板中这个参数控制），blank是表单验证范畴的(在amin后台中，创建数据的时候如果blank=False，这个字段必须填，不然不让提交)。我们在设计表的时候，一般都是使null和blank保持一致，这样真实数据库和admin这边才能一致。如果你有特殊需要也可以不这样做**
+- 如果blank=True ，null=False， 那么数据库中该字段没 not null = True，我们在admin后台中这个字段为空的时候，数据空中用''空字符
+- 再次说一点：blank是admin后台的表单提交的限制，如果设置了blank=False，那么我们在admin后台必须填写值，不然在admin后台不让我们提交。但是如果我们**使用代码进行新增数据的时候**，这时候让不让我们提交是看数据中这个字段是不是null=True了，如果null=True，我们可以不填，如果null=False，那么我们在代码提交的时候一定要输入值。
 - db_column：字段的名称，如果未指定，则使用属性的名称。
 	- 就是说如果没有指定，那么我们数据库中的名字和模型中的这个属性名字，相同，如果指定了的话，数据库中显示db_column=xxx,设置的名字，但是我们通过django操作数据库的时候，使用模型中属性的名字。这个没啥屌用
-
 - db_index：若值为True, 则在表中会为此字段创建索引，默认值是False。
 - default：默认值。
 - primary_key：若为True，则该字段会成为模型的主键字段，默认值是False，一般作为AutoField的选项使用。
 - unique：如果为True, 这个字段在表中必须有唯一值，默认值是False。
+
+
+
+所谓的NULL就是什么都没有，连\0都没有，\0在字符串中是结束符，但是在物理内存是占空间的，等于一个字节，而NULL就是连这一个字节都没有。在数据库里是严格区分的，任何数跟NULL进行运算都是NULL, 判断值是否等于NULL，不能简单用=，而要用IS关键字， Mysql3.23.0或以后支持用<=>用来比较两个NULL值是否相等, 即 select * from table where id <=> NULL.  当字段为not null = True的时候，当我们填入 vlaues（null）会报错，填入''空字符串则不会
+
+当我们在models中定义了blank=True允许表单为空，null=False，数据库不能为null，那么当我们在表当blank字段为空的时候，django会给数据库中的字段一个''空字符。。 一定要知道null和''空字符不一样的，null是真的内存空间中都没有数据，''空字符是占用内存空间的
 
 
 
@@ -329,7 +336,7 @@ django的models里面字段类型除了上面的常用的 models.CharField和mod
 3、primary_key = False
 　　主键，对AutoField设置主键后，就会代替原来的自增 id 列
 4、auto_now 和 auto_now_add
-　　auto_now 自动创建---无论添加或修改，都是当前操作的时间
+　　auto_now 自动创建---无论添加或修改，都是当前操作的时间（创建和修改的时候，会自动创建或者x时间）
 　　auto_now_add 自动创建---永远是创建时的时间
 5、choices
 GENDER_CHOICE = (
@@ -354,3 +361,8 @@ gender = models.CharField(max_length=2,choices = GENDER_CHOICE)
 模型转字典、转json、转list
 
 https://www.cnblogs.com/yoyoketang/p/10339055.html
+
+
+
+
+

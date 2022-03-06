@@ -42,6 +42,16 @@ class Article(models.Model):
         return self.title
 ```
 
+一篇文章只能属于一个分类
+
+
+
+-  CASCADE:这就是默认的选项，级联删除。
+-  PROTECT: 保护模式，如果采用该选项，删除的时候，会抛出`ProtectedError`错误。
+-  SET_NUL`: 置空模式，删除的时候，外键字段被设置为空，前提就是`blank=True, null=True`,定义该字段的时候，允许为空。
+-  SET_DEFAULT: 置默认值，删除的时候，外键字段设置为默认值，所以定义外键的时候注意加上一个默认值。
+-  SET(): 自定义一个值，该值当然只能是对应的实体了
+
 
 
 ## 多对多关系

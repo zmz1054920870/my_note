@@ -12,8 +12,21 @@
 
 ## 方法
 - _init_：创建HttpResponse对象后完成返回内容的初始化。
-
 - set_cookie：设置Cookie信息。
+
+​	
+
+- cookie是网站以键值对格式存储在浏览器中的一段纯文本信息，用于实现用户跟踪。
+	- max_age是一个整数，表示在指定秒数后过期。
+	- expires是一个datetime或timedelta对象，会话将在这个指定的日期/时间过期。
+	- max_age与expires二选一。
+	- 如果不指定过期时间，在关闭浏览器时cookie会过期。
+	- 其他（后面研究）
+- delete_cookie(key)：删除指定的key的Cookie，如果key不存在则什么也不发生。
+- write：向响应体中写数据。
+
+每一次前端请求的时候都会把所有Cookie带过来，我们有两种方式可以获取我们的请求，第一中在header中去拿request.headers.get('Cookie') 或者 request.Cookie.get('uid')
+
 ```python
 # 常用参数
 set_cookie(key, value='', max_age=None, expires=None)
@@ -42,14 +55,6 @@ print('我的cookie', cookies)
 
 
 
-- cookie是网站以键值对格式存储在浏览器中的一段纯文本信息，用于实现用户跟踪。
-    - max_age是一个整数，表示在指定秒数后过期。
-    - expires是一个datetime或timedelta对象，会话将在这个指定的日期/时间过期。
-    - max_age与expires二选一。
-    - 如果不指定过期时间，在关闭浏览器时cookie会过期。
-    - 其他（后面研究）
-- delete_cookie(key)：删除指定的key的Cookie，如果key不存在则什么也不发生。
-- write：向响应体中写数据。
 
 ## 特点
 

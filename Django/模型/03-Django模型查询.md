@@ -1,6 +1,8 @@
+
+
 联表查询：https://blog.csdn.net/weixin_44256972/article/details/119348987
 
-
+数据库中的null 对应python的None
 
 ## 前言
 
@@ -24,8 +26,13 @@ exact：表示判等。
 ```python
 list=Article.objects.filter(id__exact=1)
 可简写为：
-list=Article.objects.filter(id=1, coten)
+list=Article.objects.filter(id=1)
+
+还可以多等
+list = Article.objects.filter(id__exact=1, name__exact='zangsan')
 ```
+
+
 
 
 
@@ -59,7 +66,7 @@ list = Article.objects.filter(btitle__endswith='哈哈')
 
 ### 空查询
 
-**isnull：是否为null。**
+**isnull：是否为null。他判断的是这个字段的属性是不是为null，而不是这个字段的行的值是不是为null**
 
 ```python
 list = Article.objects.filter(title__isnull=False)
@@ -104,8 +111,21 @@ list = Article.objects.exclude(id=3)
 
 ```python
 list = Article.objects.filter(create_time__year=2019)
+
+SELECT `user_hobby`.`id`, `user_hobby`.`is_deleted`, `user_hobby`.`create_time`, `user_hobby`.`update_time`, `user_hobby`.`hobby` FROM `user_hobby` WHERE `user_hobby`.`create_time` BETWEEN 2019-01-01 00:00:00 AND 2019-12-31 23:59:59
+.999999
+
+
+list = Article.objects.filter(create_time__year__gt=2019)
 ```
+
+
+**SQL 查看日期的Raw SQL https://www.cnblogs.com/qlqwjy/p/7718219.html**
+
+
+
 查询2019年1月1日后发表的文章。
+
 ```python
 # 字段中使用的时间DateFiled
 from datetime import date
@@ -120,7 +140,7 @@ from datetime import datetime, date
 list = Article.objects.filter(create_time__gt=date(2019, 1, 1, 1, 1, 1))
 datetime(2019, 1, 1, 1, 1, 1)
 datetime.datetime(2019, 1, 1, 1, 1, 1)
-
+date(2019, 1, 1).strftime('%Y-%m-%d %H:%M:%S') == '2019-01-01 00:00:00'
 # 也可以这样
 list = Article.objects.filter(create_time__gt='2019-01-01 1:1:4.000000')
 
@@ -237,8 +257,13 @@ list = Article.objects.aggregate(Sum('vnum'))
   如:{'sum__vnum':3}
 ```
 
-- 注意了，aggregate相当于使用聚合函数，根据mysql的执行顺序，我们在写的时候，aggregate必须在all()后面如果又all（）的话，不然报错。全部查出来以后才可以计算嘛，从另外一个角度分析，aggregate返回的是一个字典，字典哪里有all方法嘛
+- 注意了，aggregate相当于使用聚合函数，根据mysql的执行顺序，我们在写的时候，aggregate必须在all()后面，如果又all（）一下的话，会报错。全部查出来以后才可以计算嘛，从另外一个角度分析，aggregate返回的是一个字典，字典哪里有all方法嘛
 - 上面的解释是错误的，因为aggregate返回的不是一个queryset，所以不能使用all()了
+- 这里注意了有时候 返回的是一个decimal类型的数据，可以使用str、float、int进行转换 。其他转换请看decimal模块
+
+
+
+
 
 
 
@@ -301,7 +326,7 @@ re = Student.objects.all().values().aggregate(Avg('age'))
 {'age__avg': 19.0}
 ```
 
-- all()、values（）是可以不需要的。我写在这里主要是为了证明，aggregate只能在查询集后面使用，同时也证明了objects跟查询查询集合有一样的效果
+- all()、values（）是可以不需要的。我写在这里主要是为了证明，aggregate只能在查询集后面使用，同时也证明了objects跟查询集合有一样的效果
 
 
 
@@ -360,7 +385,7 @@ from django.db.models import Avg,Max,Min,Count,Sum  #   引入函数
 **返回值：**
 
 - 分组后，用 values 取值，则返回值是 QuerySet 数据类型里面为一个个字典；
-- 分组后，用 values_list 取值，则返回值是 QuerySet 数据类型里面为一个个元组。
+- 分组后，用 values_list 取值，则返回值是 QuerySet 数据类型里面为一个个列表。
 
 MySQL 中的 limit 相当于 ORM 中的 QuerySet 数据类型的切片。
 
@@ -518,6 +543,10 @@ https://blog.csdn.net/weixin_42134789/article/details/84567365
 
 ```bash
 queryset.query
+
+print(queryset.query) 
+queryset.query.__str__
+queryset.query.__repr__
 ```
 
 
@@ -532,3 +561,14 @@ MySQL 中的 limit 相当于 ORM 中的 QuerySet 数据类型的切片，queryse
 SELECT `nav_homepage_new_student`.`id`,`nav_homepage_new_student`.`name`,`nav_homepage_new_studet`.`age`,COUNT(`nav_homepage_new_student_hobbies`.`hobby_id`) AS `hobbies__count` FROM nav_homepage_new_student` LEFT OUTER JOIN `nav_homepage_new_student_hobbies` ON (`nav_homepage_new_student`.`id` = `nav_homepage_new_student_hobbies`.`student_id`) GROUP BY `nav_homepage_new_student`.`id` ORDER BY NULL
 ```
 
+
+
+
+
+## 九、看看 多对多 在数据库中的表结构
+
+![image-20220219193145533](image-20220219193145533.png)
+
+中间表，db_table=user， 所以中间边 就是 user_hb ， 如果不指定db_table,那么中间表 为 `应用名字_模板类名_hb`  user_user_hb
+
+![image-20220219193210138](image-20220219193210138.png)

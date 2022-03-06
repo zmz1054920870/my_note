@@ -1,3 +1,18 @@
+元组中当只有一个数据的时候，必须加逗号，不然该数据类型是一个字符串
+
+```python
+s = ("this is my really long", )
+print(s)
+>>> this is my really long <class 'str'>
+
+
+s = ("this is my really long", )
+print(s)
+>>> ('this is my really long',) <class 'tuple'>
+```
+
+为什么呢？（）还可以用来处理长字符串，使其满足PEP8原则， 请看P39
+
 #### 一 、 常用语法
 
 ```python
@@ -2045,5 +2060,56 @@ with open(r'C:\Users\zmz\Desktop\test-tb-jenkins\log\2021-09-27.log', encoding='
     # print(l)
 
 print(generator_list, len(generator_list))
+```
+
+
+
+### 三十九、python字符串太长，不满足PEP8的处理方式
+
+#### 字符串过长
+
+现有一个字符串如下(非常的长，不满足PEP8规范)，怎么处理呢？
+
+```python
+s = "this is my really, really, really, really, really, really, really long string that I'd like to shorten."
+```
+
+
+
+我们可以使用双括号包裹（当双括号中只有一个字符串的时候，必须采用逗号结尾，才表示一个元组，否则表示字符串的处理，用于长字符串自动连接），它的规则是相邻的字符串常量是自动连接的，所以您也可以这样编码：
+
+```python
+s = ("this is my really, really, really, really, really, really, "  
+     "really long string that I'd like to shorten.")
+print(s)
+>> this is my really, really, really, really, really, really, really long string that I'd like to shorten.
+```
+
+
+
+#### 列表中字符串过长
+
+同样可以使用（）的方式，但是有一点不同，[]保留了列表的属性（还是个列表）。
+
+```python
+c = [
+    '1',
+    '2',
+    '3',
+    "this is my really, really, really, really, "
+    "really, really,really long string that I'd like to shorten .............."
+]
+```
+
+同理如果元组字符串过长一样
+
+```python
+c = (
+    '1',
+    '2',
+    '3',
+    "this is my really, really, really, really, "
+    "really, really,really long string that I'd like to shorten .............."
+)
 ```
 

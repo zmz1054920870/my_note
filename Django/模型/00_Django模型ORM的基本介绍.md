@@ -85,3 +85,31 @@ import pymysql
 pymysql.install_as_MySQLdb()
 
 ```
+
+
+
+
+
+```
+
+python manage.py makemigrations
+
+python manage.py migrate
+
+python manage.py createsuperuser
+```
+
+
+
+
+
+
+
+### models 和 真实数据库中的联系
+
+![image-20220213204442103](image-20220213204442103.png)
+
+
+
+![image-20220213204509482](image-20220213204509482.png)
+

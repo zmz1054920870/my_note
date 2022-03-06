@@ -231,7 +231,7 @@ def register(request):
 - 在渲染的时候发现`html`的表单中存在crfs数据
 - 这个时候服务器后端就会在响应头中加入Set-Cookie字段，告诉浏览器，你需要设置cookie
 
-
+**Django中csrf-token验证原理：https://blog.csdn.net/bocai_xiaodaidai/article/details/108679437**
 
 浏览接收到数据
 
@@ -244,3 +244,5 @@ def register(request):
 - 用户上一步做了什么
 
 - 🔺🔺🔺当浏览器请求某网站时，会将浏览器存储的跟网站相关的所有Cookie信息提交给网站服务器，只要浏览器有这个域名的cookie，它都会给他传过去，服务器就可以根据这些cookie知道用户的动作（比如：是否登录过，干过什么），通过这些动作设置限制，比如服务器校验cookie发现你没有登录，就给出相应的处理
+
+🔺如果一个表单通过GET进行提交，且表单里面定义了{% csrf_token %},我们在提交表单的时候，会多一个组csrf_token数据.同事POST请求的时候也一样
