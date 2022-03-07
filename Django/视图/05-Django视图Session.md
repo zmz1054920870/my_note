@@ -94,7 +94,7 @@ response.set_cookie(key='sessionid', value='加密后的session_key')
 session_data 采用base64.b64encode()进行加密
 ```
 
-**第一步: 设置response响应头,携带set_cookie字段，浏览器根据set_cookie字段设置cookie报错在浏览器**
+**第一步: 设置response响应头,携带set_cookie字段，浏览器根据set_cookie字段设置cookie保存在浏览器**
 
 ![image-20220105211602415](image-20220105211602415.png)
 
@@ -122,13 +122,18 @@ b'820536518cfe9669d2821a0964a6154f75fa6051{"captcha":"4972","xxxxx":"11111111111
 
 ```python
 request.session['键']=值
+如果一个这个session里面有多对键值对可以跟添加cookie一样，多次添加
+request.session['key1'] = value1
+request.session['key2'] = value2
+request.session['key3'] = value3
+他们会存到同一个session里面
 ```
 - 获取Session值。
 
 ```python
 request.session.get('键',默认值)
 ```
-- 清除所有session，在存储中删除值部分。
+- 清除所有session，在存储中删除值部分。不删除key
 
 ```python
 request.session.clear()

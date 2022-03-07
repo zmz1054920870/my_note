@@ -21,7 +21,7 @@ MEDIA_URL = '/media/'												# 多媒体资源访问路径
 ```python
 class Article(models.Model):
     title = models.CharField(verbose_name='文章名字', max_length=10)
-    cover = models.ImageField(verbose_name='封面', upload_to='u/%y/%m/%d')
+    cover = models.ImageField(verbose_name='封面', upload_to='i/%y/%m/%d')
 ```
 
 **news/%y/%m/%d**
