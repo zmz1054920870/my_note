@@ -3,6 +3,8 @@
 # 安装lrzsz
 yum install -y lrzsz
 
+# 后台运行
+nohup   &
 
 # 查看通过yum下载的软件
 yum list ins
