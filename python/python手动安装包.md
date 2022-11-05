@@ -81,6 +81,5 @@ cd /d D:\test-group\applet-test\venv\Scripts
 
 ```
 使用Git Bash
-然后 tar -zxvf requests.tar.gz
+然后 tar -zxvf requests.taz
 ```
-
